@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>使用 Python 软件包来处理较为复杂的 JSON 文件 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python,JSON">
+    <meta name="description" content="使用 Python 软件包来处理较为复杂的 JSON 文件  最近在工作中遇到需要使用 Python 处理较复杂的 JSON 数据，不仅需要对嵌套的JSON 数据做查询、筛选，还需要替换其中的一些元素。这里将处理这个问题的过程记录下来，权当记忆。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Python 软件包来处理较为复杂的 JSON 文件">
+<meta property="og:url" content="https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="使用 Python 软件包来处理较为复杂的 JSON 文件  最近在工作中遇到需要使用 Python 处理较复杂的 JSON 数据，不仅需要对嵌套的JSON 数据做查询、筛选，还需要替换其中的一些元素。这里将处理这个问题的过程记录下来，权当记忆。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-16T08:04:26.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:44:35.305Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="JSON">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用 Python 软件包来处理较为复杂的 JSON 文件</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用 Python 软件包来处理较为复杂的 JSON 文件</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-16T08:04:26.000Z" itemprop="datePublished" class="page-time">
+  2019-12-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复杂-json-示例"><span class="post-toc-text">复杂 json 示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-标准库中对-json-数据的处理"><span class="post-toc-text">Python 标准库中对 json 数据的处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见处理-JSON-的-Python-软件包"><span class="post-toc-text">常见处理 JSON 的 Python 软件包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dpath"><span class="post-toc-text">dpath</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath"><span class="post-toc-text">jsonpath</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath2"><span class="post-toc-text">jsonpath2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-rw"><span class="post-toc-text">jsonpath-rw</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-rw-ext"><span class="post-toc-text">jsonpath-rw-ext</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-ng"><span class="post-toc-text">jsonpath-ng</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何查询复杂-json-数据"><span class="post-toc-text">如何查询复杂 json 数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何筛选复杂-json-数据"><span class="post-toc-text">如何筛选复杂 json 数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何修改复杂-json-数据"><span class="post-toc-text">如何修改复杂 json 数据</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Python-Deals-large-json-file-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用 Python 软件包来处理较为复杂的 JSON 文件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-16 16:04:26" datetime="2019-12-16T08:04:26.000Z"  itemprop="datePublished">2019-12-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>使用 Python 软件包来处理较为复杂的 JSON 文件</p>
+</blockquote>
+<p>最近在工作中遇到需要使用 Python 处理较复杂的 JSON 数据，不仅需要对嵌套的<br>JSON 数据做查询、筛选，还需要替换其中的一些元素。这里将处理这个问题的过程记录下来，权当记忆。</p>
+<a id="more"></a>
+<h2 id="复杂-json-示例"><a href="#复杂-json-示例" class="headerlink" title="复杂 json 示例"></a>复杂 json 示例</h2><p>下面展示的是一个较为复杂的 JSON 数据，这里列出只是展示一个较为复杂的 JSON 数据会怎么复杂。</p>
+<pre><code class="lang-json">[
+    // 一个 data group 根数据库的示例
+    {
+        // 首先是激活条件
+        &quot;active&quot;: {
+            &quot;ref-library&quot;: &quot;&quot;,
+            &quot;ref-library_name&quot;: &quot;&quot;,
+            &quot;ref-value&quot;: &quot;&quot;,
+            &quot;ref_path&quot;: &quot;&quot;,
+            &quot;type&quot;: &quot;Condition_Default&quot;
+        },
+        // 接着是它包含的键值对，可包含多个，这里只显示一个
+        &quot;items&quot;: [
+            {
+                &quot;active&quot;: {
+                    &quot;ref-library&quot;: &quot;&quot;,
+                    &quot;ref-library_name&quot;: &quot;&quot;,
+                    &quot;ref-value&quot;: &quot;&quot;,
+                    &quot;ref_path&quot;: &quot;&quot;,
+                    &quot;type&quot;: &quot;Condition_Default&quot;
+                },
+                &quot;enum_list&quot;: null,
+                &quot;max&quot;: null,
+                &quot;min&quot;: null,
+                &quot;name&quot;: &quot;periodic_dimension&quot;,
+                &quot;show&quot;: {
+                    &quot;show_on_interface&quot;: false
+                },
+                &quot;type&quot;: &quot;int_array&quot;,
+                &quot;unique_name&quot;: &quot;/CartesianGeometry/periodic_dimension&quot;,
+                &quot;value&quot;: &quot;0,0,0&quot;
+            }
+        ],
+        // 然后是它包含的子数据库，可能会嵌套
+        &quot;librarys&quot;: [
+            {
+                &quot;active&quot;: {
+                    &quot;ref-library&quot;: &quot;&quot;,
+                    &quot;ref-library_name&quot;: &quot;&quot;,
+                    &quot;ref-value&quot;: &quot;&quot;,
+                    &quot;ref_path&quot;: &quot;&quot;,
+                    &quot;type&quot;: &quot;Condition_Default&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;active&quot;: {
+                            &quot;ref-library&quot;: &quot;&quot;,
+                            &quot;ref-library_name&quot;: &quot;&quot;,
+                            &quot;ref-value&quot;: &quot;&quot;,
+                            &quot;ref_path&quot;: &quot;&quot;,
+                            &quot;type&quot;: &quot;Condition_Default&quot;
+                        },
+                        &quot;enum_list&quot;: null,
+                        &quot;max&quot;: null,
+                        &quot;min&quot;: null,
+                        &quot;name&quot;: &quot;SAT_MODEL&quot;,
+                        &quot;show&quot;: {
+                            &quot;show_on_interface&quot;: false
+                        },
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;unique_name&quot;: &quot;/CartesianGeometry/CADModel/SAT_MODEL&quot;,
+                        &quot;value&quot;: &quot;model.sat&quot;
+                    }
+                ],
+                &quot;librarys&quot;: [],
+                &quot;name&quot;: &quot;CADModel&quot;,
+                &quot;show&quot;: {
+                    &quot;show_on_interface&quot;: false
+                },
+                &quot;type&quot;: &quot;Library_Fixed&quot;,
+                &quot;uid&quot;: &quot;{b717c641-4145-44ac-8468-efb7afa451f1}&quot;,
+                &quot;unique_name&quot;: &quot;/CartesianGeometry/CADModel&quot;
+            }
+        ],
+        // 最后是 data group 的额外属性
+        &quot;name&quot;: &quot;CartesianGeometry&quot;,
+        &quot;show&quot;: {
+            &quot;show_name&quot;: &quot;CartesianGeometry&quot;,
+            &quot;show_on_interface&quot;: true
+        },
+        &quot;type&quot;: &quot;Library_Fixed&quot;,
+        &quot;uid&quot;: &quot;{909515c3-d978-4021-943b-0d6e7fc3136d}&quot;,
+        &quot;unique_name&quot;: &quot;/CartesianGeometry&quot;
+    },
+    // 后面再添加类似的其他 data group
+]
+</code></pre>
+<h2 id="Python-标准库中对-json-数据的处理"><a href="#Python-标准库中对-json-数据的处理" class="headerlink" title="Python 标准库中对 json 数据的处理"></a>Python 标准库中对 json 数据的处理</h2><p>在 Python 标准库中，自带 json 模块，可以使用 <code>import json</code> 来使用它。</p>
+<p>主要的函数有如下几个：</p>
+<ul>
+<li><code>json.dumps</code>：将 Python 对象序列化为 json 字符串</li>
+<li><code>json.dump</code>：将 Python 对象序列化为 json 对象</li>
+<li><code>json.loads</code>：将 json 字符串导入为 Python 对象</li>
+<li><code>json.load</code>：将 json 对象导入为 Python 对象</li>
+</ul>
+<p>另外，<code>json</code> 模块还提供一个命令行接口 <code>json.tool</code>，可以在终端中使用，常用的例子如下：</p>
+<pre><code class="lang-bash">$ echo &#39;{&quot;json&quot;: &quot;obj&quot;}&#39; | python -m json.tool
+{
+    &quot;json&quot;: &quot;obj&quot;
+}
+</code></pre>
+<p>另外最为常见的使用场景是读入 json 文件的数据，然后经过修改，再将 json 数据写回 json 文件中。</p>
+<p>下面的代码就展示这两个常用的使用场景：</p>
+<pre><code class="lang-python"># 打开文件将 json 数据读入 data_json 对象中
+with open(modelFile) as f:
+    data_json = json.load(f)
+
+# 打开新文件，将 data_json 数据写入新的 json 文件中
+with open(modModleFile, &#39;w&#39;) as f:
+    f.write(json.dumps(data_json, indent=2))
+</code></pre>
+<h2 id="常见处理-JSON-的-Python-软件包"><a href="#常见处理-JSON-的-Python-软件包" class="headerlink" title="常见处理 JSON 的 Python 软件包"></a>常见处理 JSON 的 Python 软件包</h2><p>针对上面我们的需求，需要对复杂 JSON 数据做处理，所以就在网上进行了相关的搜索。<br>针对 JSON 数据的筛选，搜索后知道有个 <code>JSONPath</code> 的提议，仿照<br>XPath 的语法来查询 JSON 数据。</p>
+<p>然后就根据 JSONPath 这个关键字在 PyPI 中搜索都了一些软件包，下面简单罗列一下：</p>
+<h3 id="dpath"><a href="#dpath" class="headerlink" title="dpath"></a>dpath</h3><p>主页：<a href="https://www.github.com/akesterson/dpath-python" target="_blank" rel="noopener">https://www.github.com/akesterson/dpath-python</a><br>特点：使用类型 XPath 的语法来对复杂 json 数据做查询<br>优点：如果熟悉 XPath 的话，可以快速上手<br>缺点：无法做复杂的模糊查询，需要知道大致路径来获取数据</p>
+<h3 id="jsonpath"><a href="#jsonpath" class="headerlink" title="jsonpath"></a>jsonpath</h3><p>主页：www.ultimate.com/phil/python/#jsonpath<br>特点：是对上面 jsonPath 提议的一个实现，经过测试发现，相比于后面提及的这些软件，它的查询效率最高<br>优点：查询效率高，单文件的实现<br>缺点：缺乏文档，开发久远；但还在持续更新</p>
+<h3 id="jsonpath2"><a href="#jsonpath2" class="headerlink" title="jsonpath2"></a>jsonpath2</h3><p>主页：<a href="https://pypi.org/project/jsonpath2/" target="_blank" rel="noopener">https://pypi.org/project/jsonpath2/</a><br>特点：是对上面 jsonPath 提议的一个实现，有  ANTLR v4 的语法支持，可以生成 antlr 语法解析<br>优点：支持 antlr 语法<br>缺点：文档太少，只是 jsonPath 的又一个实现，特点不突出</p>
+<h3 id="jsonpath-rw"><a href="#jsonpath-rw" class="headerlink" title="jsonpath-rw"></a>jsonpath-rw</h3><p>主页：<a href="https://github.com/kennknowles/python-jsonpath-rw" target="_blank" rel="noopener">https://github.com/kennknowles/python-jsonpath-rw</a><br>特点：提供健壮的实现，在 Python 2.7, 3.4, 3.5, 3.6, 3.7, pypy 和 pypy3 上都测试过； 实现早，开发者多（15），GitHub 上的星多（434）；<br>优点：开发者多，将 jsonPath 表达式当做第一类对象<br>缺点：无法对数据做复杂的筛选</p>
+<h3 id="jsonpath-rw-ext"><a href="#jsonpath-rw-ext" class="headerlink" title="jsonpath-rw-ext"></a>jsonpath-rw-ext</h3><p>主页：<a href="https://github.com/sileht/python-jsonpath-rw-ext" target="_blank" rel="noopener">https://github.com/sileht/python-jsonpath-rw-ext</a><br>特点：对上面的 jsonpath-rw 做了一些扩展，尤其是对筛选的支持<br>优点：支持筛选<br>缺点：文档不是太详细，<a href="https://github.com/sileht/python-jsonpath-rw-ext/issues/27" target="_blank" rel="noopener">筛选似乎只支持 list</a></p>
+<h3 id="jsonpath-ng"><a href="#jsonpath-ng" class="headerlink" title="jsonpath-ng"></a>jsonpath-ng</h3><p>主页：<a href="https://github.com/h2non/jsonpath-ng" target="_blank" rel="noopener">https://github.com/h2non/jsonpath-ng</a><br>特点：结合了上面 jsonpath-rw 和 jsonpath-rw-ext 的能力，是  jsonpath-rw 的一个 fork<br>优点：具有上面两个包的功能，才能使用；文档详细<br>缺点：扩展的使用有点不太方便</p>
+<p>在查找到了这些软件包后，我针对它们都进行了一些测试，最后测试后发现，在查询方面， jsonpath 这个包的解析速度最快。</p>
+<blockquote>
+<p>注：同时引入 jsonpath 和  jsonpath-rw-ext 会引起冲突，我的解决办法是只安装  jsonpath-rw-ext ，将 jsonpath 的单文件实现直接放入代码中，要使用时再引入。</p>
+</blockquote>
+<p>下面回到整体，介绍如何对复杂 JSON 数据进行查询、筛选和修改。</p>
+<h2 id="如何查询复杂-json-数据"><a href="#如何查询复杂-json-数据" class="headerlink" title="如何查询复杂 json 数据"></a>如何查询复杂 json 数据</h2><p>经过了上面的搜索，简单来说可以直接使用上面的多个软件包，然后按照 JsonPath 的语法来对复杂数据进行查询。</p>
+<p>下面是 JsonPath 的提议，摘自上面提及的<a href="https://goessner.net/articles/JsonPath/" target="_blank" rel="noopener">网址</a>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">JSONPath</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>$</code></td>
+<td style="text-align:center">代表根对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>@</code></td>
+<td style="text-align:center">代表当前对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>.</code> 或 <code>[]</code></td>
+<td style="text-align:center">取孩子操作</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>..</code></td>
+<td style="text-align:center">递归搜索后代</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td style="text-align:center">通配符，代表所有对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[]</code></td>
+<td style="text-align:center">取下标操作，在 JSON 中，它是自带的数组操作</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[,]</code></td>
+<td style="text-align:center">表示去其中的任意一个</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[start:end:step]</code></td>
+<td style="text-align:center">数组切片操作</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?()</code></td>
+<td style="text-align:center">执行筛选操作</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>()</code></td>
+<td style="text-align:center">脚本表达式，不常用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="如何筛选复杂-json-数据"><a href="#如何筛选复杂-json-数据" class="headerlink" title="如何筛选复杂 json 数据"></a>如何筛选复杂 json 数据</h2><p>基于前面的搜索，如果要实现对复杂 json 数据的筛选功能，当前就只能使用上面的 <code>jsonpath-rw-ext</code> 或者 <code>jsonpath-ng</code> ，其中 <code>jsonpath-ng</code> 的筛选功能来自于 <code>jsonpath-rw-ext</code>，所以在最后的解决方案中，我直接使用了 <code>jsonpath-rw-ext</code> 来做复杂筛选。</p>
+<p>在使用时，为了支持变量值的替换，可能还需要使用转义符。</p>
+<p>另外，在做筛选时，可以利用 jsonPath 中 <code>..</code> <code>@</code> 等运算符来做模糊筛选。</p>
+<p>具体的使用方法可以参考上面两个软件包的主页。这里就不再介绍。</p>
+<p>下面重点介绍如何修改 json 数据。</p>
+<h2 id="如何修改复杂-json-数据"><a href="#如何修改复杂-json-数据" class="headerlink" title="如何修改复杂 json 数据"></a>如何修改复杂 json 数据</h2><p>基于上面的说明，我们知道可以使用上面的这些软件包来查询复杂 json ，但是对于如何修改数据，这些软件的文档中都没有太多的涉及。</p>
+<p>另外根据我做的这个任务的需求，可能还需要在对 json 数据做了筛选后，再对筛选到的数据做修改。</p>
+<p><code>python-jsonpath-rw</code> GitHub 主页上的 <a href="https://github.com/kennknowles/python-jsonpath-rw/issues/21" target="_blank" rel="noopener">issue 21</a> 上有类似的说明，但自己根据上的说明去实现时，感觉无法满足上面的需求，故作罢。</p>
+<p>另外 <code>python-jsonpath-rw</code> 在代码仓库中似乎更新了一个 <code>update</code> 方法，但没有更新到 PyPI 中，所以必须下载 GitHub 的代码才能使用该功能。在最后的实现时便没有使用该功能。</p>
+<p>最终，我在 stack overflow 上找到了一个参考的<a href="https://stackoverflow.com/questions/37646631/modify-an-element-in-a-nested-dict-given-a-path-to-it" target="_blank" rel="noopener">例子</a>：</p>
+<pre><code class="lang-python">from jsonpath_rw import jsonpath, parse
+
+data = {&quot;dogs&quot;:[{&quot;tail&quot;: True, &quot;properties&quot;:{&quot;test&quot;:1}}]}
+
+jsonpath_expr = parse(&quot;dogs.[0].properties&quot;)
+jsonpath_expr.find(data)[0].value[&#39;test&#39;] = 2
+print(data)
+# {&#39;dogs&#39;: [{&#39;tail&#39;: True, &#39;properties&#39;: {&#39;test&#39;: 2}}]}
+</code></pre>
+<p>通过上面的例子我得到启发，可以使用 <code>jsonpath-rw-ext</code> 或者 <code>jsonpath-ng</code> 包的筛选功能，再使用上面例子中类型的做法来达到筛选并修改特定键值的目的，这样我的需求就可以解决了。</p>
+<p>在经过测试后，最终用来修改 input 模板文件中给定键值对的代码如下：</p>
+<pre><code class="lang-python">import json
+import jsonpath_rw_ext
+
+def Modify_model(refVar, refValue, modelFile, modModleFile=&#39;run.json&#39;):
+    &quot;&quot;&quot;利用 jsonpath_rw_ext 库搜索 json 格式的模板文件，并修改相应的值
+        refVar: 需要修改的参数的名称
+        refValue: 修改过后参数的值
+        modelFile: json 格式的模板文件
+        modModleFile: 修改过后的 json 模板文件
+    &quot;&quot;&quot;
+    with open(modelFile) as f:
+        data_json = json.load(f)
+    parse_str = f&#39;$..items[?(@.unique_name=\&quot;{refVar}\&quot;)]&#39;
+
+    jsonpath_rw_ext.parser.ExtentedJsonPathParser().parse(parse_str).find(data_json)[0].value[&#39;value&#39;] = f&#39;{refValue}&#39;
+
+    if not os.path.exists(modModleFile):
+        # 如果不存在文件，则直接创建空文件
+        # ref: https://stackoverflow.com/questions/12654772/create-empty-file-using-python
+        open(modModleFile, &#39;a&#39;).close()
+    with open(modModleFile, &#39;w&#39;) as f:
+        f.write(json.dumps(data_json, indent=2))
+</code></pre>
+<p>上面的代码中有几点需要说明：</p>
+<ol>
+<li><p><code>parse_str = f&#39;$..items[?(@.unique_name=\&quot;{refVar}\&quot;)]&#39;</code> 这句使用了 Python 的新语法，直接将 refVar 的值替换到字符串中，这需要 Python 3.6 才能支持。另外还转义了括号，使得这个函数更加通用；</p>
+</li>
+<li><p><code>jsonpath_rw_ext.parser.ExtentedJsonPathParser()</code> 这句是为了使用扩展功能才这样写的，具体的使用方法可以参考其主页章的文档；</p>
+</li>
+<li>根据 <a href="https://github.com/sileht/python-jsonpath-rw-ext/issues/27" target="_blank" rel="noopener">GitHub 上的 issue</a>，似乎筛选功能只对 list 生效，相关代码在<a href="https://github.com/h2non/jsonpath-ng/blob/master/jsonpath_ng/ext/filter.py#L42" target="_blank" rel="noopener">这里</a>。</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:44:35.305Z" itemprop="dateUpdated">2020-03-01 22:44:35</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2019/12/16/Python-Deals-large-json-file-md/" target="_blank" rel="external">https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/" rel="tag">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/&title=《使用 Python 软件包来处理较为复杂的 JSON 文件》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/&title=《使用 Python 软件包来处理较为复杂的 JSON 文件》 — FLC&source=
+使用 Python 软件包来处理较为复杂的 JSON 文件
+
+最近在工作中遇到需要使用 Python 处理较复杂的 JSON 数据，不仅需要对嵌套的JS..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 Python 软件包来处理较为复杂的 JSON 文件》 — FLC&url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/31/Tips-for-using-matlab-in-linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">linux 下使用 matlab 的几个小提示</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/&title=《使用 Python 软件包来处理较为复杂的 JSON 文件》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/&title=《使用 Python 软件包来处理较为复杂的 JSON 文件》 — FLC&source=
+使用 Python 软件包来处理较为复杂的 JSON 文件
+
+最近在工作中遇到需要使用 Python 处理较复杂的 JSON 数据，不仅需要对嵌套的JS..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 Python 软件包来处理较为复杂的 JSON 文件》 — FLC&url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQW4jMQwEwPz/09lrgGzG3aS0zgI1J8OZSCodRJnkx0f8fH55vn6Tf/4+2vNc+WgHHjw8PLzF0r8/yZSz/0pmfx75+R08PDy827z8gE7CxvP3z7McDjl4eHh4v4CXH/EJKd9QPDw8vP+Rd2rKZAveEBjw8PDwSl7+4789uPNl7ZMgeHh4eP+Gl1eRfs/nK/U9PDw8vHVVPTlwT5Wykqt2PT4eHh7eBd6sdeBUq9YsLOUbgYeHh3eDlydSZynXNp2RYJ6TIHh4eHi3ee1BnCw9TwRvgkd+EcfDw8M7y8sbAmbNVbMkQrIR0fbh4eHhXeC17VObYtUmXbsfEw8PD+8ULznu25apfCPa0fIx/5JrwcPDwzvKaw/3fNFtMiJP7Ebv4OHh4b2J107cBpJ8C9qrPx4eHt4NXluAz0v4bcDYNC5ESDw8PLyjvLzENVvWJtU7azJ4UeXDw8PDW/PayZJ2qzzYJH/Nx4nqe3h4eHhr3qlWp7x9arNNddMVHh4e3gVenj6YNZjOEsSboPXiSo2Hh4e35uWBYZa82DRRbYp2eHh4ePd4bVE/n3h2Ic4DxrDKh4eHh7fgtT/78/aCzVHeJn+jiIeHh4d3iDe7yM7CwyzxcWBVeHh4eBd47SU7n2zWhjVLiwyReHh4eCNeXoZPlrh/cwYr7tp4eHh4h3izhSZX5zZ12xbMXiQv8PDw8K7x8hRAu/Q2/NRVu7wMhoeHh7fmfZZP23AwayA41tqFh4eHd4E3qxNtylSbVoBZ8hcPDw/vBi8JBu21u00E70toP24ZHh4e3jXepjWqfbMNEm1+5ccsNR4eHt6beG0Jqr2Ib67pP16p8fDw8N7KazMcp8pjw0QzHh4e3jXeqWTEvn0qT0kk3+Ph4eHd4A17tYLg0S49uY63s+Ph4eEd5f0BCCq2c45O3QsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

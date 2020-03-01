@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>Ubuntu 下 Opendx Data Explorer 的字体问题 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Font,Opendx">
+    <meta name="description" content="解决在 Ubuntu 下 Opendx Data Explorer 的字体问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 下 Opendx Data Explorer 的字体问题">
+<meta property="og:url" content="https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="解决在 Ubuntu 下 Opendx Data Explorer 的字体问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-11-03T05:51:25.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:33:04.310Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="Font">
+<meta property="article:tag" content="Opendx">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Ubuntu 下 Opendx Data Explorer 的字体问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Ubuntu 下 Opendx Data Explorer 的字体问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-11-03T05:51:25.000Z" itemprop="datePublished" class="page-time">
+  2015-11-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缘起"><span class="post-toc-text">缘起</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方法"><span class="post-toc-text">解决方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后话"><span class="post-toc-text">后话</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Cannot-convert-string-to-type-FontStruct"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Ubuntu 下 Opendx Data Explorer 的字体问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-11-03 13:51:25" datetime="2015-11-03T05:51:25.000Z"  itemprop="datePublished">2015-11-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>解决在 Ubuntu 下 Opendx Data Explorer 的字体问题</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近一直在学习使用李若老师的 AFEPack 软件包，其中这个包输出的图形格式一般为 Opendx，但据网上的一些评论，它基本上处于类似渡渡鸟的境地了。但自己能力有限，还不能更改它输出为 Vtk 等现在主流的图像格式，所以还是先用着吧。</p>
+<p>现在读取 opendx 格式的软件好像就只有 <code>Opendx Data Explorer</code> 了。自从 IBM 开源了 opendx 后，就没有多少官方的支持，现在它的开发主要由一个名为 <code>Visualization and Imagery Solutions, Inc.</code> 的公司负责。在 Ubuntu 中，可以直接通过软件源安装编译好的 dx 软件。</p>
+<p>安装后，可以在终端中使用 dx 命令来启动 Opendx Data Explorer。但终端始终会出现类似如下的警告：</p>
+<pre><code class="lang-bash">Cannot convert string &quot;-*-helvetica-bold-r-*-*-16-*&quot; to type FontStruct
+</code></pre>
+<p>于是乎，便利用网络来搜索答案。下面是解决办法。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>搜索的过程就不说了，反正还是 Google 强。</p>
+<p>最开始说的是先确认下有没有安装这些字体。一般是先建议你安装两个字体包，使用的命令是：</p>
+<pre><code class="lang-bash">sudo apt-get install xfonts-75dpi xfonts-100dpi
+</code></pre>
+<p>它们默认是安装在 <code>/usr/share/fonts/X11/</code> 目录中。</p>
+<p>然后可以使用下面的命令来查看是否安装了上面警告中的字体：</p>
+<pre><code class="lang-bash">xlsfonts -fn &quot;-*-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*&quot;
+</code></pre>
+<p>其中的 <code>*</code> 都是一些匹配。可以类似地修改匹配格式。</p>
+<p>但是安装完后还是没有解决问题。于是又搜。</p>
+<p>最后在<a href="http://www.linuxquestions.org/questions/linux-software-2/error-message-regarding-fonts-in-grace-943919/" target="_blank" rel="noopener">这个网页</a>里面找到了解决办法。</p>
+<p>原来，在安装完这些字体后，我们还需要一些设置，具体的命令是：</p>
+<pre><code class="lang-bash">xset +fp /usr/share/fonts/X11/75dpi/
+xset +fp /usr/share/fonts/X11/100dpi/
+</code></pre>
+<p>至于上面的命令具体执行了什么步骤，可以 <code>man xset</code> 。随后问题便解决了。遇到类似的问题（例如某个软件中文乱码，呈现出方框），似乎都可以这样解决。</p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>最后说说我对 OpenDX 的看法吧。</p>
+<p>刚开始入门的时候，总感觉资料很少，这个软件不太好使用。相比于 ViSit 或 ParaView 等软件，dx 太难用了，什么都要自己定义，而且找到的资料也不是很多；所以对它的印象不好。</p>
+<p>现在由于导师分配的任务，我需要使用 AFEPack 来求解方程，最后需要用 dx 来展示结果。通过这几天的摸索，感觉了它的强大。现在基本明白了为什么李若老师喜欢这种数据格式和这个软件的原因了。说到底，还是需要折腾。</p>
+<p>至于学习资料。安装好 dx 后，一般可以在 <code>/usr/share/dx/samples</code> 找到示例代码；文档说明的话，可以看 <code>/usr/share/dx/html</code> 里面的东西，这些 html 文件里面包含的内容其实很多的。一步一步的看下去还是有很多收获的。</p>
+<p>至于 <code>Visualization and Imagery Solutions, Inc.</code> 公司出的那本名为 <code>OpenDX---Paths to Visualization</code> 的书，我觉得自带的 html 文件内容或许更多一些，当然看看还是不错的。</p>
+<p>以前我在<a href="http://web.engr.oregonstate.edu/~mjb/opendx/" target="_blank" rel="noopener">这个网站</a>找到了很多关于 Opendx 的资料，现在仍然推荐去看看那里的东西。</p>
+<p>TODO： 通过 Ubuntu 仓库安装 dx 软件有一个问题：</p>
+<p>在经过一段时间的使用后， dx 会吃掉 100% 的 CPU。根据我的搜索，现在还没有找到解决办法，自编译的 dx 就好像没有这个问题。后面再搜索一下吧。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:33:04.310Z" itemprop="dateUpdated">2020-03-01 22:33:04</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/11/03/Cannot-convert-string-to-type-FontStruct/" target="_blank" rel="external">https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Font/" rel="tag">Font</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Opendx/" rel="tag">Opendx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/&title=《Ubuntu 下 Opendx Data Explorer 的字体问题》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/&title=《Ubuntu 下 Opendx Data Explorer 的字体问题》 — FLC&source=
+解决在 Ubuntu 下 Opendx Data Explorer 的字体问题
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ubuntu 下 Opendx Data Explorer 的字体问题》 — FLC&url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/11/03/Install-AFEPack-In-Ubuntu/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 Ubuntu 中安装 AFEPack</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/10/12/Install-FEniCS-in-Ubuntu/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Ubuntu 中安装 FEniCS</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/&title=《Ubuntu 下 Opendx Data Explorer 的字体问题》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/&title=《Ubuntu 下 Opendx Data Explorer 的字体问题》 — FLC&source=
+解决在 Ubuntu 下 Opendx Data Explorer 的字体问题
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ubuntu 下 Opendx Data Explorer 的字体问题》 — FLC&url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACr0lEQVR42u3awW7DIBAE0Pz/T7fXSq2dGWAjV3o+VU1s7+MAZNjXK76+lq6f9/5+ztWnyTcPX3h4eHhHS7/6zv299+/Kh+yeGr0dDw8Pb4yXlNIWffWf/N62Hjw8PLxn8s4uEnnReHh4eP+Xl3+al5svOXh4eHjP4e1EsflUnscNO0EGHh4e3jQvP0V6zt8j53t4eHh4Aw0BO3flrQN5CPLmvXh4eHgDvHzCTbbaB475b2OFtk48PDy8z/Da5eHYMVV8hJZEGHh4eHhzvLb0taUibzg4nKng4eHhjfHa159tw0qe04YReHh4eNO8ZHPcbnzbdoHkCXnLFx4eHt4cL5+Od9qqjgWya61XeHh4eAO8ZKrNI921oOHUcNRdY3h4eHglb63EdvySTXPedJUvUXh4eHgTvLXGqXw7mw9Nu7Eu2rPw8PDwjvLaVqq2vaAtsW3kelMbHh4e3gCv2JiWx055rLAT/hZLDh4eHt4A7xQy346fRUbbdzw8PLxt3s5ItE1UxTF/m6ZcVYWHh4c3xmsLzfeu+0dleW1//B8PDw9vgLd27FSEp+VCkjcZtJ/i4eHhneW1h155I9RavPsVXEWAgoeHhzfGyzeybViwE0O0UXLRNICHh4d3iLdGSpqi1oKMdsG4PAbDw8PDG+bNHfa3AUcbZLySR+Ph4eEd4iU/7NcWjzyizYe1eD4eHh7eGC+BrcW+a01a+and/RDg4eHhneUt/rwvF4C1EDYfxKKnDA8PD2+b10ar+xvuPBTeWajqCw8PD6/ktTFuy9h/cr4w4OHh4X2St3OEv7a9PrBe5VkLHh4e3gN4bQSQTOX5pJ/fi4eHh/c0XtuCsNbUVTda4eHh4X2El7x+LVptJ/r2iKtuusLDw8Pb5rU/+HcasHZCjaSeA3kGHh4e3h3vG9ObsYZfOcFmAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

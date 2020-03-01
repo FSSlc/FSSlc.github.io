@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>减小 VBoX 虚拟磁盘大小 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="VBox">
+    <meta name="description" content="如何使用 VBOX 自带工具减小虚拟磁盘大小  由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。 虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有占用那么大的空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="减小 VBoX 虚拟磁盘大小">
+<meta property="og:url" content="https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="如何使用 VBOX 自带工具减小虚拟磁盘大小  由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。 虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有占用那么大的空间">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-12-18T08:28:48.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:40:28.802Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="VBox">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">减小 VBoX 虚拟磁盘大小</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">减小 VBoX 虚拟磁盘大小</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-12-18T08:28:48.000Z" itemprop="datePublished" class="page-time">
+  2016-12-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#碎片整理"><span class="post-toc-text">碎片整理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#压缩磁盘"><span class="post-toc-text">压缩磁盘</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Decrease-VBoX-image"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">减小 VBoX 虚拟磁盘大小</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-12-18 16:28:48" datetime="2016-12-18T08:28:48.000Z"  itemprop="datePublished">2016-12-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>如何使用 VBOX 自带工具减小虚拟磁盘大小</p>
+</blockquote>
+<p>由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。</p>
+<p>虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有占用那么大的空间。所以有必要压缩一下。</p>
+<a id="more"></a>
+<p>问题来了，便开始上网搜索方法。在<a href="http://my.oschina.net/tsl0922/blog/188276" target="_blank" rel="noopener">开源中国的一个博客</a>里面找到了方法，下面进行简单的记录。</p>
+<p>根据博主的文章，要达到减小 VBox 虚拟磁盘的大小，主要有两个步骤：</p>
+<h2 id="碎片整理"><a href="#碎片整理" class="headerlink" title="碎片整理"></a>碎片整理</h2><p>首先需要在虚拟机里面的系统下做碎片整理。</p>
+<p>对于 Linux 系统，可以使用：</p>
+<pre><code class="lang-bash">sudo dd if=/dev/zero of=/EMPTY bs=1M
+sudo rm -f /EMPTY
+</code></pre>
+<p>对于 Windows 系统，则需要使用 <a href="http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx" target="_blank" rel="noopener">Sysinternals Suite</a>，点击上面的链接可以到微软的页面下进行下载。下载解压后，通过 CMD ，运行：</p>
+<pre><code class="lang-bash">sdelete -z c:
+</code></pre>
+<p>等待进度完成即可。然后关闭虚拟机。</p>
+<h2 id="压缩磁盘"><a href="#压缩磁盘" class="headerlink" title="压缩磁盘"></a>压缩磁盘</h2><p>如果虚拟磁盘是 <code>Virtual Box</code> 自家的 <code>VDI</code> 格式，则只需要先通过终端到达含有后缀为 <code>.vdi</code> 的文件所在的那个目录，再执行：</p>
+<pre><code class="lang-bash">VBoxManage modifyhd win7.vdi --compact
+</code></pre>
+<p>这样就可以达到压缩磁盘的目的。</p>
+<p>如果虚拟磁盘是 <code>VMDK</code> 的格式，则可以使用 vmware 自带的 <code>vmware-vdiskmanager</code> 工具，具体命令如下：</p>
+<pre><code class="lang-bash">vmware-vdiskmanager -k disk.vmdk
+</code></pre>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:40:28.802Z" itemprop="dateUpdated">2020-03-01 22:40:28</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2016/12/18/Decrease-VBoX-image/" target="_blank" rel="external">https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VBox/" rel="tag">VBox</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&title=《减小 VBoX 虚拟磁盘大小》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&title=《减小 VBoX 虚拟磁盘大小》 — FLC&source=
+如何使用 VBOX 自带工具减小虚拟磁盘大小
+
+由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《减小 VBoX 虚拟磁盘大小》 — FLC&url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/31/Tips-for-using-matlab-in-linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">linux 下使用 matlab 的几个小提示</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/12/15/Install-opendx-In-Archlinux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Archlinux 中安装 Opendx</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&title=《减小 VBoX 虚拟磁盘大小》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&title=《减小 VBoX 虚拟磁盘大小》 — FLC&source=
+如何使用 VBOX 自带工具减小虚拟磁盘大小
+
+由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《减小 VBoX 虚拟磁盘大小》 — FLC&url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aQY6DMBAEwPz/01lpT7lAusdstDHFCUUEXD6M3PY8HvH1/L1e7/NfXn8/f/PRL5ddGBgYX8t4nl5HjPPhJvftlL2ZGgwMjBsw2tclw8p5yfNvxoyBgYERF8q2BM+mCQMDA6MNrgmgJWFgYGDMQuzsA+ebbgny4iyOgYHxhYzZwcBn7v/8fAMDA+PfM57l1Zbpdrk5HBUGBsbWjLbdIV/GrZTv2ZIUAwNjV0YbHfPmrfy/eQlemhUMDIwvZ1wbMlt8W7IPF4UYGBg3YMw2+mfHCbP2ssM3YGBgbM34ZKHMa2O7GYeBgXEHRtvslS8fk0LcfuVwcjEwMG7MmDVAzErwbDGKgYFxH0ZbOlfaJlp29EUMDIxNGdcG1xZ5WdsHBgbG1oxZEL2qaOZLzOg9GBgYWzPyAle0ao16t5IoG2EwMDA2YuRb/Elz2CzWJs+/oWJgYNyAsXKI2Ibb9ggzCtgYGBhbM2YnCUmgvSqgDjfvMDAwNmK05axty8hL7VLrBgYGxg0YdXfGQuzMp6AgYWBgbM1oi2AbRPOl4QWtGBgYGJsyZhteeTJebziLijUGBsbWjNnWWF6OZ6F0pSEDAwNjV8ZKkc0H1LZ/tW/GwMC4A2Mlsq4s2mZPYmBgYCRLtPVQmkffKDZjYGBgxGEyia9t2S2awzAwMLZmzJZ97XFCG5iLcIuBgbE1YxY124aw9Y28/OgUAwNjI8YP9j1gvrDK6GcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

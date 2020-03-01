@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>使用 docker 构建 AFEPack 镜像 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="AFEPack,Docker">
+    <meta name="description" content="使用 docker 构建 AFEPack 镜像来减少安装 AFEPack 的痛苦  先前写了一篇如何在 Ubuntu 安装 AFEPack 的教程，但现在感觉有些陈旧了。在暑假到澳门大学学习期间，结识了 xywei ， 他使用 docker 构建了 AFEPack，镜像地址在这里。先前也知道 docker 掀起的热潮，但一直没有学习它。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 docker 构建 AFEPack 镜像">
+<meta property="og:url" content="https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="使用 docker 构建 AFEPack 镜像来减少安装 AFEPack 的痛苦  先前写了一篇如何在 Ubuntu 安装 AFEPack 的教程，但现在感觉有些陈旧了。在暑假到澳门大学学习期间，结识了 xywei ， 他使用 docker 构建了 AFEPack，镜像地址在这里。先前也知道 docker 掀起的热潮，但一直没有学习它。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-12-15T07:24:09.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:41:25.157Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="AFEPack">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用 docker 构建 AFEPack 镜像</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用 docker 构建 AFEPack 镜像</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-12-15T07:24:09.000Z" itemprop="datePublished" class="page-time">
+  2016-12-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-docker"><span class="post-toc-text">安装 docker</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写-Dockerfile"><span class="post-toc-text">编写 Dockerfile</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-docker-build-命令构建镜像"><span class="post-toc-text">使用 docker build 命令构建镜像</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Build-AFEPack-docker-image"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用 docker 构建 AFEPack 镜像</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-12-15 15:24:09" datetime="2016-12-15T07:24:09.000Z"  itemprop="datePublished">2016-12-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>使用 docker 构建 AFEPack 镜像来减少安装 AFEPack 的痛苦</p>
+</blockquote>
+<p>先前写了一篇<a href="http://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/">如何在 Ubuntu 安装 AFEPack 的教程</a>，但现在感觉有些陈旧了。在暑假到澳门大学学习期间，结识了 xywei ， 他使用 docker 构建了 AFEPack，镜像地址在<a href="https://hub.docker.com/r/xywei/afebackpack/" target="_blank" rel="noopener">这里</a>。先前也知道 docker 掀起的热潮，但一直没有学习它。</p>
+<a id="more"></a>
+<p>关于 docker 的学习，网上一搜一大堆。我自己买了本 杨保华、戴王剑、曹亚仑 编著的《Docker 技术入门与实践》，利用一个下午学会了基本操作，后面的有些功能自己用不到就没有再深究下去。闲话少说，下面进入正题。</p>
+<h2 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h2><p>首先，要构建 docker 镜像，你需要安装 <code>docker</code>，具体安装过程见官网或者 Google 、Baidu 一下。</p>
+<h2 id="编写-Dockerfile"><a href="#编写-Dockerfile" class="headerlink" title="编写 Dockerfile"></a>编写 Dockerfile</h2><p>要想实现自动构建 Docker 镜像，就需要编写 Dockerfile。只要知道 Dockerfile 编写时需要用的一些指令和编译安装的命令就可以了。</p>
+<p>下面是我最后写好的 Dockerfile 。我在下面用中文添加注释，原文件参考我 GitHub 上的项目<a href="https://github.com/FSSlc/AFEPackDocker" target="_blank" rel="noopener">AFEPackDocker</a>。</p>
+<pre><code class="lang-bash">FROM ubuntu:16.04                                   # 以 ubuntu 16.04 作为镜像的基础系统
+MAINTAINER FSSlc, liuchang011235 AT gmail DOT com   # 维护者的相关信息
+# install essential packages
+RUN \                                               # RUN 后面跟上要运行的命令即可
+  mkdir -p /root/Pkg &amp;&amp; \
+  # use aliyun&#39;s mirror for better download speed
+  sed -i &#39;s/archive.ubuntu.com/mirrors.aliyun.com/g&#39; /etc/apt/sources.list &amp;&amp; \
+  apt-get update &amp;&amp; \
+  apt-get install -y make automake autoconf wget build-essential \
+  libdeal.ii-dev mpi-default-dev nano # libhypre-dev trilinos-all-dev petsc-dev --no-install-recommends
+## set some env varibles                            # 设置与 AFEPack 相关的环境变量
+COPY env.txt /root/Pkg/env.txt 
+## prepare AFEPack easymesh
+RUN \
+cd /root/Pkg &amp;&amp; \
+wget http://dsec.pku.edu.cn/~rli/AFEPack-snapshot.tar.gz &amp;&amp; \
+wget http://dsec.pku.edu.cn/~rli/source_code/easymesh.c.gz &amp;&amp; \
+tar -xzf ./AFEPack-snapshot.tar.gz -C /root/Pkg/  &amp;&amp; \
+gunzip easymesh.c.gz &amp;&amp; \
+## compile and install AFEPack
+cat /root/Pkg/env.txt &gt;&gt; /root/.bashrc &amp;&amp; . /root/.bashrc &amp;&amp; \
+cd /root/Pkg/AFEPack &amp;&amp; \                           # 将 ubuntu 中安装的 deal.ii 库文件改名
+ln -s /usr/lib/x86_64-linux-gnu/libdeal.ii.g.so.8.1.0 /usr/lib/x86_64-linux-gnu/libdeal_II.g.so &amp;&amp; \
+ln -s /usr/lib/x86_64-linux-gnu/libdeal.ii.so.8.1.0  /usr/lib/x86_64-linux-gnu/libdeal_II.so &amp;&amp; \
+aclocal &amp;&amp; autoconf &amp;&amp; automake --add-missing &amp;&amp; \
+env EXTRA_INCDIR=&quot;-I/usr/include/deal.II/&quot; EXTRA_LIBDIR=&quot;-L/usr/lib/x86_64-linux-gnu/&quot; ./configure &amp;&amp; \
+# make -j8 &amp;&amp; make install                      # 下面分开编译 AFEPack，直接编译会报错，镜像就编译不下去了
+cd ./template/ &amp;&amp; make -j8 &amp;&amp; cd ../library/ &amp;&amp; make -j8 &amp;&amp; make install &amp;&amp; \
+cd ../example/ &amp;&amp; make -j8 &amp;&amp; \
+## compile and install easymesh
+cd /root/Pkg/ &amp;&amp; \
+gcc -o easymesh easymesh.c -lm &amp;&amp; \
+mv ./easymesh /usr/local/bin/ &amp;&amp; \
+## do some clean work                           # 清理一些不需要的文件，减小镜像大小
+rm easymesh.c AFEPack-snapshot.tar.gz env.txt &amp;&amp; \
+rm -rf /var/lib/apt/lists/*
+CMD [&quot;/bin/bash&quot;]
+</code></pre>
+<p><strong>UPDATE</strong><br>为了能够本地编译安装 AFEPack 的镜像，我编写了两个 Dockerfile，一个是直接使用<br>Ubuntu 16.04 里面 8.1 版本的 deal.II，另一个是在 Ubuntu 14.04 里使用源码编译的 deal.II 6.3.1，请自行选择。</p>
+<p><strong>UPDATE 20181103</strong><br>好久没有更新了，最近在做 docker 相关的事。了解到 docker 可以进行所谓的多阶段构建了。这个功能可以进一步地减小镜像的大小，所以我今天就尝试了一下，效果还是很明显的。从原来的 <code>1.07GB</code> 减少到现在的 <code>573MB</code>。 </p>
+<p>另外 AFEPack 的包做了一些更新，居然默认 <code>std=c++14</code> 了！所以原来的 Dockerfile 可能不能使用了，所以我顺便做了更新。从构建的结果看，<code>step-7</code> 这个例子跑不通，这次更新后的 Dockerfile 都有这个问题，它们获取的<br>AFEPack 源码都是今天我从官网下载的。但是我放在 docker Hub 的镜像可以运行。。。</p>
+<h2 id="使用-docker-build-命令构建镜像"><a href="#使用-docker-build-命令构建镜像" class="headerlink" title="使用 docker build 命令构建镜像"></a>使用 <code>docker build</code> 命令构建镜像</h2><p>编写完 Dockerfile 后，便可以构建镜像了。使用的命令是：</p>
+<pre><code class="lang-bash">sudo docker build  -t afepack:v0 .
+</code></pre>
+<p>其中 <code>-t</code> 选项是指定编译后镜像的名称，即所谓的 <code>tag</code> 。</p>
+<p>具体使用时，一般运行：</p>
+<pre><code class="lang-bash">docker run -ti -v $HOME/Pkg:/opt afepack:v0 bash
+</code></pre>
+<p>上面的命令将启动一个容器，其中的 <code>-v</code> 选项将把主机中的 <code>$HOME/Pkg</code> 目录挂载到容器中的 <code>/opt</code> 目录，这样我们便可以在 <code>$HOME/Pkg</code> 中让主机和容器之间进行数据交互。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:41:25.157Z" itemprop="dateUpdated">2020-03-01 22:41:25</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2016/12/15/Build-AFEPack-docker-image/" target="_blank" rel="external">https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AFEPack/" rel="tag">AFEPack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/&title=《使用 docker 构建 AFEPack 镜像》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/&title=《使用 docker 构建 AFEPack 镜像》 — FLC&source=
+使用 docker 构建 AFEPack 镜像来减少安装 AFEPack 的痛苦
+
+先前写了一篇如何在 Ubuntu 安装 AFEPack 的教程，但现..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 docker 构建 AFEPack 镜像》 — FLC&url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/12/15/Install-opendx-In-Archlinux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 Archlinux 中安装 Opendx</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/11/03/Install-AFEPack-In-Ubuntu/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Ubuntu 中安装 AFEPack</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/&title=《使用 docker 构建 AFEPack 镜像》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/&title=《使用 docker 构建 AFEPack 镜像》 — FLC&source=
+使用 docker 构建 AFEPack 镜像来减少安装 AFEPack 的痛苦
+
+先前写了一篇如何在 Ubuntu 安装 AFEPack 的教程，但现..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用 docker 构建 AFEPack 镜像》 — FLC&url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3a20rFQBAEQP//pyP4JGhyunejkDm1TxLMpSKMO+n5+IjX8bXOjn9fP4+3V07OWlwYGBiPZRyXK790Qkqo1+eeviAMDIw3YFyXwuJyJ7Cza+a//+KZMTAwMC4LZV5er6+AgYGBcW/BTQroTtnFwMDAWGti8xY030S25fuGXhwDA+OBjDYY+M+f/zDfwMDAeAjjKFcSPeYPsVayf3kqDAyM0Yx23CGB5YHB9UO3UQEGBsZsRv1ha2m3thY51M+AgYExjtF+lG8HLPKRr52YAQMDYzZjp3TuhJdtk5yEqRgYGLMZbeu4NtTVxpB1I42BgTGU0YrXQsf2w1z9mjAwMEYz8qGKnRhybVJirUnGwMCYzWibyXYTmZPa4BMDA+MdGFvJZxwwrDFuSzkwMDAey8iLafvpv22J1xrg+n8CBgbGAxk7Tex+SU1GVxfviIGBMY5xBCtvUPPjOyHoL1QMDIyhjP0BiGRQI4k/c1jxd8DAwBjByG/wdx/X8kIcJRsYGBjjGO2oxA7sLvANEx8YGBgPZOQFsQ0X81BhayADAwNjNGO/EW2HwJJCXAMwMDBGM45ytSMU+21wdF8MDIzRjHztFMd8W9k2vRgYGO/DaMcskm1lfuW2eX7RkWNgYIxmJIUv/6y/M8CxWPQxMDAwlga27i3iL14NBgYGxlJRzstru1k8HQ7DwMAYzcgHSdda0LZVriMBDAyM0Yy1BjLZ6rVnrY2UYWBgjGZ8AnOwk2Hc/hyrAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

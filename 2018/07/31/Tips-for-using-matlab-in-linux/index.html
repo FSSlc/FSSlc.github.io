@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>linux 下使用 matlab 的几个小提示 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="matlab,linux">
+    <meta name="description" content="linux 下使用 matlab 的几个小提示  MATLAB LOGO 嗯，对的，MATLAB 有 linux 版本的，而且 mathematica、maple 等软件都有，而且在 linux 下这些软件利用资源的效率更高。 在 linux 下安装这些软件没有太大的问题，写这篇文章的目的是记录在安装使用 matlab 时遇到的一些问题和解决的版本。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 下使用 matlab 的几个小提示">
+<meta property="og:url" content="https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="linux 下使用 matlab 的几个小提示  MATLAB LOGO 嗯，对的，MATLAB 有 linux 版本的，而且 mathematica、maple 等软件都有，而且在 linux 下这些软件利用资源的效率更高。 在 linux 下安装这些软件没有太大的问题，写这篇文章的目的是记录在安装使用 matlab 时遇到的一些问题和解决的版本。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-31T09:39:30.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:47:43.771Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="matlab">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">linux 下使用 matlab 的几个小提示</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">linux 下使用 matlab 的几个小提示</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-31T09:39:30.000Z" itemprop="datePublished" class="page-time">
+  2018-07-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#终端使用-matlab"><span class="post-toc-text">终端使用 matlab</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#matlab-使用-gpu"><span class="post-toc-text">matlab 使用 gpu</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#几个常见问题"><span class="post-toc-text">几个常见问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#帮助系统没有-CSS-渲染效果"><span class="post-toc-text">帮助系统没有 CSS 渲染效果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#libGL-error-for-MATLAB"><span class="post-toc-text">libGL error for MATLAB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无法使用并行工具箱"><span class="post-toc-text">无法使用并行工具箱</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#matlab-无法使用系统中文字体"><span class="post-toc-text">matlab 无法使用系统中文字体</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Tips-for-using-matlab-in-linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">linux 下使用 matlab 的几个小提示</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-31 17:39:30" datetime="2018-07-31T09:39:30.000Z"  itemprop="datePublished">2018-07-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>linux 下使用 matlab 的几个小提示</p>
+</blockquote>
+<p><a href="https://www.mathworks.com/help/examples/matlab/win64/MatlabLogoExample_08.png" target="_blank" rel="noopener">MATLAB LOGO</a></p>
+<p>嗯，对的，MATLAB 有 linux 版本的，而且 mathematica、maple 等软件都有，而且在 linux 下这些软件利用资源的效率更高。</p>
+<p>在 linux 下安装这些软件没有太大的问题，写这篇文章的目的是记录在安装使用 matlab 时遇到的一些问题和解决的版本。</p>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>大部分都是直接使用桌面版本来安装 matlab 的。所以先说说这种方法。</p>
+<p>安装无外乎以下几步：</p>
+<ol>
+<li>下载到 iso 镜像：这个不用多说，自己找资源。</li>
+<li>挂载或者解压：挂载使用 <code>mount</code> 命令即可。</li>
+<li>使用命令行安装：运行目录里面的 <code>install</code> 脚本后就会出来图形界面，接下来的安装过程与 windows 下的安装过程没有什么区别了。</li>
+<li>激活：参考资源内的说明文档。</li>
+</ol>
+<p>如果需要在没有桌面的 linux 中安装 matlab，则需要编辑压缩包里面的 <code>installer_input.txt</code> 和 <code>activate.ini</code> 这两个文件，具体的安装过程请参考<a href="https://blog.csdn.net/smartzmz/article/details/41823187" target="_blank" rel="noopener">这篇文章</a>。</p>
+<h2 id="终端使用-matlab"><a href="#终端使用-matlab" class="headerlink" title="终端使用 matlab"></a>终端使用 matlab</h2><p>一般启动 MATLAB 使用如下命令：</p>
+<pre><code class="lang-bash">matlab -nodesktop -nodisplay
+</code></pre>
+<p>跟启动相关的命令主要有如下几个：</p>
+<ol>
+<li><p><strong>-nodesktop</strong>: 启动 jvm (Jave Virtual Machine)，不启动 desktop， 但 help 界面，preferences 界面等仍可通过 cmdline 调出，即 jvm 启动但不启动 desktop，可以启动其他显示； 但是 matlab 不会在 cmd history 记录本次执行的命令。</p>
+</li>
+<li><p><strong>-nodisplay</strong>: 启动 jvm，不启动 desktop，不启动任何显示相关，忽略任何 DISPLAY 环境变量； 即 jvm 启动但不能显示。</p>
+</li>
+<li><p><strong>-nojvm</strong>: 不启动 jvm，则与之相关的一切活动将无法进行，包括图形界面显示，help 界面，preferences界面等，即 jvm 不启动故不能显示。</p>
+</li>
+<li><p><strong>-nosplash</strong>: 只是不显示启动时的log画面，jvm，desktop等正常启动</p>
+</li>
+</ol>
+<p>如果想在让在终端中实现画图，一般需要做以下两步：</p>
+<ol>
+<li>使用 <code>matlab -nodesktop</code> 来启动 matlab；</li>
+<li>在脚本中添加 <code>figure(&#39;Visible&#39;,&#39;off&#39;);</code> 这样的句子来抑制画图窗口的弹出。</li>
+<li>可以使用 print 来保存图片。例如如下的命令：<pre><code class="lang-matlab">print([&#39;pic/q01/q010&#39;,num2str(i)],&#39;-dpng&#39;);
+print([&#39;pic/q01/q010&#39;,num2str(i)],&#39;-depsc&#39;);
+</code></pre>
+记得要提前使用 <code>mkdir</code> 创建好在上级目录，图片名称的次级目录如果不存在，matlab 会自动创建。</li>
+</ol>
+<h2 id="matlab-使用-gpu"><a href="#matlab-使用-gpu" class="headerlink" title="matlab 使用 gpu"></a>matlab 使用 gpu</h2><p>matlab 里面对 gpu 的使用做了封装，如果需要使用 NVIDIA 的 gpu ， 一般需要安装 Bumblebee， 然后使用 <code>optirun</code> 来运行。具体可以参考如下几个链接：</p>
+<ol>
+<li><a href="https://wiki.archlinux.org/index.php/NVIDIA_Optimus" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/NVIDIA_Optimus</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Bumblebee" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/Bumblebee</a></li>
+</ol>
+<p>matlab 里面可以通过 <code>opengl info</code> 来查看使用了什么 gpu。</p>
+<h2 id="几个常见问题"><a href="#几个常见问题" class="headerlink" title="几个常见问题"></a>几个常见问题</h2><p>下面的几个问题常常与 matlab 自带的几个动态链接库有关。一般把这些库备份后，将系统中安装的对应包链接到 matlab 里面就可以了。具体的问题见下面的详细解释</p>
+<h3 id="帮助系统没有-CSS-渲染效果"><a href="#帮助系统没有-CSS-渲染效果" class="headerlink" title="帮助系统没有 CSS 渲染效果"></a>帮助系统没有 CSS 渲染效果</h3><p>字体问题常常与 <code>libfreetype.so</code> 这个动态链接库有关。所以解决办法无非以下几步：</p>
+<pre><code class="lang-bash">sudo mv /usr/local/MATLAB/R2017b/bin/glnxa64/libfreetype.so.6 /usr/local/MATLAB/R2017b/bin/glnxa64/libfreetype.so.6.BAK # 备份
+sudo ln -sf /usr/lib64/libfreetype.so.6 /usr/local/MATLAB/R2017b/bin/glnxa64/libfreetype.so.6 # 链接
+</code></pre>
+<h3 id="libGL-error-for-MATLAB"><a href="#libGL-error-for-MATLAB" class="headerlink" title="libGL error for MATLAB"></a><a href="https://askubuntu.com/questions/841785/libgl-error-for-matlab" target="_blank" rel="noopener">libGL error for MATLAB</a></h3><p>解决办法：</p>
+<pre><code class="lang-bash">ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/MATLAB/XXXXX(R2014b)/sys/os/glnxa64/libstdc++.so.6 
+# 或者执行
+cd MATLAB_ROOT/sys/os/glnxa64/
+sudo mv libstdc++.so.6 libstdc++.so.6.old
+</code></pre>
+<h3 id="无法使用并行工具箱"><a href="#无法使用并行工具箱" class="headerlink" title="无法使用并行工具箱"></a>无法使用并行工具箱</h3><p>解决办法同上，链接系统的 <code>libstdc++.so.6</code> 这个动态库。</p>
+<h3 id="matlab-无法使用系统中文字体"><a href="#matlab-无法使用系统中文字体" class="headerlink" title="matlab 无法使用系统中文字体"></a>matlab 无法使用系统中文字体</h3><p>参考： <a href="https://bbs.archlinux.org/viewtopic.php?id=231299" target="_blank" rel="noopener">https://bbs.archlinux.org/viewtopic.php?id=231299</a></p>
+<pre><code class="lang-bash">cd  /usr/local/MATLAB/R2017b # Matlab directory
+cd bin/glnxa64
+mkdir exclude
+mv libfreetype* exclude
+cd ../../sys/os/glnxa64
+mkdir exclude
+mv libstdc++.so.6* exclude
+</code></pre>
+<p>或者跟上面的解决方法类似，备份文件后做链接。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:47:43.771Z" itemprop="dateUpdated">2020-03-01 22:47:43</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2018/07/31/Tips-for-using-matlab-in-linux/" target="_blank" rel="external">https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/matlab/" rel="tag">matlab</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/&title=《linux 下使用 matlab 的几个小提示》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/&title=《linux 下使用 matlab 的几个小提示》 — FLC&source=
+linux 下使用 matlab 的几个小提示
+
+MATLAB LOGO
+嗯，对的，MATLAB 有 linux 版本的，而且 mathematica、..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux 下使用 matlab 的几个小提示》 — FLC&url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/12/16/Python-Deals-large-json-file-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用 Python 软件包来处理较为复杂的 JSON 文件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/12/18/Decrease-VBoX-image/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">减小 VBoX 虚拟磁盘大小</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/&title=《linux 下使用 matlab 的几个小提示》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/&title=《linux 下使用 matlab 的几个小提示》 — FLC&source=
+linux 下使用 matlab 的几个小提示
+
+MATLAB LOGO
+嗯，对的，MATLAB 有 linux 版本的，而且 mathematica、..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux 下使用 matlab 的几个小提示》 — FLC&url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/07/31/Tips-for-using-matlab-in-linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3aQW7EMAgF0N7/0u22UieZD5hoKr2solGT+LEwFPz1FV/ff67fvyf392+4//3vOw9feHh4eOOlJ4tIPp+EI3kqD9mLEODh4eGt8a521Pz+npSnlmqY3ljw8PDwPoZ3v4j8nXmw8PDw8P4vL0kA5UXcdhKS9eDh4eE9z5sXvnk3tZpOHuq14OHh4cW8Uxv0k/cr8z08PDy88VS9N+xPlnJfEPeGcC+ewsPDw1vg5Rtur/CtDsDyhm+hcMfDw8Nb4PXq0rzR0GsZ523iPGR4eHh4p3j5dj/pdiRN4epXoqfw8PDwjvLmjdR8VDZJCc0RGh4eHt4Cr7fQajO3utxqsR4lEjw8PLxDvByQT+Qnb+7BLr+Oh4eHt8yrNhR6jO0UEp1QwMPDwxvwto8L5AkmCcfhFjMeHh7egDcZbuUHTCdjs2ozonx0AA8PDy/m5QOqnHH2uGq1KMfDw8N7hpeXs73GbrXR0GsoNwdgeHh4eANe72OTY1j5WCsP+uWZMjw8PLxDvHnx2gtT3iDOv3gZPjw8PLyjvPzz1aK2N+bvhenydzw8PLw1Xp4Aekmi18g4MCrDw8PDe4TX2/RPLa5XfF/+JR4eHt4Cr5oM8kK515atltrRG/Dw8PCWeflCe83W6igrD9ObwhoPDw9vmZe3Yk9t63npXE5aeHh4eGu86qGB3vGpciuhVaw3e9V4eHh4A16SDHpLOdv8jZIHHh4e3lHed/FKljV5wyQcL57Fw8PDW+D1jjRVj0n1YL1Cf5RP8PDw8GJevpXPWwx5wqh+9xKMh4eHt8brHaJKtvJ8E+9lsDdHFvDw8PA+gNcb+Z9qUpTLazw8PLwP4PVIk/FYNaB4eHh4z/AmW3avkZEHpcrGw8PD2+ZV/+GfFMET6uGZHh4eHl6H9wMEnJKXt/tClAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

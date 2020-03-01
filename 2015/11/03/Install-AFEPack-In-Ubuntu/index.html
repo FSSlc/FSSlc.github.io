@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>在 Ubuntu 中安装 AFEPack | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="AFEPack,Deal. II">
+    <meta name="description" content="在 Ubuntu 中安装 AFEPack  Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考我的说明进行安装。 系统准备我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、Ubuntu 16.04 安装成功。）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Ubuntu 中安装 AFEPack">
+<meta property="og:url" content="https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="在 Ubuntu 中安装 AFEPack  Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考我的说明进行安装。 系统准备我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、Ubuntu 16.04 安装成功。）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-11-03T06:02:55.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:40:53.743Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="AFEPack">
+<meta property="article:tag" content="Deal. II">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">在 Ubuntu 中安装 AFEPack</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">在 Ubuntu 中安装 AFEPack</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-11-03T06:02:55.000Z" itemprop="datePublished" class="page-time">
+  2015-11-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统准备"><span class="post-toc-text">系统准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备安装包"><span class="post-toc-text">准备安装包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装必要软件"><span class="post-toc-text">安装必要软件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-deal-II"><span class="post-toc-text">安装 deal. II</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-mpich"><span class="post-toc-text">安装 mpich</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-AFEPack"><span class="post-toc-text">安装 AFEPack</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Install-AFEPack-In-Ubuntu"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在 Ubuntu 中安装 AFEPack</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-11-03 14:02:55" datetime="2015-11-03T06:02:55.000Z"  itemprop="datePublished">2015-11-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>在 Ubuntu 中安装 AFEPack</p>
+</blockquote>
+<p><strong>Update</strong><br>相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考<a href="https://hub.docker.com/r/fsslc/afepack/" target="_blank" rel="noopener">我的说明</a>进行安装。</p>
+<h2 id="系统准备"><a href="#系统准备" class="headerlink" title="系统准备"></a>系统准备</h2><p>我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、Ubuntu 16.04 安装成功。）</p>
+<a id="more"></a>
+<h2 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h2><p>首先，下载好 deal. II、AFEPack、mpich（非必须） 这几个软件的安装包。</p>
+<p>其中的 deal. II 和 AFEPack 可以到我的百度网盘去下载，这个是我从我大学同学的未来的师兄那里获得的，而那位师兄的老师正是这个软件包的作者 李若 老师。由于高版本的 deal. II 版本经过了许多的修改，且鉴于 AFEPack 几乎停滞的开发状态，我们采用的是 deal. II 的 6.3.1 版本。而 mpich 则可以到官网去下载最新的稳定版本。</p>
+<p>相关软件的下载地址为：</p>
+<p>deal.II 和 AFEPack : 链接: <a href="https://pan.baidu.com/s/1jxjO5wRhMjbQjqetQxSU6g" target="_blank" rel="noopener">https://pan.baidu.com/s/1jxjO5wRhMjbQjqetQxSU6g</a> 密码: utxt<br>mpich : <a href="http://www.mpich.org/downloads/" target="_blank" rel="noopener">http://www.mpich.org/downloads/</a></p>
+<p>下载好这些包后，将他们进行解压备用。</p>
+<h2 id="安装必要软件"><a href="#安装必要软件" class="headerlink" title="安装必要软件"></a>安装必要软件</h2><p>接下来，安装一些必要的软件。</p>
+<p>首先安装 boost 库。这个可以用命令行，也可以使用 synaptic (新得立) 这个图形化的包管理软件来安装。命令行需要使用的命令为：</p>
+<pre><code class="lang-bash">sudo apt-get install libboost-dbg  libboost-all-dev
+</code></pre>
+<p>接着安装自动化产生 <code>makefile</code> 的相关工具。其中 <code>aclocal</code> 已经被包括在 <code>autoconf</code> 里了。</p>
+<pre><code class="lang-bash">sudo apt-get install autoconf automake
+</code></pre>
+<p>接着安装编译器，由于某些原因，编译 AFEPack 时，用高版本(如 4.8)的 gcc 和 g++ 会出错，所以需要安装对应的低版本的包。这里安装 4.6 版本。</p>
+<pre><code class="lang-bash">sudo apt-get install gcc-4.6 g++-4.6 gfortran
+#  降低 gcc，g++ 的版本，可以在后面改回来
+cd /usr/bin
+sudo ln -s gcc-4.6 gcc
+sudo ln -s g++-4.6 g++
+</code></pre>
+<h2 id="安装-deal-II"><a href="#安装-deal-II" class="headerlink" title="安装 deal. II"></a>安装 deal. II</h2><p>根据李若老师的解释，他选用这个包的原因是看上了这个包里面 <code>lac</code> 、 <code>base</code> 中的代码，即关于基础线性代数相关的代码写得很好，所以才采用了 deal. II 。所以我们可以只编译里面的部分文件，当然如果你不在乎占用一点额外的磁盘空间，也可以选择完整安装。</p>
+<p>关于安装路径，下面以我的安装位置 <code>/home/lc/Pkg/deal.II</code> 来举例，其中 <code>/home/lc</code> 为我的家目录，可以对应地修改，也可以安装到其他路径，如 <code>/usr/local/deal.II</code> 等。</p>
+<p>首先，进入解压后的 deal. II 目录，我的在 <code>/home/lc/Pkg/deal.II</code> 。 然后在终端中依次输入下面的命令，其中 # 后的内容为注释，可以忽略。</p>
+<pre><code class="lang-bash">cd /home/lc/Pkg/deal.II # 进入解压后的 deal.II 目录
+./configure
+make -j4 lac base contrib # -j 选项是启用多线程，以此来加快编译的速度，后面的数字最好与你机子的 CPU 的线程数相同或更少
+# 或者使用 make all 来完整安装
+</code></pre>
+<p>经过一段时间后(根据你的机器配置而定)，就把需要的文件编译好了。下面需要做一些软链接。在以前安装时，我尝试过直接把 deal. II 编译后产生的相应目录加在系统变量中，然后再安装 AFEPack，结果 AFEPack 不能找到 deal. II 的头文件，所以还是做个链接。具体的原因我也不清楚，可能需要问作者本人。</p>
+<p>下面是我做链接时使用的命令，请相应做些修改：</p>
+<pre><code class="lang-bash">cd /usr/local/include
+sudo ln -s ~/Pkg/deal.II/deal.II/include/ .
+sudo ln -s ~/Pkg/deal.II/lac/include/lac/ .
+sudo ln -s ~/Pkg/deal.II/base/include/base/ .
+sudo ln -s ~/Pkg/deal.II/contrib/tbb/tbb22_20090809oss/include/tbb/ .
+# 这里的 tbb22_20090809oss 可能会有所不同，但一般这个目录都是以 tbb 开头的，可用 Tab 键来自动补全；
+# 最后的 `.` 代指当前目录 ，以下类型
+cd /usr/local/lib
+sudo ln -s ~/Pkg/deal.II/lib/lib* .
+</code></pre>
+<h2 id="安装-mpich"><a href="#安装-mpich" class="headerlink" title="安装 mpich"></a>安装 mpich</h2><p><strong>这个不是必须的，除了 mpich，也可以直接安装<br>OpenMPI</strong>。</p>
+<p>这个的安装可以根据解压后文件夹中的指示来操作，一般都是如下几个命令：</p>
+<pre><code class="lang-bash">cd /home/lc/Pkg/mpich2/ # 进入 mpich2 解压后的目录，根据你自己的情况调整
+./configure
+make -j4
+sudo make install
+</code></pre>
+<p>这样就安装好了 mpich。</p>
+<p>当然，我们也可以直接使用软件源里面的 mpich，这样或许更省事些。</p>
+<h2 id="安装-AFEPack"><a href="#安装-AFEPack" class="headerlink" title="安装 AFEPack"></a>安装 AFEPack</h2><p>现在进行 AFEPack 的安装。首先利用 autotools 套件中的软件(即 aclocal，autoconf，automake 等)来自动生成 configure 文件。使用的命令如下：</p>
+<pre><code class="lang-bash">cd /home/lc/Pkg/AFEPack
+aclocal
+autoconf
+automake --add-missing
+</code></pre>
+<p>然后把</p>
+<pre><code class="lang-bash"># AFEPack templete
+export AFEPACK_TEMPLATE_PATH=&quot;/home/lc/Pkg/AFEPack/template/triangle:/home/lc/Pkg/AFEPack/template/rectangle:/home/lc/Pkg/AFEPack/template/interval:/home/lc/Pkg/AFEPack/template/twin_triangle:/home/lc/Pkg/AFEPack/template/tetrahedron:/home/lc/Pkg/AFEPack/template/twin_tetrahedron:/home/lc/Pkg/AFEPack/template/four_tetrahedron&quot;
+</code></pre>
+<p>加到 <code>～/.bashrc</code> 文件中，然后使用 <code>source ~/.bashrc</code> 来使更改生效。</p>
+<p>接着对 AFEPack 进行配置和编译。</p>
+<pre><code class="lang-bash">./configure
+make -j4
+</code></pre>
+<p>编译期间会报错停掉，报 mpi.h 找不到。这时仍然继续，输入：</p>
+<pre><code class="lang-bash">make install
+</code></pre>
+<p>然后进入 AFEPack 目录下的 template 目录，来编译模板。我使用的命令为：</p>
+<pre><code class="lang-bash">cd /home/lc/Pkg/AFEPack/template
+make
+</code></pre>
+<p>现在来编译关于 mpi 的静态文件。这里需要 MPI 的相关库，这里我们使用的是 mpich。</p>
+<pre><code class="lang-bash">~/Pkg/AFEPack/library/mpi
+make -j4
+</code></pre>
+<p>example 子目录下有一些实用的工具，我们现在来编译它们。</p>
+<pre><code class="lang-bash">cd ~/Pkg/AFEPack/example
+make -j4
+</code></pre>
+<p>最后执行下面的命令来使得 <code>ld</code> 能够找到 <code>AFEPack.so</code> 等静态库。</p>
+<pre><code class="lang-bash">cd ～/Pkg/AFEPack
+sudo ldconfig
+</code></pre>
+<p>至此， AFEPack 的安装就结束了。</p>
+<p>如果你在安装期间有什么问题，可以来询问我，我尽量帮忙。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:40:53.743Z" itemprop="dateUpdated">2020-03-01 22:40:53</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/11/03/Install-AFEPack-In-Ubuntu/" target="_blank" rel="external">https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AFEPack/" rel="tag">AFEPack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deal-II/" rel="tag">Deal. II</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/&title=《在 Ubuntu 中安装 AFEPack》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/&title=《在 Ubuntu 中安装 AFEPack》 — FLC&source=
+在 Ubuntu 中安装 AFEPack
+
+Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docke..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装 AFEPack》 — FLC&url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/12/15/Build-AFEPack-docker-image/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用 docker 构建 AFEPack 镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/11/03/Cannot-convert-string-to-type-FontStruct/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Ubuntu 下 Opendx Data Explorer 的字体问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/&title=《在 Ubuntu 中安装 AFEPack》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/&title=《在 Ubuntu 中安装 AFEPack》 — FLC&source=
+在 Ubuntu 中安装 AFEPack
+
+Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docke..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装 AFEPack》 — FLC&url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aS26DMBQF0O5/01TqNALutWlV7OMRitKQQ6WX9/v6is/xcz6vr1/5fP36k89eeexgYGC8lnFcnjPG2c2Sv20f2fV3w8DA2IeRf1weHPNHkzyCm/tiYGBgxB99ExaDdBADAwNjPuDmJWueaOYFMwYGxs6MJI1rG2158E0K5sdqcQwMjBcyZgYDv339R/MNDAyMf8w4yjOTPiYtvGPoYGBgrM1o1x3yYrVNBPOU9DQcY2BgLM1oE7WxYWR+r6lFMQwMjOUYM6Vj25hrRwLJfTEwMDDysWVeauZFctGYw8DA2J7xVJBtB5DFAgcGBsbSjKfWHa6/1tjwoB52YmBgbMDIi8l52FjzrihlMTAwFmW0Y8W2rd8G2XzwiYGBsTYjX2t4dv2rLVlv3o+BgbEBo22WzSxetOljnRRiYGBsyagHihMPoh1qFgEXAwPj5YwkwLWjzZkVjTzFxMDA2IeRFKj5msVMiZsnkXW/EAMD47WMurEVt97aIWgbZDEwMPZh5GGxDXx54M4D681/AAMDY2nGfHk5Fi5nmn3RJBYDA2MJRltGtqsY7Xhy6v0YGBiLMo7yzAwd5wvjm98NDAyMRRljwW6s3ZYH5TyUY2Bg7MNoh4hjwTFPHMeKWwwMjB0YbeNshjd2bn4xMDAwMILrNplrS1wMDAyMNsCNBdN8sSNZ8hhMDTEwMF7LaEeYeaN/7EHUIwEMDIylGWOB8tnljLG0cmq+gYGB8Q7GN2AqiYdJF2LoAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

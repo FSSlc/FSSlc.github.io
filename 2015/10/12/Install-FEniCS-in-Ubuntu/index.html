@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>在 Ubuntu 中安装 FEniCS | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="FEniCS,Anaconda">
+    <meta name="description" content="在 Ubuntu 中安装 FEniCS                                                                                               FEniCS Logo              Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网的说明。这样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Ubuntu 中安装 FEniCS">
+<meta property="og:url" content="https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="在 Ubuntu 中安装 FEniCS                                                                                               FEniCS Logo              Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网的说明。这样">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fenicsproject.org/pub/tutorial/sphinx1/_static/fenics_banner.png">
+<meta property="article:published_time" content="2015-10-12T04:32:13.000Z">
+<meta property="article:modified_time" content="2020-03-01T14:41:48.540Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="FEniCS">
+<meta property="article:tag" content="Anaconda">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fenicsproject.org/pub/tutorial/sphinx1/_static/fenics_banner.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">在 Ubuntu 中安装 FEniCS</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">在 Ubuntu 中安装 FEniCS</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-10-12T04:32:13.000Z" itemprop="datePublished" class="page-time">
+  2015-10-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缘由"><span class="post-toc-text">缘由</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FEniCS-的安装过程"><span class="post-toc-text">FEniCS 的安装过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装前的准备"><span class="post-toc-text">安装前的准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#具体的安装过程"><span class="post-toc-text">具体的安装过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装后需要做的事"><span class="post-toc-text">安装后需要做的事</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装后软件的学习"><span class="post-toc-text">安装后软件的学习</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Install-FEniCS-in-Ubuntu"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在 Ubuntu 中安装 FEniCS</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-10-12 12:32:13" datetime="2015-10-12T04:32:13.000Z"  itemprop="datePublished">2015-10-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Software/">Software</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>在 Ubuntu 中安装 FEniCS</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://fenicsproject.org/pub/tutorial/sphinx1/_static/fenics_banner.png" alt="FEniCS Logo" title="">
+                </div>
+                <div class="image-caption">FEniCS Logo</div>
+            </figure>
+<p><strong>Update 20161212</strong><br>现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看<a href="https://fenics-containers.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">官网的说明</a>。这样就可以少折腾了。</p>
+<a id="more"></a>
+<h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>最近导师去开了个会议，从其他人那里打听到有很多人都在 FEniCS 的基础上写代码了。导师她最开始认为，它是用来写 Fortran 代码的一个平台，加之她主要使用的编程语言为 Fortran，所以希望我们能够去学习一下。</p>
+<p>第一次看到 FEniCS 这个词，应该可以追溯到我大四做毕业论文的时候。那时想找个软件来书写有限元程序，因为自己从底层开始写起太费事了。通过搜索，找到了许多软件，具体可以看看这个链接。通过试用，左右权衡，最后决定使用 deal. II 来做毕业论文。</p>
+<p>当时对于 FEniCS 的认识是：</p>
+<pre><code>它是用 Python 写的，自己对 Python 不熟悉，查找到的资料不是很齐全；
+当时自己尝试从 PPA 安装了 FEniCS， 但程序运行地不是很顺利；
+</code></pre><p>现在，通过这一两天的使用，觉得这货实在是太简单了，用 Python 根据它自定义的 UFL 语言来自动生成可执行代码，最后使用 OpenGL 和 VTK 来生成图形和 vtu 文件。当然，方便的代价就是编译过程的时间有点长；毕竟鱼和熊掌是不能兼得的。</p>
+<p>PS：FEnics 还可以与 C, C++, Fortran, 或 MATLAB 交互，具体可以看<a href="https://hplgit.github.io/fenics-mixed/doc/web/index.html" target="_blank" rel="noopener">这里的文档</a>。</p>
+<h2 id="FEniCS-的安装过程"><a href="#FEniCS-的安装过程" class="headerlink" title="FEniCS 的安装过程"></a>FEniCS 的安装过程</h2><h3 id="安装前的准备"><a href="#安装前的准备" class="headerlink" title="安装前的准备"></a>安装前的准备</h3><p>首先我的安装平台为 ubuntu 14.04, 64 位，但从自己安装的过程来看，其他系统应该也可以安装，大体步骤是一致的，具体可以看官网的说明。</p>
+<p>特别说明：对于使用 Windows 系统的同学，你就别指望能够完美安装和运行 FEniCS 了，官网上说了， Windows 平台的安装包没有更新了。所以还是尽快学习一些 Linux 或 Unix 这类系统的使用方法吧。命令行真的非常好用，包管理器的使用也非常方便。</p>
+<p>下面我是通过 Anaconda 这个 Python 集成环境来安装 FEniCS 的，所以你需要安装好 Anaconda。可以到官网的下载页面 去下载相应版本的安装包，这里我们使用的是 Anaconda-2.3.0-Linux-x86_64.sh，至于安装，该页面里有提示，这里不赘述了。</p>
+<p>另外，在运行 FEniCS 的程序之前，需要安装好 gcc g++ gfortran 等编译器，不然会出现意想不到的错误。可以使用如下的命令来安装这些软件：</p>
+<pre><code class="lang-bash">sudo apt-get install build-essential gfortran
+</code></pre>
+<h3 id="具体的安装过程"><a href="#具体的安装过程" class="headerlink" title="具体的安装过程"></a>具体的安装过程</h3><p>根据官网的解释，有如下几种方法可以来进行安装：</p>
+<ol>
+<li>直接添加 PPA 来进行下载。</li>
+</ol>
+<p>但安装尝试后，会引入许多不必要的安装依赖如 texlive 等，为了不污染系统，所以没有采取这种方法。当然，如果你订阅了他们的 PPA，这种方式能够使你获取到最新的更新。如果你没有‘洁癖’，可以尝试这种方法。</p>
+<p>(注： 最近(2015-12) 找到了如何在安装有 Texlive 发型包的情况下，不再引起上面需要安装 texlive 依赖的方法，具体请参考<a href="http://www.latexstudio.net/archives/4017.html" target="_blank" rel="noopener">这篇文章</a>的最后一段，但请自己制作 dummy package，因为在安装时，可能会出现一点问题，请根据问题的描述更改相应的配置文件。 )</p>
+<ol>
+<li>通过下载脚本编译。</li>
+</ol>
+<p>通过下面的这个脚本来从源文件编译安装 FEniCS。</p>
+<pre><code class="lang-bash">curl -s http://fenicsproject.org/fenics-install.sh | bash
+</code></pre>
+<p>但在尝试的过程中，总是提示 SSL 认证失败。无果，所以放弃了这种方法。</p>
+<ol>
+<li>直接下载虚拟机镜像来运行。</li>
+</ol>
+<p>将镜像导入 Vbox 后，大概用了 7G 的空间，镜像里的系统使用的是 Lubuntu，感觉很精简，但没有自己安装的 Ubuntu 体验好。又考虑到空间占用的原因，亦弃之。</p>
+<ol>
+<li>通过 Anaconda 来安装 FEniCS。</li>
+</ol>
+<p>可以根据<a href="https://github.com/juanlu001/fenics-recipes" target="_blank" rel="noopener">这个网页</a>的指导安装。</p>
+<p>这个 github 仓库里面用的命令是：</p>
+<pre><code class="lang-bash">conda install fenics mkl --channel juanlu001
+</code></pre>
+<p>而官网里面使用的命令是：</p>
+<pre><code class="lang-bash">conda create --name fenics27 python=2.7
+source activate fenics27
+conda install fenics --channel juanlu001
+</code></pre>
+<p>我最开始是根据 Github 上的命令来安装的。而再给其他人安装的时候，我特别使用了官网了给出的命令，现在大致知道了它们之间的区别：前者是直接将 FEniCS 安装到 Anaconda 的目录里面，而后者是创建了一个新的环境，单独进行了安装。考虑到简洁性，我推荐第二个命令。</p>
+<p>在终端中依次输入上面的命令后，会大概下载 300M 左右的安装包，最后安装完毕会有 4G 左右(加上 Anaconda 原来安装后的文件)。经过一段漫长的等待后，FEniCS 就安装好了。</p>
+<h2 id="安装后需要做的事"><a href="#安装后需要做的事" class="headerlink" title="安装后需要做的事"></a>安装后需要做的事</h2><p>安装完成后，自然需要运行一下 FEniCS 自带的示例程序，它们一般在 <code>~/anaconda/envs/fenics27/share/dolfin/</code> 目录下。随便进入某个示例目录，可以有名为 <code>cpp</code> 和 <code>python</code> 的两个目录。先进入 python 这个目录试试效果。</p>
+<p>在终端运行：</p>
+<pre><code class="lang-bash">python filename.py # 注意请将这句中的 filename 换为具体的程序名称
+</code></pre>
+<p>然后终端会报错，大致意思是没有找到 <code>dolfin</code> 这个 module。这应该是环境变量的问题，最后通过搜索，参考<a href="https://answers.launchpad.net/dolfin/+question/166153" target="_blank" rel="noopener">这里的说明</a>，我们需要将 dolfin.conf 这个文件加到 PYTHONPATH 环境变量中。命令为：</p>
+<pre><code class="lang-bash">source &lt;PATH_TO_YOUR_DOLFIN_INSTALLATION&gt;/share/dolfin/dolfin.conf
+</code></pre>
+<p>对于使用 Anaconda 安装 FEniCS 的情况，dolfin.conf 一般在 <code>~/anaconda/envs/fenics27/share/dolfin</code> 目录里。</p>
+<p>最好是将这个上面这个命令写入你本地的 <code>.bashrc</code> 文件里面，然后用 <code>source ~/.bashrc</code> 更新环境变量。</p>
+<p>这个做完后，总该可以运行程序了吧。可惜，还不行。你会看终端里报错，提示说某些 VTK 的动态链接库找不到，根据 Github 里的 <a href="https://github.com/Juanlu001/fenics-recipes/issues/33" target="_blank" rel="noopener">issue</a>，需要使用下面的命令将 VTK 的版本降低：</p>
+<pre><code class="lang-bash">conda list vtk
+conda install &quot;vtk=5.10&quot;
+</code></pre>
+<p>这样就可以运行程序了。在程序执行的开始，你可能会看到有些提示，说 MKL 库有 30 天的试用期限，要你购买。对于这种情况，Anaconda 给学校和科研机构提供有学术版的许可，只要你使用 edu 的邮箱就可以申请到, <a href="https://store.continuum.io/cshop/academicanaconda" target="_blank" rel="noopener">申请地址</a> 。</p>
+<p>申请后，会得到一个 license 文件，将其放在 <code>~/.continuum</code> 目录下即可。</p>
+<p>另外，我发现我自己申请的 license 同样也可以用在别人的机器上，不知这是不是一个 bug。</p>
+<h3 id="安装后软件的学习"><a href="#安装后软件的学习" class="headerlink" title="安装后软件的学习"></a>安装后软件的学习</h3><p>关于入门，可以直接看官网的文档，例如 tutorial，The FEniCS Book, Manual。</p>
+<p>PS： 可以到<a href="https://launchpadlibrarian.net/83776282/fenics-book-2011-10-27-final.pdf" target="_blank" rel="noopener">这里</a>下载到 The FEniCS Book。</p>
+<p>关于这两天学习的感受：我是从 tutorial 入门的，看了过后感觉这货居然这么简单，相比于我用 deal. II 写代码，这不知要轻松多少倍。另外，tutorial 里面的例子有些代码不能运行了，应该是 dolfin(或其他组件) 更新的缘故，而文档还没有被更新。下一步继续看文档来学习。</p>
+<p>以后深入后，再写点东西来分享。</p>
+<p><strong>UPDATE 2018.07.31</strong><br>有几点需要更新的：</p>
+<ol>
+<li><p>偶然发现了这个 <a href="http://www.fenics-hpc.org" target="_blank" rel="noopener">网站</a>， 似乎是将 fenics 应用到 HPC 领域中，并且在 edx 中开了<a href="https://www.edx.org/course/high-performance-finite-element-modeling-kthx-hpfem01-1x#" target="_blank" rel="noopener">一门 MOOC</a></p>
+</li>
+<li><p>关于学习资源，可以看看 <a href="http://people.cs.uchicago.edu/~ridg/" target="_blank" rel="noopener">这个老师的主页</a>，里面课程中有一些 notes。</p>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T14:41:48.540Z" itemprop="dateUpdated">2020-03-01 22:41:48</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/10/12/Install-FEniCS-in-Ubuntu/" target="_blank" rel="external">https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Anaconda/" rel="tag">Anaconda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FEniCS/" rel="tag">FEniCS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/&title=《在 Ubuntu 中安装 FEniCS》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/&title=《在 Ubuntu 中安装 FEniCS》 — FLC&source=
+在 Ubuntu 中安装 FEniCS
+
+
+                
+                    
+                ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装 FEniCS》 — FLC&url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/11/03/Cannot-convert-string-to-type-FontStruct/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Ubuntu 下 Opendx Data Explorer 的字体问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/&title=《在 Ubuntu 中安装 FEniCS》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/&title=《在 Ubuntu 中安装 FEniCS》 — FLC&source=
+在 Ubuntu 中安装 FEniCS
+
+
+                
+                    
+                ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装 FEniCS》 — FLC&url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACGUlEQVR42u3aQXbCMAwFQO5/aXqBkvxvhQX2ZNVHg6PJQkiWX6/4egfXp/uTla8/eezCwMD4WUYS3CTclv3pudcrYGBgnMC4ToXJ0p9gefK9fu5NzBgYGBhx8p1QMTAwML6dcNvg2hUwMDAwJsslDWrSrLZgDAyMcxiTxvLbf39lvoGBgfFTjHd5XQ8d26Z3rWT8JyoMDIytGXmCWyPlsDbhYmBgnMPIW9O1bbLJ0YrioBgGBsYBjGQbKy8Hk6AfLjcxMDC2ZsyPPuSvYD7OvHm5GBgYmzLaL6yVkm391qZvDAyMExjt/tykTGw70IiNgYGxNSMv8tZa0/mYMx8nYGBg7Mpow01a3By8VnpGI0wMDIztGJPRY1G0xUHXW3sYGBhbM9aKv+v75wOD+rAFBgbG1oyou13brB+/rKKhxcDAOJKRb9ZfB9q+ptFvBQYGxtaMtaFje4RiMni44WFgYGzNaLf+rxdqvzUZW97MYDEwMDZl5OPJtjTMG+DRy8LAwDiAkQfdtqmTwjEfKmBgYJzAyDe82nb0gQ21fJCJgYGxHeNdXvMBQzuuiFprDAyMrRltspun5rVDFZMxBgYGxh6M/IBFfn9756TpxcDAOIexNpJca1nnrS8GBgZGO87Mj260TyyqWgwMDIylEeYaIPnvYwkXAwPjpxhJEzs5kJEk1paNgYFxDmPSguYBTbbS2kNjGBgYGzH+ABHKqHZ6qOlwAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
