@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,Emoji">
+    <meta name="description" content="通过 GitHub 将它们嵌入到网页和其他项目中                                                                                                             Emoji, 来自日本的小巧符号，通过图像表达感情，已经征服了移动互联网的信息世界。 现在，你可以在虚拟世界中随处使用它们了。 Tw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号">
+<meta property="og:url" content="https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="通过 GitHub 将它们嵌入到网页和其他项目中                                                                                                             Emoji, 来自日本的小巧符号，通过图像表达感情，已经征服了移动互联网的信息世界。 现在，你可以在虚拟世界中随处使用它们了。 Tw">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/01/205325gyj2l10yn2zxgm4y.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/01/205332ff1vf82k13o18t92.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/01/205334iei6li3wvl3vl6tr.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/01/205336rpl22xbdxl2ixljx.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/01/205337gn1jaazgj47jnfcf.png">
+<meta property="article:published_time" content="2015-02-28T12:53:00.000Z">
+<meta property="article:modified_time" content="2020-03-01T16:28:21.926Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Emoji">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/01/205325gyj2l10yn2zxgm4y.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-02-28T12:53:00.000Z" itemprop="datePublished" class="page-time">
+  2015-02-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为-Emoji-得到-Unicode-支持"><span class="post-toc-text">为 Emoji 得到 Unicode 支持</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#将-Emoji-转换为可阅读的语言"><span class="post-toc-text">将 Emoji 转换为可阅读的语言</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-02-28 20:53:00" datetime="2015-02-28T12:53:00.000Z"  itemprop="datePublished">2015-02-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>通过 GitHub 将它们嵌入到网页和其他项目中</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/01/205325gyj2l10yn2zxgm4y.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Emoji, 来自日本的小巧符号，通过图像表达感情，已经征服了移动互联网的信息世界。</p>
+<p>现在，你可以在虚拟世界中随处使用它们了。 Twitter 最近<a href="https://blog.twitter.com/2014/open-sourcing-twitter-emoji-for-everyone" target="_blank" rel="noopener">开源了</a>他们的 emoji 符号库，使得你可以在你自己的网站，应用，和项目中使用它们。</p>
+<a id="more"></a>
+<p>但这需要一点体力活。 Unicode 已经识别甚至标准化了 emoji 字母表， 然而 emoji 仍然<a href="http://www.unicode.org/reports/tr51/full-emoji-list.html" target="_blank" rel="noopener">不能完全与所有的网络浏览器相兼容</a>，这意味着大多数情况下，它们将呈现为 “豆腐块”或“空白盒子”。当 Twitter 想使得 emoji 到处可用时，这家社交网络联合了一家名为<a href="https://twitter.com/iconfactory" target="_blank" rel="noopener">Icon Factory</a>的公司来渲染浏览器以模仿文本信息符号的效果。Twiter 认为人们对他们的 emoji 库有很大的需求。</p>
+<p>现在， 你可以从 <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">GitHub</a> 上克隆 Twitter 的整个库，从而在你的开发项目中使用它们。 下面将为你介绍如何达到上面的目的以及如何使得 emoji 更容易被使用。</p>
+<h3 id="为-Emoji-得到-Unicode-支持"><a href="#为-Emoji-得到-Unicode-支持" class="headerlink" title="为 Emoji 得到 Unicode 支持"></a>为 Emoji 得到 Unicode 支持</h3><p>Unicode 是国际编码标准，它为任意的符号、字母或人们想在网络上使用的数字配置了一串编码。换句话说，它是你如何在计算机上阅读文本与计算机如何读取文本之间的缺失环节。例如，对于你正看到的位于这些句子中的<code>空格</code>（LCTT 译注：英文分词中间的空格），计算机读取为 “&amp;nbsp”。</p>
+<p>Unicode 甚至拥有其自己的<a href="http://www.unicode.org/reports/tr51/full-emoji-list.html" target="_blank" rel="noopener">原始 emoji</a>，它们可以在没有你的任何努力的情况下在浏览器中被阅读。例如，当你看到了 一个 ❤ 符号，你的计算机正在解码字符串 “2665” 。</p>
+<p>要在大多数情况下使用 Twitter 的 emoji 库，你只需在你的 HTML 网页中的 <code>&lt;head&gt;</code>块中添加如下脚本：</p>
+<pre><code class="lang-html">&lt;script src=&quot;//twemoji.maxcdn.com/twemoji.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>这样就使得你的项目可以访问包含有已经在 Twitter 中可使用的数以百计的 Emoji 符号的 JavaScript 库。然而，创建一个仅仅包含这个脚本的文档并不能使得在你的网站中呈现出 emoji 符号，实际上，你仍需要嵌入这些 emoji 符号！</p>
+<p>在 <code>&lt;body&gt;</code>块中，粘贴一些可以在 Twitter 的<a href="https://github.com/twitter/twemoji/blob/gh-pages/preview.html" target="_blank" rel="noopener">preview.html 文件源代码</a> 中找到的 emoji 字符串。我使用了 &#x1F3B9; 和 &amp;#x1F3C1，当然我并不知道在浏览器窗口中它们的样子。是的，你必须粘贴并猜测它们。你已经看出了问题，我们将在第二小节中予以解决。</p>
+<p>无论如何，通过一些尝试，你可以将一个如下图的原始 HTML 文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/01/205332ff1vf82k13o18t92.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>显示为如下图的网页：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/01/205334iei6li3wvl3vl6tr.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="将-Emoji-转换为可阅读的语言"><a href="#将-Emoji-转换为可阅读的语言" class="headerlink" title="将 Emoji 转换为可阅读的语言"></a>将 Emoji 转换为可阅读的语言</h3><p>对于一个网站或应用，Twitter 的解决方案是非常适用的。但如果你想通过 HTML 轻易地插入你喜爱的 emoji 符号，你需要一个更易实现的解决方案，而不是记住所有代表 emoji 的 Unicode 字符串。</p>
+<p>那正是程序员 Elle Kasai 的 <a href="http://ellekasai.github.io/twemoji-awesome/" target="_blank" rel="noopener">Twemoji Awesome</a> 样式大展身手的地方。</p>
+<p>通过向任意网页中添加 Elle 的开源样式表，你可以适用 英语单词来理解你正插入的 emoji 符号的意义。所以如若你想展示一个 心形 emoji 符号，你可以简单地输入：</p>
+<pre><code class="lang-html">&lt;i class=&quot;twa twa-heart&quot;&gt;&lt;/i&gt;
+</code></pre>
+<p>为了实现上面的目的，让我们下载 Elle 的项目，通过点击在 GitHub 上 “Download ZIP” 按钮。</p>
+<p>接着，我们在桌面上新建一个文件夹，然后进入该文件夹，并将 emoji.html—-我先前向你展示的 HTML 源文件—- 和 Elle 的 <a href="https://github.com/ellekasai/twemoji-awesome/blob/gh-pages/twemoji-awesome.css" target="_blank" rel="noopener">twemoji-awesome.css</a> 一同放进去。</p>
+<p>我们还需要 HTML 文件识别这个 CSS 文件，所以在 html 网页中的 <code>&lt;head&gt;</code> 块中，为 CSS 文件添加一个链接：</p>
+<pre><code class="lang-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;twemoji-awesome.css&quot;&gt;
+</code></pre>
+<p>一旦你将上面的代码添加了进去，你便可以删除先前添加的 Twitter 的脚本链接。</p>
+<p>现在，找到 <code>body</code> 块部分的代码，然后添加一些 emoji 符号。我使用了 <code>&lt;i class=&quot;twa twa-sparkling-heart&quot;&gt;&lt;/i&gt;</code>, <code>&lt;i class=&quot;twa twa-exclamation&quot;&gt;&lt;/i&gt;</code>, <code>&lt;i class=&quot;twa twa-lg twa-sparkles&quot;&gt;&lt;/i&gt;</code> 和 <code>&lt;i class=&quot;twa twa-beer&quot;&gt;&lt;/i&gt;</code>。</p>
+<p>最终，你将得到如下的代码：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/01/205336rpl22xbdxl2ixljx.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>保存并在浏览器中查看上面的文件：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/01/205337gn1jaazgj47jnfcf.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Duang！这样你不仅得到了一个可以在浏览器中支持 emoji 符号的基本网页，而且还知道了如何简单地实现它。你可以随意的在<a href="https://github.com/laurenorsini/Emoji-Everywhere" target="_blank" rel="noopener">我的 GitHub</a> 中查看这个教程，并且可以克隆这些实际的文件而不只是看看这些截图。</p>
+<p>题图来自于<a href="http://getemoji.com/" target="_blank" rel="noopener">得到 Emoji</a>； Lauren Orsini 截图。</p>
+<hr>
+<p>via: <a href="http://readwrite.com/2014/11/12/how-to-use-emoji-in-the-browser-window" target="_blank" rel="noopener">http://readwrite.com/2014/11/12/how-to-use-emoji-in-the-browser-window</a><br>publish: <a href="https://linux.cn/article-4961-1.html" target="_blank" rel="noopener">https://linux.cn/article-4961-1.html</a></p>
+<p>作者：<a href="http://readwrite.com/author/lauren-orsini" target="_blank" rel="noopener">Lauren Orsini</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T16:28:21.926Z" itemprop="dateUpdated">2020-03-02 00:28:21</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/" target="_blank" rel="external">https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emoji/" rel="tag">Emoji</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/&title=《[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/&title=《[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号》 — FLC&source=
+通过 GitHub 将它们嵌入到网页和其他项目中
+
+
+                
+                    
+           ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号》 — FLC&url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/03/05/Translate-dupeGuru-Find-And-Remove-Duplicate-Files-Instantly-From-Hard-Drive/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] dupeGuru - 直接从硬盘中查找并移除重复文件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/02/25/Translate-Undelete-Files-on-Linux-Systems/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 怎样在 Linux 系统中恢复已删除文件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/&title=《[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/&title=《[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号》 — FLC&source=
+通过 GitHub 将它们嵌入到网页和其他项目中
+
+
+                
+                    
+           ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 怎样通过 Twitter 的开源库来随处使用 Emoji 表情符号》 — FLC&url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/02/28/Translate-How-To-Use-Emoji-Anywhere-With-Twitter-s-Open-Source-Library/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMklEQVR42u3aQW7CQAwFUO5/aSp12yb5tmlFzMsKCRLmDQtj/3k84uv5fR29/nkdvfvzmdWnnb9+8YWNjY19E/bz9Eqo1SefL/f8rvM1JBZsbGzsreykaOWlIl96r3BOPoONjY39yexkcX9XzI4+iY2NjY1dLWD50quNRL6q3vZhY2Nj72bng/7JRvRigLx8/sksDRsbG/vt2fOg931e/2u+jY2Njf0G7GfxKv/dD74xeU71wNCFAhsbG3sRO/maZEGTOHYy7s9bpkd1d7GxsbFvwq4ecMyPYCaY6hHP3rGhchXFxsbGviG7OkhKilkVk7zbmwv9smZsbGzsRex8AJT80e+VqLyF6JXMctCLjY2NfXN2NUydZMu9e6sbHR39wcbGxr4tu3q0MV9KNaztbUdvpIWNjY29lZ13Kr3AoDq0qg6h8h8AGxsbeys734j58cfXRgvl5gQbGxt7EbvafiRD/LzI9Y74VKOIZkiAjY2NfRN2NQB4bXDbG2xNShc2Njb2Pnb1L/u8XPWakLyI5rEENjY29g52cqJnHhv0PlMNdwsBMDY2NvY69uSITB73VsOGSYBxsZXY2NjYS9nVIzjVODZpFarNSbN9wsbGxl7KrrYZyQBocm/10E8iKrci2NjY2Ddkz8vYpAlpDoniQoiNjY29j53/xZ9EudWSVo11e2MmbGxs7K3s/EHN80FxJPCIr14sjY2Njb2JPTkQMw9iJw1MHldgY2Nj72ZX24DqaCkvh9FwvxcJHB3cwcbGxl7HTpaVF6p5U9HbbmxsbOzPYffAk9F8b5yU3xX9DNjY2NiL2MlYZx4ATwrkpPG4uAsbGxt7BTs/LpMXibwVyRuYXotyUbexsbGxF7F7Q6JeK5I/pxf3Rp/BxsbGXseuRrPV1qV6pCaPhJshMTY2NvYidi+CrTYJ+db0ljsfRWFjY2PfnZ0XrXlrMY94q1t8+DtjY2Njr2P3Dsr0QoJerNsbXR1+CzY2NvZHsnsD/Xkk3NuOi23FxsbGxo7jhCqgN5bKGydsbGzsreze0Zm8Aag2G3n0m39vMx7AxsbGfnt2L+jttSKTwtaLCrCxsbFXs78ARPXecmomBo4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

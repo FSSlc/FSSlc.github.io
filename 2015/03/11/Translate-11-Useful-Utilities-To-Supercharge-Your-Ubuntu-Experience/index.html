@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 让你玩转 Ubuntu 桌面的十一件武器 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,Ubuntu,桌面">
+    <meta name="description" content="介绍一些工具来调整和优化 Unity 桌面的外观、行为、性能  无论你是一个相对的新手还是经验丰富的专家，我们都想从我们的操作系统中得到更多的东西。正如大多数现代的操作系统，相比于乍一看呈现出的内容，Ubuntu 还有更多东西可以向我们提供。 从调整和优化 Unity 桌面的外观、行为、性能到执行系统维护，这里有大量的实用工具和应用可以帮助你调整 Ubuntu ，随时满足你的需求。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 让你玩转 Ubuntu 桌面的十一件武器">
+<meta property="og:url" content="https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍一些工具来调整和优化 Unity 桌面的外观、行为、性能  无论你是一个相对的新手还是经验丰富的专家，我们都想从我们的操作系统中得到更多的东西。正如大多数现代的操作系统，相比于乍一看呈现出的内容，Ubuntu 还有更多东西可以向我们提供。 从调整和优化 Unity 桌面的外观、行为、性能到执行系统维护，这里有大量的实用工具和应用可以帮助你调整 Ubuntu ，随时满足你的需求。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004329h9lncxutj7s98l66.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004331vjf9qq1vv3jq7913.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004337qh83z5gv3pwq7s8h.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004338tii8ix884b8tz81r.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004339r5tvyyli0enujnty.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004340x03qzr5r0cpo3ddb.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004342ux0qm9a244szxjqx.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004343whhai9rxqxh5hrah.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004344vbyyaa4w8582lpn4.jpg">
+<meta property="article:published_time" content="2015-03-11T01:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-01T16:28:56.270Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="桌面">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/11/004329h9lncxutj7s98l66.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 让你玩转 Ubuntu 桌面的十一件武器</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 让你玩转 Ubuntu 桌面的十一件武器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-11T01:00:00.000Z" itemprop="datePublished" class="page-time">
+  2015-03-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Unity-Tweak-Tool"><span class="post-toc-text">Unity Tweak Tool</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Unity-隐私指示器"><span class="post-toc-text">Unity 隐私指示器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Unity-橱窗"><span class="post-toc-text">Unity 橱窗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#咖啡因（Caffeine）"><span class="post-toc-text">咖啡因（Caffeine）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#系统监控指示器"><span class="post-toc-text">系统监控指示器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#针对-Linux-笔记本电脑的省电工具"><span class="post-toc-text">针对 Linux 笔记本电脑的省电工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TLP"><span class="post-toc-text">TLP</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Laptop-Mode-Tools"><span class="post-toc-text">Laptop Mode Tools</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Intel-显卡驱动安装工具"><span class="post-toc-text">Intel 显卡驱动安装工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#硬件信息"><span class="post-toc-text">硬件信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#磁盘空间可视化程序"><span class="post-toc-text">磁盘空间可视化程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BleachBit-Cruft-Cleaner"><span class="post-toc-text">BleachBit (Cruft Cleaner)</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 让你玩转 Ubuntu 桌面的十一件武器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-03-11 09:00:00" datetime="2015-03-11T01:00:00.000Z"  itemprop="datePublished">2015-03-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍一些工具来调整和优化 Unity 桌面的外观、行为、性能</p>
+</blockquote>
+<p><strong>无论你是一个相对的新手还是经验丰富的专家，我们都想从我们的操作系统中得到更多的东西。正如大多数现代的操作系统，相比于乍一看呈现出的内容，Ubuntu 还有更多东西可以向我们提供。</strong></p>
+<p>从调整和优化 Unity 桌面的外观、行为、性能到执行系统维护，这里有大量的实用工具和应用可以帮助你<strong>调整 Ubuntu ，随时满足你的需求</strong>。</p>
+<a id="more"></a>
+<p>注意： Ubuntu 总是配备了‘合理的默认设置’（即工作良好的选项），以达到开箱即用，这些默认设置适合大多数人，并且它们都是经过了测试、采用及推荐等过程的。</p>
+<p>但一个尺码并不适合所有人。对于我们当中的能工巧匠和实验主义者来说，默认设置只是他们定制系统的起点。</p>
+<p>所以，无需更多的唠叨， 这里有 11 个极好的实用工具可以帮助你增强 Ubuntu 使用体验。</p>
+<h3 id="Unity-Tweak-Tool"><a href="#Unity-Tweak-Tool" class="headerlink" title="Unity Tweak Tool"></a>Unity Tweak Tool</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004329h9lncxutj7s98l66.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我将以这个列表中最重要的一个工具: <strong>Unity Tweak Tool</strong> 来开始这次的介绍。融汇了各种定制选项，Unity Tweak Tool 提供了一系列针对 Ubuntu 和 Unity 桌面的系统综合调整功能。</p>
+<p>它被各种开关、切换和控制器塞得满满的，使得你可以任意设置从 Unity 桌面的外观到 Unity 的行为之类的任何东西。你可以使用它<strong>快速简便地改变 GTK 主题和图标集</strong>、设置热区、调整启动器图标尺寸、增加或移除工作区，以及 —-特别地—-开启 Unity 桌面中被巧妙隐藏的“通过点击最小化”的功能。</p>
+<p>它是免费的，可直接从 Ubuntu 软件中心里找到， Unity Tweak Tool 是非常值得保留在你的口袋里的工具之一。</p>
+<h3 id="Unity-隐私指示器"><a href="#Unity-隐私指示器" class="headerlink" title="Unity 隐私指示器"></a>Unity 隐私指示器</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004331vjf9qq1vv3jq7913.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>隐私是一个非常、非常重要的事，事实也恰恰如此，但这个话题要比二进制还难以说明白。让一些数据或习惯，比如说你经常打开的应用，在本地被记录下来，这或许会让你感到高兴，但对于你在 Dash 中的搜索数据被发送到第三方服务机构(尽管这些数据或许是匿名的)这类事情，你就高兴不起来了。</p>
+<p><a href="http://www.florian-diesch.de/software/indicator-privacy/index.html" target="_blank" rel="noopener">隐私指示器</a> 是一个帮助你时刻跟踪 Ubuntu桌面系统中有哪些文件、目录和服务正被获取、记录及搜索的实用工具。</p>
+<p>通过快速的点击被添加到桌面面板上的‘眼睛’图标，你可以：</p>
+<ul>
+<li>开启或关闭在线搜索结果，使用 Zeitgeist 记录系统活动，存储 HUD 使用记录和启用 Ubuntu GeoIP 服务</li>
+<li>快速清理 Zeitgeist 日志、 ALT-F2 历史、最近访问文件等等的记录数据</li>
+<li>展示或隐藏桌面图标及面板上显示的用户名</li>
+</ul>
+<p>上述的最后一条的功能似乎不应该出现在这个应用程序中，但对于那些要分享截图或截屏的人来说，这将会泄露更少的隐私。</p>
+<ul>
+<li><a href="http://www.florian-diesch.de/software/indicator-privacy/dist/indicator-privacy_0.04-1_all.deb" target="_blank" rel="noopener">从这里下载隐私指示器 (.deb)</a></li>
+</ul>
+<h3 id="Unity-橱窗"><a href="#Unity-橱窗" class="headerlink" title="Unity 橱窗"></a>Unity 橱窗</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004337qh83z5gv3pwq7s8h.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>Android, iOS, OS X, Chrome OS, 和 GNOME Shell 都有应用橱窗, 借助一个极好的第三方应用，Unity 也可以实现类似功能。</strong></p>
+<p>“Unity 橱窗” 允许你将 Unity 启动器中的应用分组到实用的橱窗中，—- 如游戏，办公，社交等。不必打开 Dash，你就可以快速启动你喜爱的应用，这非常适合你的工作流。</p>
+<p>每一个 ‘橱窗’其实上是一个打开在图标附近的应用窗口，但总体效果看上去就像是一个 OS X 风格的“堆栈”或 Android 的分组框。</p>
+<p>橱窗的图标可以自定义或根据橱窗内的应用来自动生成。已有的橱窗可以修改和重新组织、重命名以及如下的更多选择：</p>
+<ul>
+<li>根据你的喜好创建任意多的橱窗</li>
+<li>选择自定义或自动生成橱窗图标</li>
+<li>可选择 3 种橱窗样式</li>
+<li>为添加到橱窗中的应用设定自定义图标</li>
+<li>编辑现有橱窗</li>
+</ul>
+<p><a href="http://unity-folders.exceptionfound.com/" target="_blank" rel="noopener">Unity 橱窗的网址</a></p>
+<h3 id="咖啡因（Caffeine）"><a href="#咖啡因（Caffeine）" class="headerlink" title="咖啡因（Caffeine）"></a>咖啡因（Caffeine）</h3><p>对于我们中的许多人来说，咖啡因是必需品，而不仅仅是饮料。而这里的“咖啡因”则提供了一个快速，温和的方式来避免屏保/锁屏占据屏幕。它的有用程度将取决于你的环境(即你系统的怪癖)，并且尽管它不像以前那样好用，它仍然值得你<a href="http://www.omgubuntu.co.uk/2014/05/stop-ubuntu-sleeping-caffeine" target="_blank" rel="noopener">尝试一下</a>。</p>
+<p><a href="https://launchpad.net/~caffeine-developers/+archive/ppa/+files/caffeine_2.7_all.deb" target="_blank" rel="noopener">下载咖啡因（Caffeine） </a></p>
+<h3 id="系统监控指示器"><a href="#系统监控指示器" class="headerlink" title="系统监控指示器"></a>系统监控指示器</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004338tii8ix884b8tz81r.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>假如你是一个状态迷，即一个喜欢密切关注程序，进程和硬件的状态的人， Linux 很容易满足你的需求。从 Conky 的配置到终端命令，并不缺少监视你的 CPU 使用情况、网络流量或 GPU 温度的方法。</p>
+<p>但至今为止，我最喜爱的应用是<strong>系统监控指示器</strong>（也被叫做多负载指示器），它可从 Ubuntu 软件中心获得。它也有着大量的配置选项。</p>
+<ul>
+<li><a href="apt://indicator-mulitload">点击这个链接，在 Ubuntu 中下载 ‘系统监控指示器’</a></li>
+</ul>
+<h3 id="针对-Linux-笔记本电脑的省电工具"><a href="#针对-Linux-笔记本电脑的省电工具" class="headerlink" title="针对 Linux 笔记本电脑的省电工具"></a>针对 Linux 笔记本电脑的省电工具</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004339r5tvyyli0enujnty.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="TLP"><a href="#TLP" class="headerlink" title="TLP"></a>TLP</h4><p>当提到便携式设备上的电池使用效率时，Linux 发行版的声誉并不算好。</p>
+<p>如果你的 Linux 笔记本在重新充电前，电池只够让你从沙发走到厨房的话，那么这里有几个你可以试试的工具。</p>
+<p>TLP 是最受欢迎的确保延长 Linux 笔记本的电池寿命的自动化后台工具之一，它是通过调整系统进程和硬件的设置及行为来达成省电的，例如 启动 Wi-Fi 省电模式， PCI 总线设备的实时电量管理和处理器的降频调整。</p>
+<p>在 Ubuntu 14.04 LTS 以及后续发行版本中可以<a href="https://launchpad.net/~linrunner/+archive/ubuntu/tlp/+packages" target="_blank" rel="noopener">使用 TLP 专用的 PPA 来安装它</a>，通过它的‘一下搞定’的设置就能用起来。在我们之中的高级用户可以潜心研究并根据你自己的硬件来调整设置，一个<a href="http://linrunner.de/en/tlp/docs/tlp-configuration.html" target="_blank" rel="noopener">关于 TLP 的完整指导 wiki</a> 使得设置更加容易。</p>
+<h4 id="Laptop-Mode-Tools"><a href="#Laptop-Mode-Tools" class="headerlink" title="Laptop Mode Tools"></a>Laptop Mode Tools</h4><p>假如 TLP 听起来有一点复杂，这也并没有什么可羞耻的，这里有一个更简单的替代品： <strong>Laptop Mode Tools</strong>。 这个软件包可从 Ubuntu 软件中心直接安装，且本身设置好了一系列合理的默认设置(Wi-Fi,蓝牙等等)。</p>
+<p>切记，Laptop Mode Tools 不能和 TLP 同时被安装在电脑中。</p>
+<ul>
+<li><a href="https://apps.ubuntu.com/cat/applications/laptop-mode-tools/" target="_blank" rel="noopener">Ubuntu 软件中心里的 Laptop Mode Tools </a></li>
+</ul>
+<h3 id="Intel-显卡驱动安装工具"><a href="#Intel-显卡驱动安装工具" class="headerlink" title="Intel 显卡驱动安装工具"></a>Intel 显卡驱动安装工具</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004340x03qzr5r0cpo3ddb.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>对于那些运行 Intel 显卡硬件，并想使得这些硬件发挥出最佳性能的人来说，Intel 显卡安装工具是必须拥有的。 它使得查找并安装最新的 Intel GPU 驱动变得不再是一件痛苦和大费周折的事，因为这无需 PPA 或任何的终端使用知识。</p>
+<ul>
+<li><a href="https://01.org/linuxgraphics/downloads/2014/intelr-graphics-installer-linux-1.0.7" target="_blank" rel="noopener">下载针对 Linux平台的 Intel 显卡驱动安装器 0.7 版本</a></li>
+</ul>
+<h3 id="硬件信息"><a href="#硬件信息" class="headerlink" title="硬件信息"></a>硬件信息</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004342ux0qm9a244szxjqx.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>假如你计划升级你的 PC 或想替换一个坏掉的零部件，你需要知道一些特定的硬件信息，例如 RAM 类型，CPU插座类型 或查看哪个 PCI 槽是可用的等信息。</p>
+<p><strong>I-Nex</strong>可以使得找出这些以及其他的系统具体配置变得更加容易。使用它来查找你的主板型号、S.M.A.R.T.(注：为 Self-Monitoring, Analysis and Reporting Technology 的缩写，经常写为 SMART ) 状态，以及你想的出的很多东西！</p>
+<ul>
+<li><a href="https://launchpad.net/i-nex" target="_blank" rel="noopener">可从 Launchpad 了解到更多关于 I-Nex 的信息</a></li>
+</ul>
+<h3 id="磁盘空间可视化程序"><a href="#磁盘空间可视化程序" class="headerlink" title="磁盘空间可视化程序"></a>磁盘空间可视化程序</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004343whhai9rxqxh5hrah.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在这个硬盘以 TB 计数的时代，我们或许不必同以前一样对硬盘空间的使用三思而后行。但对于那些使用小容量的 SSD，分成多个分区或在一个拥有固定大小的虚拟磁盘的虚拟机上工作的人来说，总有“应该释放一些额外空间是必要的”这种想法的时候。</p>
+<p>GNOME Disks，在 Ubuntu 中被默认安装，使得查找占用最大磁盘空间的罪魁祸首变得容易。对于定位隐藏的日志、缓存和视频文件，它是非常完美的工具。</p>
+<h3 id="BleachBit-Cruft-Cleaner"><a href="#BleachBit-Cruft-Cleaner" class="headerlink" title="BleachBit (Cruft Cleaner)"></a>BleachBit (Cruft Cleaner)</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/11/004344vbyyaa4w8582lpn4.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Windows 用户可能对像 CCleaner 之类的应用很熟悉，它可以扫描并清理垃圾文件、空白文件夹、臃肿的缓存以及陈旧的软件包。在 Ubuntu 上，一个相似的快速且毫不费力的一键式清理方法可以试试 <strong>BleachBit</strong> 。</p>
+<p>它是一个强大的工具，所以一定要注意你正在清理什么。不要漫无目的地确认每个选项框；不是所有的东西它都可以清理。所以请合理地使用它，当你对某个选项有疑问时，就跳过它。</p>
+<ul>
+<li><a href="https://apps.ubuntu.com/cat/applications/bleachbit/" target="_blank" rel="noopener">从 Ubuntu 软件中心里安装 BleachBit</a></li>
+</ul>
+<p>你已经有了自己最喜欢的系统实用工具了吗？可以在下面的评论中让其他人知晓它。</p>
+<hr>
+<p>via: <a href="http://www.omgubuntu.co.uk/2014/11/useful-tools-for-ubuntu-do-you-use-them" target="_blank" rel="noopener">http://www.omgubuntu.co.uk/2014/11/useful-tools-for-ubuntu-do-you-use-them</a><br>publish: <a href="https://linux.cn/article-5025-1.html" target="_blank" rel="noopener">https://linux.cn/article-5025-1.html</a></p>
+<p>作者：<a href="https://plus.google.com/117485690627814051450/?rel=author" target="_blank">Joey-Elijah Sneddon</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-01T16:28:56.270Z" itemprop="dateUpdated">2020-03-02 00:28:56</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/" target="_blank" rel="external">https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A1%8C%E9%9D%A2/" rel="tag">桌面</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/&title=《[翻译] 让你玩转 Ubuntu 桌面的十一件武器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/&title=《[翻译] 让你玩转 Ubuntu 桌面的十一件武器》 — FLC&source=
+介绍一些工具来调整和优化 Unity 桌面的外观、行为、性能
+
+无论你是一个相对的新手还是经验丰富的专家，我们都想从我们的操作系统中得到更多的东西。正如..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 让你玩转 Ubuntu 桌面的十一件武器》 — FLC&url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/05/Translate-dupeGuru-Find-And-Remove-Duplicate-Files-Instantly-From-Hard-Drive/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] dupeGuru - 直接从硬盘中查找并移除重复文件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/&title=《[翻译] 让你玩转 Ubuntu 桌面的十一件武器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/&title=《[翻译] 让你玩转 Ubuntu 桌面的十一件武器》 — FLC&source=
+介绍一些工具来调整和优化 Unity 桌面的外观、行为、性能
+
+无论你是一个相对的新手还是经验丰富的专家，我们都想从我们的操作系统中得到更多的东西。正如..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 让你玩转 Ubuntu 桌面的十一件武器》 — FLC&url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADGklEQVR42u3aS47iQBAFwL7/pZntSCPc72WCBhfhVcsGu6IsdZKfn5/4ePx1/HsmOZ8/pb1P+5QfbGxs7OPYj8vjmp1cTRjXT09eQG7BxsbGPpWdhJP3hZx865PwGQU5bGxsbOzRL/w8QLahERsbGxt7wy4eVn6mDVrY2NjY38yepQGbBkN+9T/X0rCxsbE/nj1rwX7m32/pb2NjY2N/MHtfALou8WzawLPWb3QHbGxs7IPYbeknKc23ozmb8tYmgcHGxsY+g50MUM4CWD6a+b7y0NNPYmNjYx/Hbn/uJ9/NF50kKnmjN9JhY2NjH8RuA1KSBuSfbFOaGQ8bGxv7bPar0o8kDdjc7VUbVERjbGxs7Buy29J8VL4pC/p5kWvVcsDGxsY+iN0uLh/ombUf2pRjMx6KjY2NfRJ79rA2CLWNh9lK8gYzNjY29hnsfQqRl3LyJGFWkKrfMzY2NvZB7E3ikZTyZ2NA7dYX7QpsbGzsg9j54Esb8HLGvvx0ncZEtTRsbGzsm7PbR+aLzhfaBqq87/H0RWJjY2MfxN6M72xCSNISaJsE+evBxsbGPpudJxir4DG6f9EG2NS9sLGxsW/OzsPDPp3YbM2sIY2NjY19Evsdy2oDTF7ub4tTT89jY2NjfwF7U6BvhzU3Yz353aIAho2NjX1D9v7/+atGMGchKllJ1N/GxsbGPoi9TzZm7YdZAtO2frGxsbHPY7djLvnP/U35Pm8S5AESGxsb+1R2XhLKQ0gb9mZFpc1qsbGxsc9j56X/1yYJbWKTJzz18CU2Njb2zdkbcH4muZoD2m8VtTRsbGzs27Lb4ZjZlm2C0D58YmNjY38De/8bftNCaAPSamwIGxsb+wj2ozzaxupsEzeN3qR5gI2NjX0SexX3gsfnic2s6XsdUJOr2NjY2GewZ8WjWdmoTVH238XGxsb+HnZePHottW7QziIwNjY2NnYQwPKrm8ZtvsJfNggbGxv769lt4WmzHZtG7y8jO9jY2NgHsffF/RlmM+izSniwsbGxD2LX5Zh1aX42BpS/pP0gETY2NvZN2H8AjTOwvAxP7gAAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
