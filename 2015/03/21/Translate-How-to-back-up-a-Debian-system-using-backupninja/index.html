@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何使用 backupninja 来备份 Debian 系统 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,backupninja,备份">
+    <meta name="description" content="介绍使用 backupninja 来备份 Debian 系统                                                                                               题图来自：blogspot.com              小心谨慎或灾难体验会让每一个系统管理都认识到频繁的系统备份的重要性。你可以通过编写管用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何使用 backupninja 来备份 Debian 系统">
+<meta property="og:url" content="https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍使用 backupninja 来备份 Debian 系统                                                                                               题图来自：blogspot.com              小心谨慎或灾难体验会让每一个系统管理都认识到频繁的系统备份的重要性。你可以通过编写管用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230658xqfzb2lx2k290xxb.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230751omw0yr1j18t9a1y4.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230757hfyefp4ee5s44e4b.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230804jtfqoq33lmtqt3mu.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230808jz541iix51w8ewd5.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230813do1yjakekfe3e93e.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230814raukkmqtg2qpcham.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230820w02yhv62pihlhhf7.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230820sytt0ep1btbweei5.jpg">
+<meta property="article:published_time" content="2015-03-21T02:03:44.000Z">
+<meta property="article:modified_time" content="2020-03-02T13:38:40.864Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="backupninja">
+<meta property="article:tag" content="备份">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/230658xqfzb2lx2k290xxb.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何使用 backupninja 来备份 Debian 系统</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何使用 backupninja 来备份 Debian 系统</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-21T02:03:44.000Z" itemprop="datePublished" class="page-time">
+  2015-03-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Backupninja"><span class="post-toc-text">安装 Backupninja</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#首次运行-Ninjahelper"><span class="post-toc-text">首次运行 Ninjahelper</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例-1-备份硬件和系统信息"><span class="post-toc-text">案例 1: 备份硬件和系统信息</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#案例-2-一个远程目录的增量式-Rsync-拉取备份"><span class="post-toc-text">案例 2: 一个远程目录的增量式 Rsync 拉取备份</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-to-back-up-a-Debian-system-using-backupninja"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何使用 backupninja 来备份 Debian 系统</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-03-21 10:03:44" datetime="2015-03-21T02:03:44.000Z"  itemprop="datePublished">2015-03-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍使用 backupninja 来备份 Debian 系统</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230658xqfzb2lx2k290xxb.jpg" alt="题图来自：blogspot.com" title="">
+                </div>
+                <div class="image-caption">题图来自：blogspot.com</div>
+            </figure>
+<p>小心谨慎或灾难体验会让每一个系统管理都认识到频繁的系统备份的重要性。你可以通过编写管用的旧式 shell 脚本，或使用一个（或几个）适合这项工作的备份工具来完成备份任务。因此，当你要实施一个备份解决方案时，你了解的备份工具越多，你做出的决策就会越明智。</p>
+<a id="more"></a>
+<p>在这篇文章中，我们将为你介绍 <a href="https://labs.riseup.net/code/projects/backupninja" target="_blank" rel="noopener">backupninja</a> ，这是一个轻量且易于配置的系统备份工具。在诸如 <strong>rdiff-backup</strong>, <strong>duplicity</strong>, <strong>mysqlhotcopy</strong> 和 <strong>mysqldump</strong> 等程序的帮助下， Backupninja 可以提供常用的备份功能，如执行远程的、安全的和增量式的文件系统备份，加密备份以及 MySQL/MariaDB 数据库备份。你可以选择性地开启使用 Email 状态报告功能，也可以对一般的硬件和系统的信息进行备份。 backupninja 的一个关键功能是它拥有一个内建的基于控制台的向导程序（被称为 <strong>ninjahelper</strong>），而后者允许你为不同的备份情景轻松地创建配置文件。</p>
+<p>如果非要说的话，backupninja 的缺点是：为了充分使用其所有的功能，它要求安装一些其他“助手”程序。尽管 backupninja 有针对基于 Red Hat（红帽）的发行版本的 RPM 安装包，但 backupninja 针对 Debian 及其衍生发行版本的依赖进行了优化。所以不建议在基于 Red Hat 的系统上尝试 backupninja 。</p>
+<p>在这篇教程中，我们将介绍如何在基于 Debian 的发行版本上安装 backupninja 。</p>
+<h3 id="安装-Backupninja"><a href="#安装-Backupninja" class="headerlink" title="安装 Backupninja"></a>安装 Backupninja</h3><p>以 root 账户来运行下面的命令：</p>
+<pre><code class="lang-bash"># aptitude install backupninja
+</code></pre>
+<p>在安装的过程中，有几个文件和目录将被创建：</p>
+<ul>
+<li><strong>/usr/sbin/backupninja</strong> 是个 bash shell 的主脚本；</li>
+<li><strong>/etc/cron.d/backupninja</strong>， 默认情况下，设置 cron 任务来每隔一个小时运行上面的主脚本；</li>
+<li><strong>/etc/logrotate.d/backupninja</strong> 截断由 backupninja 程序产生的日志；</li>
+<li><strong>/etc/backup.d/</strong> 是备份操作的配置文件驻留的目录；</li>
+<li><strong>/etc/backupninja.conf</strong> 是包含一般选项的主配置文件。这个文件带有良好的注释且详细解释了每个选项的含义；</li>
+<li><strong>/usr/share/backupninja</strong> 是那些 backupninja 所使用的脚本所处的目录。这些脚本文件负责执行实际的工作。在这个目录中，你还可以找到 <code>.helper</code> 文件，它们可以被用来配置和设定 ninjahelper 的菜单；</li>
+<li><strong>/usr/share/doc/backupninja/examples</strong> 含有操作配置文件（即通过 ninjahelper 产生的文件）的模板。</li>
+</ul>
+<h3 id="首次运行-Ninjahelper"><a href="#首次运行-Ninjahelper" class="headerlink" title="首次运行 Ninjahelper"></a>首次运行 Ninjahelper</h3><p>当我们尝试启动 ninjahelper 时，我们可以看到可能需要一个内部依赖程序。假如系统进行了提示，请输入 “yes” 并敲下回车键来安装 dialog（一个用于从 shell 脚本中显示友好对话框的工具）。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230751omw0yr1j18t9a1y4.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>当你在键入 yes 后再敲回车键时，backupninja 将会安装 dialog，一旦安装完成，将呈现出下面的截屏：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230757hfyefp4ee5s44e4b.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="案例-1-备份硬件和系统信息"><a href="#案例-1-备份硬件和系统信息" class="headerlink" title="案例 1: 备份硬件和系统信息"></a>案例 1: 备份硬件和系统信息</h4><p>在启动了 ninjahelper 之后，我们将创建一个新的备份操作：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230804jtfqoq33lmtqt3mu.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果必要的助手程序没有被安装，下面的截屏将会呈现在我们眼前。假如这些软件包已经在你的系统上安装了，请跳过这一步。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230808jz541iix51w8ewd5.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>接下来的一步需要你选取相关条目来作为此次备份任务的一部分。前四个条目已经默认被选上了，但你可以通过在条目上按空格键来撤消选择。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230813do1yjakekfe3e93e.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>一旦你完成了上面的步骤，按 OK 选项来继续。接着你将能够选择是愿意使用默认的配置文件(/etc/backup.d/10.sys)来完成这次备份操作，还是创建一个新的配置文件。若为后者，一个含有与默认配置文件内容相同的文件将会在相同的目录下被创建，但它被命名为 11.sys，后续的备份操作将会创建类似的文件（注：只不过命名的序号不同）。需要说明的是一旦这个新的配置文件被创建，你便可以使用你喜爱的文本编辑器来编辑该文件。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230814raukkmqtg2qpcham.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="案例-2-一个远程目录的增量式-Rsync-拉取备份"><a href="#案例-2-一个远程目录的增量式-Rsync-拉取备份" class="headerlink" title="案例 2: 一个远程目录的增量式 Rsync 拉取备份"></a>案例 2: 一个远程目录的增量式 Rsync 拉取备份</h4><p>正如你最有可能知道的那样， rsync 被广泛地用于通过网络同步文件或文件夹。在接下来的例子中，我们将讨论一个使用硬链接来为一个远程目录做增量式拉取备份的方法，它被用来保存历史数据以及在我们本地的文件服务器中恢复这些历史数据。这个方法将帮助我们节省空间并增强位于服务器端的安全性。</p>
+<p><strong>步骤 1</strong>：编写一个带有如下内容的自定义脚本，放在 <code>/etc/backup.d</code>，并将它的权限设置为 600 。需要说明的是，除了一般的配置文件，这个目录可能还包含当 backupninja 执行时你想运行的一些脚本文件，它们可以发挥出位于主配置文件中的变量的优势。</p>
+<pre><code class="lang-bash"># REMOTE USER
+user=root
+# REMOTE HOST
+host=dev1
+# REMOTE DIRECTORY
+remotedir=/home/gacanepa/
+# LOCAL DIRECTORY
+localdir=/home/gacanepa/backup.0
+# LOCAL DIRECTORY WHERE PREVIOUS BACKUP WAS STORED
+localdirold=/home/gacanepa/backup.1
+mv $localdir $localdirold
+# RSYNC
+rsync -av --delete --recursive --link-dest=$localdirold $user@$host:$remotedir $localdir
+</code></pre>
+<p>在上面的配置中， rsync 的 ‘—link-dest’ 选项的作用是为位于 $localdir-old 目录中那些没有改变的文件(包含所有属性) 硬链接到目标目录（$localdir）。</p>
+<p><strong>步骤 2</strong>：在 backupninja 第一次运行之前，上层目录（这个例子中指的是 /home/gacanepa） 是空的。第一次我们执行下面的命令：</p>
+<pre><code class="lang-bash"># backupninja -n
+</code></pre>
+<p>backup.0 目录就被创建了，并在接下来的过程中，它的名称将会被更改为 backup.1。</p>
+<p>当我们第二次运行 backupninja 时， backup.0 将会被重新创建，而 backup.1 保持不动。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230820w02yhv62pihlhhf7.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>步骤 3</strong>： 确保 backup.1 里面的文件硬链接到 backup.0 里的文件，我们可以通过比较文件的 inode（i 节点）数和目录的大小来达到此目的。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/230820sytt0ep1btbweei5.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Backupninja 不仅是一个经典的备份工具，它也是一个易于配置的实用程序。你可以通过编写你自己的控制脚本，用放在 <code>/etc.backup.d</code> 中的不同的配置文件来运行 backupninja 。甚至你还可以为 ninjahelper 编写助手程序，并将其包括在 ninjahelper 的主界面上。</p>
+<p>例如，假如你在 <code>/usr/share/backupninja</code>目录中创建了一个名为 xmodulo 的控制脚本，它将自动运行那些位于 <code>/etc/backup.d</code> 目录中以 .xmodulo 为后缀的每个文件。如果你决定添加你的 xmodulo 控制脚本到 ninjahelper 中， 你可以编写相应的助手程序，即 xmodulo.helper 。另外，假如你想 让 backupninja 运行其它的脚本，只需把它添加到 <code>/etc/backup.d</code> 目录中就可以了。</p>
+<p>欢迎使用下面的评论框来留下你的评论、问题或建议。听到你的回应将会使我们很高兴。</p>
+<hr>
+<p>via: <a href="http://xmodulo.com/backup-debian-system-backupninja.html" target="_blank" rel="noopener">http://xmodulo.com/backup-debian-system-backupninja.html</a><br>publish: <a href="https://linux.cn/article-5096-1.html" target="_blank" rel="noopener">https://linux.cn/article-5096-1.html</a></p>
+<p>作者：<a href="http://xmodulo.com/author/gabriel" target="_blank" rel="noopener">Gabriel Cánepa</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-02T13:38:40.864Z" itemprop="dateUpdated">2020-03-02 21:38:40</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/" target="_blank" rel="external">https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backupninja/" rel="tag">backupninja</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag">备份</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/&title=《[翻译] 如何使用 backupninja 来备份 Debian 系统》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/&title=《[翻译] 如何使用 backupninja 来备份 Debian 系统》 — FLC&source=
+介绍使用 backupninja 来备份 Debian 系统
+
+
+                
+                    
+     ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何使用 backupninja 来备份 Debian 系统》 — FLC&url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/11/Translate-11-Useful-Utilities-To-Supercharge-Your-Ubuntu-Experience/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 让你玩转 Ubuntu 桌面的十一件武器</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/&title=《[翻译] 如何使用 backupninja 来备份 Debian 系统》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/&title=《[翻译] 如何使用 backupninja 来备份 Debian 系统》 — FLC&source=
+介绍使用 backupninja 来备份 Debian 系统
+
+
+                
+                    
+     ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何使用 backupninja 来备份 Debian 系统》 — FLC&url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3aQW7jQAwEwPz/01lgb0E22m5SAaxx6WTYsqwaHWg25+MjPj7/Hsmnn9+On96/Pq6v9v3Tj984sLGxsR/Czn/++seuz79exOQekjvJr4ONjY19HjspS9c/llSKvCjmRTS5E2xsbGzs/E9/UvySpiUpfvkDwMbGxsaevW5heZFLroyNjY39buxNTL/J4RP2LPC6LUvDxsbGfnl2G+i88utfnG9jY2NjvyT7c30kcdL1+0lotd8A9OUK2NjY2Aex2+g/x+SMdgjRLmUxx8DGxsZ+LLsd8c5C+XxIvB8ht48BGxsb++ns2TaavPxsRgL3FjBsbGzs89ibv/7tYDV5Z9YaJYuOjY2N/Q7s/I/+plq2EX9euuomBBsbG/tt2Hmz0RaVPWP2qLCxsbHPY8+i9rsW4t7SNRwMYGNjYz+W3RaJBJ/E/Zu2Jx8qRLEUNjY29sPZyWAg38rTNhuzsrcZVHwZD2BjY2Mfx773VvKGIS9p7WPAxsbGfk92Oxho25t2KWfn/+eesbGxsQ9ib1qIfenKw6Mo6I+DJ2xsbOz3YW/aj7zM5JVlNiQY/gw2Njb2o9ib2H02QsivkGPqRcfGxsY+jr0Z8ebNw6yNyaP/vPnBxsbGPondRvNtE9KGPvmi54UNGxsb+1T2ftPMrPBsxr05EhsbG/t92NGp8WC1DZKShdhs6PnHOdjY2NgHsfe33rYNmyFBMret4yRsbGzsI9izgpE3DO11NkPlX9zKg42Njf3C7H1Ys1m4/LvtwhUjXmxsbOyHs/MhaxHZjMa0+cC4Pad+5tjY2NgPZO8jm81geL/cbWiFjY2NfTZ7NpTdDwCSrT/5lqB62ICNjY19EDv52l1Fq2XkgCEVGxsb+1Hs2ZC1/eHZ+Tm+XkRsbGzsg9j7ApaE/m1zsmlp2k+xsbGxz2C3RWu2CbJtVNpHkm/6xMbGxj6V3d5KUqLaQnhvYxNFS9jY2NjYo9S9jYfa0hgtOjY2NvZbsq+Lx2yDzj4qSgrhqhXBxsbGfgg7CZWShZht7rnrHorNl9jY2NgHsdtoZlZy9mOGfJDcfgsbGxv7sew/R8z9YZPn2eoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

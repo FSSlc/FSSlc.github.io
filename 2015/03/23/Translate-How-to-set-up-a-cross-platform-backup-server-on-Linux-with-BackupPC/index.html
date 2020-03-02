@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,BackupPC,备份服务器">
+    <meta name="description" content="介绍如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器                                                                                                             也许你没有从我先前关于 backupninja 和 backup-manager 的两篇文章中发现，我是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器">
+<meta property="og:url" content="https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器                                                                                                             也许你没有从我先前关于 backupninja 和 backup-manager 的两篇文章中发现，我是一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235236goipii0u37jybbuo.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235239b4atzr453axhrhfr.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235241zl2i9ueazf8wweuz.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235245x9xlmwljccb6wtb9.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235302xjv7ddrgjdznjos3.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235304rdi5npvpnpvssz5o.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235307fjtg4akgb7jee4bg.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235313xeb75klfze5223zv.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235316uz36bpb9ufupubme.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235322dkzq5zj0pmzj8q6a.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235325h6eeuzwnewuxwq6n.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235331nr66znzru5bbir6s.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235343l7hihhqyxohmoz9q.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235350yz97wkg5hhkwqkhh.jpg">
+<meta property="article:published_time" content="2015-03-23T01:46:00.000Z">
+<meta property="article:modified_time" content="2020-03-02T12:51:23.611Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="BackupPC">
+<meta property="article:tag" content="备份服务器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/20/235236goipii0u37jybbuo.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-23T01:46:00.000Z" itemprop="datePublished" class="page-time">
+  2015-03-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BackupPC-的特点"><span class="post-toc-text">BackupPC 的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-BackupPC"><span class="post-toc-text">安装 BackupPC</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动-BackupPC-并设置备份"><span class="post-toc-text">启动 BackupPC 并设置备份</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开始一个备份任务"><span class="post-toc-text">开始一个备份任务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#恢复备份"><span class="post-toc-text">恢复备份</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-03-23 09:46:00" datetime="2015-03-23T01:46:00.000Z"  itemprop="datePublished">2015-03-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235236goipii0u37jybbuo.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>也许你没有从我先前关于 <a href="http://linux.cn/article-5096-1.html" target="_blank" rel="noopener">backupninja</a> 和 <a href="http://linux.cn/article-4586-1.html" target="_blank" rel="noopener">backup-manager</a> 的两篇文章中发现，我是一个超级备“粉”。当提到备份，我宁愿备份的太多而不希望备份不足，因为如果我们有需要的话，你将会感激你为重要数据生成额外的拷贝所付出的时间和精力。</p>
+<a id="more"></a>
+<p>在这篇文章中，我将向你介绍 <a href="http://backuppc.sourceforge.net/" target="_blank" rel="noopener">BackupPC</a>，一个跨平台的备份服务器软件，它可以通过网络为 Linux，Windows 和 MacOS 等系统上的客户端主机拉取备份。BackupPC 添加了一系列的特点使得管理备份变为一件快乐的事。</p>
+<h3 id="BackupPC-的特点"><a href="#BackupPC-的特点" class="headerlink" title="BackupPC 的特点"></a>BackupPC 的特点</h3><p>BackupPC 自带有一个健壮的 Web 界面，允许你以集中化的方式来收集和管理其他远程客户端主机上的备份。通过使用它的 Web 界面，你可以检查日志和配置文件、为其他远程主机启动/取消/安排备份任务以及可视化备份任务的当前状态。你也可以非常容易地浏览归档的文件以及从备份的归档中恢复单个文件或整个备份。要恢复单个文件，你可以直接通过 Web 界面来下载任何先前备份的文件。不仅如此，客户端主机并不需要安装特别的客户端软件。在 Windows 客户端上， 使用的是原生的 SMB 协议，而对于 *nix 客户端，你将使用 <code>rsync</code> 或 通过 SSH, RSH 或 NFS 来使用 <code>tar</code> 。</p>
+<h3 id="安装-BackupPC"><a href="#安装-BackupPC" class="headerlink" title="安装 BackupPC"></a>安装 BackupPC</h3><p>在 Debian，Ubuntu 和它们的衍生版本上，运行下面的命令：</p>
+<pre><code class="lang-bash"># aptitude install backuppc
+</code></pre>
+<p>在 Fedora上， 使用 <code>yum</code> 命令。请注意软件包名字对大小写敏感。</p>
+<p>在 CentOS/RHEL 6 上，首先要启用 <a href="http://linux.cn/article-2324-1.html" target="_blank" rel="noopener">EPEL 软件仓库</a>。在 CentOS/RHEL 7 上，请替代启用 <a href="http://linux.cn/article-3889-1.html" target="_blank" rel="noopener">Nux Dextop</a> 软件仓库。然后接着使用 <code>yum</code> 命令：</p>
+<pre><code class="lang-bash"># yum install BackupPC
+</code></pre>
+<p>同往常一样，这两种包管理系统都会自动解决依赖问题。另外，作为安装过程中的一部分，你可能需要新配置或修改配置用于图形用户界面的 Web 服务器。下面的截图来自于 Debian 系统：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235239b4atzr453axhrhfr.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>通过空格键来确定你的选择，然后使用 tab 键移动到 Ok 选项并敲回车键。</p>
+<p>接着类似于下面的截屏将会呈现在你眼前，通知你创建了一个用来管理 BackupPC 的名为 ‘backuppc’的管理员用户以及相应的密码（如果你需要，这个密码以后可以更改）。这里需要注意的是：这里创建了同样名为 ‘backuppc’的 HTTP 账户和常规的 Linux 账户，它们使用相同的密码。需要前者的目的是来访问受保护的 BackupPC 的 Web 界面，而后者则是为了通过 SSH 来使用 <code>rsync</code> 来执行备份任务。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235241zl2i9ueazf8wweuz.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>你可以使用下面的命令来更改 HTTP 账户 ‘backuppc’ 的默认密码：</p>
+<pre><code class="lang-bash"># htpasswd /path/to/hash/file backuppc
+</code></pre>
+<p>至于常规的 ‘backuppc’ <a href="http://xmodulo.com/recommend/linuxguide" target="_blank" rel="noopener">Linux</a>账户，可以使用 <code>passwd</code>命令来更改它的默认密码：</p>
+<pre><code class="lang-bash"># passwd backuppc
+</code></pre>
+<p>需要提及的是：安装过程中会自动创建 Web 和程序的配置文件。</p>
+<h3 id="启动-BackupPC-并设置备份"><a href="#启动-BackupPC-并设置备份" class="headerlink" title="启动 BackupPC 并设置备份"></a>启动 BackupPC 并设置备份</h3><p>首先，打开一个浏览器窗口并指向 <code>http://\&lt;服务器名称或 IP 地址&gt;/backuppc/</code> 。当弹出提示框时，输入先前向你创建的默认 HTTP 用户凭据（注：即用户名 backuppc 和相应的默认密码）。假如认证成功，你就会被带入到 Web 界面的主页：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235245x9xlmwljccb6wtb9.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>你想做的第一件事最有可能是通过新增一个客户端主机来备份。进入任务窗格中的 “编辑主机”选项。我们将添加两个客户端主机：</p>
+<ul>
+<li>Host #1: CentOS 7 [IP 192.168.0.17]</li>
+<li>Host #2: Windows 7 [IP 192.168.0.103]</li>
+</ul>
+<p>我们将通过 SSH 使用 <code>rsync</code>来备份 CentOS 主机，使用 SMB 来备份 Windows 主机。在执行备份之前，我们需要向我们的 CentOS 主机设置 <a href="http://xmodulo.com/how-to-enable-ssh-login-without.html" target="_blank" rel="noopener">基于密钥认证</a> 以及在我们的 Windows 主机中设置一个共享目录。</p>
+<p>下面是关于如何为一个远程 CentOS 主机设置基于密钥认证的指导。我们创建 ‘backuppc’ 用户的 RSA 密钥对，并将其公钥传输给 CentOS 主机上的 root 账户。</p>
+<pre><code class="lang-bash"># usermod -s /bin/bash backuppc
+# su - backuppc
+# ssh-keygen -t rsa
+# ssh-copy-id root@192.168.0.17
+</code></pre>
+<p>当弹出提示框时，键入 yes 并为 192.168.0.17 键入 root 用户的密码：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235302xjv7ddrgjdznjos3.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>你需要一个远程的 CentOS 主机的 root 权限，以获得在该主机中的文件系统中写权限，以防要恢复的备份文件或目录的所有者为 root 账户。</p>
+<p>一旦 CentOS 和 Windows 主机都准备完毕，使用 Web 界面将它们添加到 BackupPC：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235304rdi5npvpnpvssz5o.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>下一步更改每个主机的备份设置：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235307fjtg4akgb7jee4bg.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>接下来的图片展示了 Windows 主机的备份设置：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235313xeb75klfze5223zv.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>而接着的截图展示了 CentOS 主机的备份设置：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235316uz36bpb9ufupubme.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="开始一个备份任务"><a href="#开始一个备份任务" class="headerlink" title="开始一个备份任务"></a>开始一个备份任务</h3><p>为了开始备份，到每个主机的设定选项，然后点击“开始全备份”：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235322dkzq5zj0pmzj8q6a.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在任何时候，你都可以通过点击如上图展示的每个主机的备份主页来查看备份任务的状态。假如因为某些原因备份失败，在主机菜单中将会出现一个指向包含错误信息的网页的链接。当一个备份任务成功完成后，在服务器的 /var/lib/backuppc/pc 目录下会创建一个命名为主机名或 IP 地址的目录。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235325h6eeuzwnewuxwq6n.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们也可以随意地在命令行中浏览这个目录中的文件，但存在一个更加简单的方式来查找和恢复这些文件。</p>
+<h3 id="恢复备份"><a href="#恢复备份" class="headerlink" title="恢复备份"></a>恢复备份</h3><p>要浏览这些保存的文件，进入每个主机的主菜单下的 “浏览备份”选项，你可以一目了然地看到目录和文件，并选择那些你想恢复的文件。另外，你还可以通过点击文件来使用默认程序打开文件或右击文件并选择“另存为”来下载该文件到你当前的机器上：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235331nr66znzru5bbir6s.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如若你想，你可以下载一个包含所有你想备份的内容的 zip 或 tar 文件：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235343l7hihhqyxohmoz9q.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>或只是恢复文件：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/20/235350yz97wkg5hhkwqkhh.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>有句俗话说，”越简单，越好”，而这正是 BackupPC 所提供的东西。在 BackupPC 中，你将不仅找到了一个备份工具，而且还找到了一个无需任何客户端应用来在几个不同的操作系统中管理你的备份的方法。我相信这就有足够的理由让你去尝试一下。</p>
+<p>欢迎使用下面的评论框来留下你的评论和问题，假如你有的话。我总是乐于听取读者想说的话！</p>
+<hr>
+<p>via: <a href="http://xmodulo.com/backuppc-cross-platform-backup-server-linux.html" target="_blank" rel="noopener">http://xmodulo.com/backuppc-cross-platform-backup-server-linux.html</a><br>publish: <a href="https://linux.cn/article-5097-1.html" target="_blank" rel="noopener">https://linux.cn/article-5097-1.html</a></p>
+<p>作者：<a href="http://xmodulo.com/author/gabriel" target="_blank" rel="noopener">Gabriel Cánepa</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-02T12:51:23.611Z" itemprop="dateUpdated">2020-03-02 20:51:23</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" target="_blank" rel="external">https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BackupPC/" rel="tag">BackupPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%87%E4%BB%BD%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">备份服务器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/&title=《[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/&title=《[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器》 — FLC&source=
+介绍如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器
+
+
+                
+                   ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器》 — FLC&url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/21/Translate-How-to-back-up-a-Debian-system-using-backupninja/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 如何使用 backupninja 来备份 Debian 系统</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/&title=《[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/&title=《[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器》 — FLC&source=
+介绍如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器
+
+
+                
+                   ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器》 — FLC&url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9UlEQVR42u3aW27bUAwFQO1/0+lvCkP2OeRV0gKjr8JxrsRRAYaP64qvr2/X3SffP3/9Tv75+++8fvP9E15PXDhw4MCBIw61DSA55y7U96zJmfmrSmLEgQMHDhxnOe4eJQkgT4fJXXKg5Jw8Rhw4cODA8bsceSmVA81Oy4Fw4MCBA8e/ybFpDuapNw9m9vw4cODAgeNpjry1l6fM2WBpNrhqm5sHeqU4cODAgSPNdFeetP6Xfz+y34EDBw4cOOJ1gXyNYJaG8ySaF3j7CwcOHDhw7DmeePR8Sa5dcZiNo9pGJA4cOHDg2HDkA5v96CgPOL9j8qdAscaHAwcOHDiOcszG/23Jd6o8a8vFKF4cOHDgwPEAR16MtatpOeVseS4v9m5jxIEDBw4chzhm62tJ2G2jMA+mTerRcAsHDhw4cKw5klA3xdi+EZn8bttAjP6P4MCBAweOBUdbhm3SZ87d3rd9hVFpigMHDhw4So78Bu3iwqk232Yl4oovHDhw4MDxBEee8PLEfKpEzMu8fMh02xbEgQMHDhwLjs2oph1NzR43SZntMkSUjHHgwIEDx4hjNjrapOQ8vHaANCsgP1S0OHDgwIHjUJYZjv/LdJs3H/PiLf/kyrM3Dhw4cOCIOeo6b51WZwOh5LRZyffXb+HAgQMHjkMcecmUj5ryc9oW5GZ89eHV4sCBAweONUeeFFuOJPXOir18KNXeCwcOHDhw7DlmS2mzn7bnt69hdn4x18KBAwcOHF0Xrm4O5kmubQu2a3azUCMsHDhw4MBRcuTNwU1gs7W5JK3mKTZap8CBAwcOHIc48nQ7G+3kJVk7BksajvkiHQ4cOHDgeJpjVqq1fGcJ2hEXDhw4cOA4y7EfEeUNuyLhBXfMC7n6TwQcOHDgwLHmaIc9s5WIfA1iFszmSVazLxw4cODAcZNTZol2U6qdainmQ68oIhw4cODAsebYpNtT6S1HOXuXD/fFgQMHDhwjjlkbbjasyhNte1o71vqQXHHgwIEDx4ijXQ44tYLQBvbE2tyHWhYHDhw4cKw5ZgsBbaWYryPk91rVrK+bgzhw4MCBY83Rjm02w6Tk4WYtwgOIOHDgwIHjUD6arSm0VU+d9sqFhnY9IuqV4sCBAweOkuOrvPY9tP1gqS0jcyYcOHDgwLHn2BROs5TZNgqT5D07v03POHDgwIEj55gtB+RM7TLcPum2iRwHDhw4cDzBMSuQ2jTWpsk6mP34CgcOHDhw/BJHkizbOnLfZDxQBOLAgQMHjh/nSEq+9uRNiThraN4C4cCBAweOQxz5EsPZ1l6+SDEbcdUpHwcOHDhwrDn2NzuV8Nr2X/7yZq8QBw4cOHCUHH8AaezYu3wKv4YAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

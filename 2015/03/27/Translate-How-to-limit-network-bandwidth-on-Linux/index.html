@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 怎样在 Linux 中限制网络带宽使用 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,限制带宽">
+    <meta name="description" content="介绍如何在 Linux 中限制网络带宽使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 怎样在 Linux 中限制网络带宽使用">
+<meta property="og:url" content="https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍如何在 Linux 中限制网络带宽使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/150146k8rfz0ocerade1re.jpg">
+<meta property="article:published_time" content="2015-03-27T06:58:03.000Z">
+<meta property="article:modified_time" content="2020-03-02T13:55:03.507Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="限制带宽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/150146k8rfz0ocerade1re.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 怎样在 Linux 中限制网络带宽使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 怎样在 Linux 中限制网络带宽使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-27T06:58:03.000Z" itemprop="datePublished" class="page-time">
+  2015-03-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-Linux-中限制一个应用的速率"><span class="post-toc-text">在 Linux 中限制一个应用的速率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-Linux-中限制一个网络接口的速率"><span class="post-toc-text">在 Linux 中限制一个网络接口的速率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-to-limit-network-bandwidth-on-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 怎样在 Linux 中限制网络带宽使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-03-27 14:58:03" datetime="2015-03-27T06:58:03.000Z"  itemprop="datePublished">2015-03-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍如何在 Linux 中限制网络带宽使用</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/150146k8rfz0ocerade1re.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<a id="more"></a>
+<p>假如你经常在 Linux 桌面上运行多个网络应用，或在家中让多台电脑共享带宽；那么你可能想更好地控制带宽的使用。否则，当你使用下载器下载一个大文件时，交互式 SSH 会话可能会变得缓慢以至不可用；或者当你通过 Dropbox 来同步一个大文件夹时，你的室友可能会抱怨在她的电脑上，视频流变得断断续续。</p>
+<p>在本教程中，我将为你描述两种在 Linux 中限制网络流量速率的不同方法。</p>
+<h3 id="在-Linux-中限制一个应用的速率"><a href="#在-Linux-中限制一个应用的速率" class="headerlink" title="在 Linux 中限制一个应用的速率"></a>在 Linux 中限制一个应用的速率</h3><p>限制网络流量速率的一种方法是通过一个名为<a href="http://monkey.org/~marius/trickle" target="_blank" rel="noopener">trickle</a>的命令行工具。通过在程序运行时，预先加载一个速率限制 socket 库 的方法，trickle 命令允许你改变任意一个特定程序的流量。 trickle 命令有一个很好的特性是它仅在用户空间中运行，这意味着，你不必需要 root 权限就可以限制一个程序的带宽使用。要能使用 trickle 程序控制程序的带宽，这个程序就必须使用非静态链接库的套接字接口。当你想对一个不具有内置带宽控制功能的程序进行速率限制时，trickle 可以帮得上忙。</p>
+<p>在 Ubuntu，Debian 及其衍生发行版中安装 trickle ：</p>
+<pre><code class="lang-bash">$ sudo apt-get install trickle
+</code></pre>
+<p>在 Fdora 或 CentOS/RHEL (带有 <a href="http://linux.cn/article-2324-1.html" target="_blank" rel="noopener">EPEL 软件仓库</a>)：</p>
+<pre><code class="lang-bash">$ sudo yum install trickle
+</code></pre>
+<p>trickle 的基本使用方法如下。仅需简单地把 trickle 命令（及速率参数）放在你想运行的命令之前。</p>
+<pre><code class="lang-bash">$ trickle -d &lt;download-rate&gt; -u &lt;upload-rate&gt;  &lt;command&gt;
+</code></pre>
+<p>这就可以将 <code>&lt;command&gt;</code> 的下载和上传速率限定为特定值（单位 KBytes/s）。</p>
+<p>例如，将你的 scp 会话的最大上传带宽设定为 100 KB/s：</p>
+<pre><code class="lang-bash"> $ trickle -u 100 scp backup.tgz alice@remote_host.com:
+</code></pre>
+<p>如若你想，你可以通过创建一个<a href="http://xmodulo.com/create-desktop-shortcut-launcher-linux.html" target="_blank" rel="noopener">自定义启动器</a>的方式，使用下面的命令为你的 Firefox 浏览器设定最大下载速率（例如， 300 KB/s）。</p>
+<pre><code class="lang-bash">trickle -d 300 firefox %u
+</code></pre>
+<p>最后， trickle 也可以以守护进程模式运行，在该模式下，它将会限制所有通过 trickle 启动且正在运行的程序的总带宽之和。 启动 trickle 使其作为一个守护进程（例如， trickled）：</p>
+<pre><code class="lang-bash">$ sudo trickled -d 1000
+</code></pre>
+<p>一旦 trickled 守护进程在后台运行，你便可以通过 trickle 命令来启动其他程序。假如你通过 trickle 启动一个程序，那么这个程序的最大下载速率将是 1000 KB/s， 假如你再通过 trickle 启动了另一个程序，则每个程序的(下载)速率极限将会被限制为 500 KB/s，等等。</p>
+<h3 id="在-Linux-中限制一个网络接口的速率"><a href="#在-Linux-中限制一个网络接口的速率" class="headerlink" title="在 Linux 中限制一个网络接口的速率"></a>在 Linux 中限制一个网络接口的速率</h3><p>另一种控制你的带宽资源的方式是在每一个接口上限制带宽。这在你与其他人分享你的网络连接的上行带宽时尤为实用。同其他一样，Linux 有一个工具来为你做这件事。<a href="http://lartc.org/wondershaper/" target="_blank" rel="noopener">wondershaper</a>就是干这个的。</p>
+<p>wondershaper 实际上是一个 shell 脚本，它使用 <a href="http://lartc.org/manpages/tc.txt" target="_blank" rel="noopener">tc</a> 来定义流量调整命令，使用 QoS 来处理特定的网络接口。外发流量通过放在不同优先级的队列中，达到限制传出流量速率的目的；而传入流量通过丢包的方式来达到速率限制的目的。</p>
+<p>事实上， wondershaper 的既定目标不仅仅是对一个接口增加其带宽上限；当批量下载或上传正在进行时，wondershaper 还试图去保持互动性会话如 SSH 的低延迟。同样的，它还会控制批量上传(例如， Dropbox 的同步)不会使得下载“窒息”，反之亦然。</p>
+<p>在 Ubuntu Debian 及其衍生发行版本 中安装 wondershaper：</p>
+<pre><code class="lang-bash">$ sudo apt-get install wondershaper
+</code></pre>
+<p>在 Fdora 或 CentOS/RHEL (带有 <a href="http://linux.cn/article-2324-1.html" target="_blank" rel="noopener">EPEL 软件仓库</a>) 中安装 wondershaper：</p>
+<pre><code class="lang-bash">$ sudo yum install wondershaper
+</code></pre>
+<p>wondershaper 的基本使用如下：</p>
+<pre><code class="lang-bash"> $ sudo wondershaper &lt;interface&gt; &lt;download-rate&gt; &lt;upload-rate&gt;
+</code></pre>
+<p>举个例子， 将 <code>eth0</code> 的最大下载/上传带宽分别设定为 1000Kbit/s 和 500Kbit/s:</p>
+<pre><code class="lang-bash">$ sudo wondershaper eth0 1000 500
+</code></pre>
+<p>你也可以通过运行下面的命令将速率限制进行消除：</p>
+<pre><code class="lang-bash">$ sudo wondershaper clear eth0
+</code></pre>
+<p>假如你对 wondershaper 的运行原理感兴趣，你可以阅读其 shell 脚本源文件(/sbin/wondershaper)。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在本教程中，我介绍了两种不同的方法，来达到如何在 Linux 桌面环境中，控制每个应用或每个接口的带宽使用的目的。 这些工具的使用都很简单，都为用户提供了一个快速且容易的方式来调整或限制流量。 对于那些想更多地了解如何在 Linux 中进行速率控制的读者，请参考 <a href="http://www.lartc.org/lartc.html" target="_blank" rel="noopener">the Linux bible</a>.</p>
+<hr>
+<p>via: <a href="http://xmodulo.com/limit-network-bandwidth-linux.html" target="_blank" rel="noopener">http://xmodulo.com/limit-network-bandwidth-linux.html</a><br>publish: <a href="https://linux.cn/article-5129-1.html" target="_blank" rel="noopener">https://linux.cn/article-5129-1.html</a></p>
+<p>作者：<a href="http://xmodulo.com/author/nanni" target="_blank" rel="noopener">Dan Nanni</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-02T13:55:03.507Z" itemprop="dateUpdated">2020-03-02 21:55:03</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/" target="_blank" rel="external">https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%99%90%E5%88%B6%E5%B8%A6%E5%AE%BD/" rel="tag">限制带宽</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/&title=《[翻译] 怎样在 Linux 中限制网络带宽使用》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/&title=《[翻译] 怎样在 Linux 中限制网络带宽使用》 — FLC&source=
+介绍如何在 Linux 中限制网络带宽使用
+
+
+                
+                    
+              ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 怎样在 Linux 中限制网络带宽使用》 — FLC&url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/04/06/Translate-Intense-Gameplay-Try-these-13-Roguelike-games/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 想找点激烈的游戏？那就试试这 13 款 Roguelike 游戏吧！</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] Linux 下最为人熟知的归档/压缩工具</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/&title=《[翻译] 怎样在 Linux 中限制网络带宽使用》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/&title=《[翻译] 怎样在 Linux 中限制网络带宽使用》 — FLC&source=
+介绍如何在 Linux 中限制网络带宽使用
+
+
+                
+                    
+              ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 怎样在 Linux 中限制网络带宽使用》 — FLC&url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJUlEQVR42u3aS1LjQBAFQO5/aWZLBGPxXpVw4HZqRdhSq7O9KOrz8RFfn1+ur598//b7ncnK12t+//bRCjdf2NjY2C/C/ry8knuun3rEeLTy7NBzCzY2Nvap7FloKV4Th7EWMAxy2NjY2G/Pbl+ZP3V9BJs9YGNjY2PPAs+maHUdOLGxsbGx26LSDJAcR35Ms0YFNjY29tnsfTv27/z9K/1tbGxs7D/M/o327axtsGk51ApsbGzsg9h5AJhtJVnnrpZznSBhY2NjH8HOCz1J+T5pG7SF/k156OGd2NjY2IeyowcWoShvDLTBr01RsLGxsc9jz1KO66NpQ90mdNXBEhsbG/sg9mzs5q4RnFlfOk9dht1sbGxs7BdkzxqozwxXyfp1oMXGxsY+gr1v1j6pFx2vX2Rg2NjY2AexZ83dPNm4xrfBKQmft7UHsLGxsf88e1NsShquLaAtJM3SIWxsbOzz2HmJJy8YtRvNQ85mwAgbGxv7PHY7dnNXiWeTNmyC6MMMDBsbG/tl2Ungmb0mf3bTQkh+nodHiY2NjX0EOw9g7XBMEvzydOiu1gU2Njb2eez83/e2lJOHpc3x5QWsj9mLsbGxsV+E3Q7H7Dc6KyTti1kPDwUbGxv7Zdmbc2pHMGfN3bbklKQo2NjY2OexnxNC2tGcnJGXk7CxsbHfgb1PJ5KnWlJeQoqKX9jY2NiHstvS/6w9MEt+NuHzh1QEGxsb+wj2LFVoQ9dstfzHKEpa2NjY2AexN+M17eaSEDUbylklJNjY2NhHsNtEom0GtIfS7ipPkLCxsbFPZW9GYe4t67eft8f6n1QEGxsb+yB2W1pqP9kM5eQpU3Hc2NjY2G/Dzv+ejebMikptpvVDLQ0bGxv7Zdmf5dW2b9vma57etC1nbGxs7FPZbQBIDmW2ubtaC/mYJjY2NvZJ7BkmaSfk3dWktDQb3MTGxsZ+H3abMCQBaVbob1sFq9ISNjY29luykzs3AzptU6H9kbCxsbGx840myUa7Tp4OYWNjY78be5Zg7DsP+7JRGxSxsbGxz2Pvh2xmgzVt8MuPID8UbGxs7Bdn/wPy6ww3eGO0xQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

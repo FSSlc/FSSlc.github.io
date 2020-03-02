@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,Conky,天气">
+    <meta name="description" content="介绍使用 Conky 来显示天气预报                                                                                                             智能手机都拥有一些平滑地融入手机外观的天气小插件，现在幸亏有了 Flair Weather Conky，你便可以在你的 Linux 桌面中拥有像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件">
+<meta property="og:url" content="https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍使用 Conky 来显示天气预报                                                                                                             智能手机都拥有一些平滑地融入手机外观的天气小插件，现在幸亏有了 Flair Weather Conky，你便可以在你的 Linux 桌面中拥有像">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/24/220418xlzzc64tlzr6oxc6.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/24/220420n57uhf479nt55n0j.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/24/220423dkkwruunwddq5nzn.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/24/220426fqb9njdfjs43ybpn.jpg">
+<meta property="article:published_time" content="2015-03-26T00:02:20.000Z">
+<meta property="article:modified_time" content="2020-03-02T13:15:45.482Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Conky">
+<meta property="article:tag" content="天气">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/24/220418xlzzc64tlzr6oxc6.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-26T00:02:20.000Z" itemprop="datePublished" class="page-time">
+  2015-03-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Conky-Manager"><span class="post-toc-text">安装 Conky Manager</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#确保-curl-已被安装"><span class="post-toc-text">确保 curl 已被安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载-Flair-Weather-Conky"><span class="post-toc-text">下载 Flair Weather Conky</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-Conky-Manager-中使用-Flair-Weather-Conky-脚本"><span class="post-toc-text">在 Conky Manager 中使用 Flair Weather Conky 脚本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#步骤-1"><span class="post-toc-text">步骤 1:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#步骤-2"><span class="post-toc-text">步骤 2:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#步骤-3"><span class="post-toc-text">步骤 3:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#步骤-4"><span class="post-toc-text">步骤 4:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#步骤-5"><span class="post-toc-text">步骤 5:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#可能的故障排除"><span class="post-toc-text">可能的故障排除</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#尝试一下"><span class="post-toc-text">尝试一下</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-03-26 08:02:20" datetime="2015-03-26T00:02:20.000Z"  itemprop="datePublished">2015-03-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍使用 Conky 来显示天气预报</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/24/220418xlzzc64tlzr6oxc6.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>智能手机都拥有一些平滑地融入手机外观的天气小插件，现在幸亏有了 Flair Weather Conky，你便可以<strong>在你的 Linux 桌面中拥有像智能手机一样的天气外观</strong>。我们将使用一个 GUI 工具<a href="http://www.linux.cn/article-3434-1.html" target="_blank" rel="noopener">Conky Manager 在 Linux 中轻松地管理 Conky</a>。那就先让我们看看如何在 Ubuntu 14.10，14.04、Linux Mint 17 及其他 Linux 发行版本中安装 Conky Manager 吧。</p>
+<a id="more"></a>
+<h3 id="安装-Conky-Manager"><a href="#安装-Conky-Manager" class="headerlink" title="安装 Conky Manager"></a>安装 Conky Manager</h3><p>打开一个终端并使用下面的命令：</p>
+<pre><code class="lang-bash">sudo add-apt-repository ppa:teejee2008/ppa
+sudo apt-get update
+sudo apt-get install conky-manager
+</code></pre>
+<p>你可以阅读这篇关于<a href="http://www.linux.cn/article-3434-1.html" target="_blank" rel="noopener">如何在 Linux 中使用 Conky Manager</a> 的文章。</p>
+<h3 id="确保-curl-已被安装"><a href="#确保-curl-已被安装" class="headerlink" title="确保 curl 已被安装"></a>确保 <code>curl</code> 已被安装</h3><p>请确保 <a href="http://www.computerhope.com/unix/curl.htm" target="_blank" rel="noopener">curl</a> 已被安装。如果没有安装它，可以使用下面的命令来安装：</p>
+<pre><code class="lang-bash">sudo apt-get install curl
+</code></pre>
+<h3 id="下载-Flair-Weather-Conky"><a href="#下载-Flair-Weather-Conky" class="headerlink" title="下载 Flair Weather Conky"></a>下载 Flair Weather Conky</h3><p>从下面的链接下载 Flair Weather Conky  的脚本：</p>
+<ul>
+<li><a href="http://speedracker.deviantart.com/art/Flair-Weather-Conky-Made-for-Conky-Manager-510130311" target="_blank" rel="noopener">下载 Flair Weather Conky 的脚本</a></li>
+</ul>
+<h3 id="在-Conky-Manager-中使用-Flair-Weather-Conky-脚本"><a href="#在-Conky-Manager-中使用-Flair-Weather-Conky-脚本" class="headerlink" title="在 Conky Manager 中使用 Flair Weather Conky 脚本"></a>在 Conky Manager 中使用 Flair Weather Conky 脚本</h3><h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤 1:"></a>步骤 1:</h4><p>同你在 Ubuntu 14.04 中安装主题一样，在你的家目录中应该有一个 <code>.conky</code> 目录。假如你使用命令行，我想我不需要告诉你如何找到这个目录。对于新手，请用文件管理器切换到你的家目录下，并按 <code>Ctrl+H</code> 来 <a href="http://itsfoss.com/hide-folders-and-show-hidden-files-in-ubuntu-beginner-trick/" target="_blank" rel="noopener">在 Ubuntu 中显示隐藏文件</a>。在这里查找 <code>.conky</code> 文件夹，假如没有这个文件夹，则创建一个。</p>
+<h4 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤 2:"></a>步骤 2:</h4><p>在 <code>.conky</code> 目录中，解压下载到的 Flair Weather 文件。请注意在默认情况下它会自动解压到一个名为 <code>.conky</code> 目录下。所以请进入这个目录，将其中的 Flair Weather 文件夹从中取出，然后将它粘贴到真正的 <code>.conky</code> 目录下。</p>
+<h4 id="步骤-3"><a href="#步骤-3" class="headerlink" title="步骤 3:"></a>步骤 3:</h4><p>Flair Weather 使用 Yahoo 的天气服务，但它不能自动地识别你的位置。你需要手动地编辑它。到<a href="https://weather.yahoo.com/" target="_blank" rel="noopener">Yahoo 天气</a> 网页，然后通过键入你的城市/Pin 码来得到你所在城市的位置 ID号。你可以从网页地址栏中取得位置 ID 号。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/24/220420n57uhf479nt55n0j.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="步骤-4"><a href="#步骤-4" class="headerlink" title="步骤 4:"></a>步骤 4:</h4><p>打开 Conky Manager，它应该能够读取新安装的 Conky 脚本。这里有两款样式可用，黑色主题或亮丽主题。你可以选择你偏爱的那一款。当你选择后，你就可以在桌面上看到 conky 的显示了。</p>
+<p>在 Flair Weather 中，默认位置被设定为 Melbourne。你必须手动编辑 conky 文件来修改。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/24/220423dkkwruunwddq5nzn.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="步骤-5"><a href="#步骤-5" class="headerlink" title="步骤 5:"></a>步骤 5:</h4><p>在上面的截图中，你可以看到有一个编辑选定 conky 脚本的选项，在打开的编辑器中，查找 location 或 WOEID ，更换它为你在 <code>步骤 3</code> 中得到的位置 ID 号。然后重启 Conky。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/24/220426fqb9njdfjs43ybpn.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在上面查找的相同位置，假如你将<code>u=c</code> 替换为<code>u=f</code>，则温度的单位将从摄氏温标改为华氏温标 。不要忘了重启 Conky 来查看已经做出的修改。</p>
+<h4 id="可能的故障排除"><a href="#可能的故障排除" class="headerlink" title="可能的故障排除"></a>可能的故障排除</h4><p>在 Ubuntu 14.04 和 Ubuntu 14.10 中，假如你发现 Conky 展示的时间有重叠现象，则请编辑 conky 脚本。查找下面的这些行：</p>
+<pre><code class="lang-bash">## cairo-compmgr
+own_window_type override
+own_window_argb_visual no
+</code></pre>
+<p>然后将内容更换为下面的这些行：</p>
+<pre><code class="lang-bash">## cairo-compmgr
+own_window_type dock
+own_window_argb_visual no
+</code></pre>
+<p>保存更改并重启 conky。这就应该解决了这个问题。感谢 Jesse(这个 Conky 脚本的开发者)给我们提供了这个解决方法和为其他相关问题给予的支持。</p>
+<h3 id="尝试一下"><a href="#尝试一下" class="headerlink" title="尝试一下"></a>尝试一下</h3><p>在这篇文章中，我们实际上学到了不少东西。我们见证了如何轻松地使用任何 Conky 脚本，如何编辑脚本以及如何使用 Conky Manager 来达到不同的目的。我希望这些对你有用。</p>
+<p>需要留心的是，Ubuntu 14.10 用户可能会看到重叠的时间数字。请在开发者 Jesse 绝妙的<a href="https://plus.google.com/communities/104794997718869399105" target="_blank" rel="noopener">Google + 主页</a> 中报告任何相关的问题。</p>
+<p>我已经向你展示了在我的系统上 Flair Weather conky 外观的截图。现在是该你尝试它并炫耀你的桌面的时间了。</p>
+<hr>
+<p>via: <a href="http://itsfoss.com/weather-conky-linux/" target="_blank" rel="noopener">http://itsfoss.com/weather-conky-linux/</a><br>publish: <a href="https://linux.cn/article-5122-1.html" target="_blank" rel="noopener">https://linux.cn/article-5122-1.html</a></p>
+<p>作者：<a href="http://itsfoss.com/author/Abhishek/" target="_blank" rel="noopener">Abhishek</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-02T13:15:45.482Z" itemprop="dateUpdated">2020-03-02 21:15:45</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" target="_blank" rel="external">https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Conky/" rel="tag">Conky</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A9%E6%B0%94/" rel="tag">天气</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/&title=《[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/&title=《[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件》 — FLC&source=
+介绍使用 Conky 来显示天气预报
+
+
+                
+                    
+                 ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件》 — FLC&url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] Linux 下最为人熟知的归档/压缩工具</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/23/Translate-How-to-set-up-a-cross-platform-backup-server-on-Linux-with-BackupPC/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 如何在 Linux 上使用 BackupPC 来架设跨平台的备份服务器</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/&title=《[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/&title=《[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件》 — FLC&source=
+介绍使用 Conky 来显示天气预报
+
+
+                
+                    
+                 ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件》 — FLC&url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3awZLaQAwE0P3/nyaXXFIJ0C2ZKjx5PlEL2POGg1at+fmJr8eT69knX//l73vOnvX6/hdc2NjY2DdhP15e+VJefzf5TI5s1/mPe2JjY2Mfx35dGNolbrZys015WcXGxsbGbtlJ+5E3G6/Xho2NjY3dsvNSlG9QzsPGxsbGbhe9ASTv5ql++5NgY2Njn8rOp6Lf//oj821sbGzsL2Zvmor8qM1+nHDVd3/fARsbG/sgdl4AZrHRrCGZxVttA4ONjY19BjsJd2bD2uTdT8dDT9eAjY2NfRA7PzSzKTB5A7MZP+RFFxsbG/sk9mNx5WUvj4RmpasultjY2NgHsWdLzGOjItkaFdH2h+nLOjY2NvZd2W2TsGla8qKYl6toK7GxsbEPYm9io6QEXjUAbscPRRSFjY2NfVt2fhAnL13JNm0GDJtRcX3+CBsbG/sIdr6UTWDU3j9vcp6eVMLGxsY+gp20Ey1yFkLlS8/bp+g+2NjY2Ddnt8vKH5y3NLODQbMA64+6jY2NjX0oOx/35oFOUUXLDWqDJ2xsbOyz2ftxbMKYhUT5ODl6FjY2NvZB7DxamrUZm6HvLNJqiyU2Njb2GezZ7WYlrS05s9AqEmFjY2MfwW4PLyZh06YIXRVUvXmNjY2NfRB7Fhi14c6s4ckLVTsqxsbGxj6P3ZaNWZQzayc2KylGAtjY2Ng3Z88C96TN2B+1yYfQswEDNjY29nnsJIiZUfP4Ph8SbI4EYWNjY5/Bbger1x6sabcvj/7fuLCxsbEPYieA/F/52cC4jaIu+zs2Njb2cexZsL4/9NM+d9+uYGNjY5/Nng1f26ZlNkhog6c338LGxsY+jl0MRMsRQrv0vEDmFzY2Nvap7Ed55TFQckSyPfSZkIaDAWxsbOzbsmcFoKXODly2T09KaY3HxsbGvgk7KVr5iDcJdzZbc9mmYGNjYx/HbmOj9shO3mAkP0BegbGxsbGxZwdx2uFxPnK+rNPCxsbG/u/Zs8jpE0VuNd/GxsbGPoidl6X82M0sEmq3NRknr7I0bGxs7K9nr6KZxeLaQW/+lM0BIGxsbOxbsX8B/H8CXfwaMOsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

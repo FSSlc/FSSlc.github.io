@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] Linux 下最为人熟知的归档/压缩工具 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,压缩归档工具">
+    <meta name="description" content="介绍 Linux 下常用的归档压缩工具  很多时候，通过互联网发送或接收大文件和图片是一件令人头疼的事。压缩及解压缩工具正好可以应对这个问题。下面让我们快速浏览一些可以使得我们的工作更加轻松的开源工具。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] Linux 下最为人熟知的归档&#x2F;压缩工具">
+<meta property="og:url" content="https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍 Linux 下常用的归档压缩工具  很多时候，通过互联网发送或接收大文件和图片是一件令人头疼的事。压缩及解压缩工具正好可以应对这个问题。下面让我们快速浏览一些可以使得我们的工作更加轻松的开源工具。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155328llggxaaxtllxrzhx.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155332fq00a601bqpb00yl.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155333gtcjtjkhhustzwm0.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155334j1p7s41e6s1z1ktg.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155335v8bz6zvdiraa7rra.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155337a0nxlxxbssobjzdr.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155338ph34ol4baaazqvpn.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155343r6le6osz6eglmvze.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155343ckwgs2kcgsiciks2.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155344a1t1bll1r6ll1761.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155345b92712nzi1rga299.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155346sjtsguj6tb4cebj8.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155347r6gcqa4yeaocavgj.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155347ivkih4zijh99k0la.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155348zkgt66ztg74hj6gh.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155349t7p3qhz0pzrrgep1.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155349ge4aoz4cse77des8.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155350nt9sguuy1hy9osfy.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155351hh7ic04vf323icvi.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155352hdguhaheeu47pef4.png">
+<meta property="og:image" content="hhttps://img.linux.net.cn/data/attachment/album/201503/26/155353bvyrpg12c6jgb7j5.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155354xegkfugcb4yre4ge.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155356td1viigihg9ijddi.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155356tysrcjsu0zsraxjj.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155358lck57zchhkbe5595.png">
+<meta property="article:published_time" content="2015-03-27T01:27:05.000Z">
+<meta property="article:modified_time" content="2020-03-02T13:54:19.831Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="压缩归档工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201503/26/155328llggxaaxtllxrzhx.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] Linux 下最为人熟知的归档/压缩工具</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] Linux 下最为人熟知的归档/压缩工具</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-27T01:27:05.000Z" itemprop="datePublished" class="page-time">
+  2015-03-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tar"><span class="post-toc-text">Tar</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#a-创建归档-c-—create"><span class="post-toc-text">a) 创建归档 (c &#x2F; —create)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#b-列出归档文件内容-t-—list"><span class="post-toc-text">b) 列出归档文件内容 ( t &#x2F; —list)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#c-提取归档-x-—extract"><span class="post-toc-text">c) 提取归档 (x &#x2F; —extract)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#d-对归档文件进行更新-u-—update"><span class="post-toc-text">d) 对归档文件进行更新 ( u &#x2F; —update)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#e-从归档中删除文件-—delete"><span class="post-toc-text">e) 从归档中删除文件 (—delete)</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Gzip-Gunzip"><span class="post-toc-text">Gzip &#x2F; Gunzip</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#a-压缩文件"><span class="post-toc-text">a) 压缩文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#b-检查压缩比"><span class="post-toc-text">b) 检查压缩比</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#c-解压文件"><span class="post-toc-text">c) 解压文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Bzip2-Bunzip2"><span class="post-toc-text">Bzip2 &#x2F; Bunzip2</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#a-压缩文件-1"><span class="post-toc-text">a) 压缩文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#b-解压"><span class="post-toc-text">b) 解压</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-zip"><span class="post-toc-text">7-zip</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#a-创建归档"><span class="post-toc-text">a) 创建归档</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#b-列出归档包含文件"><span class="post-toc-text">b) 列出归档包含文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#c-提取归档文件"><span class="post-toc-text">c) 提取归档文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#d-更新归档文件"><span class="post-toc-text">d) 更新归档文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#e-从归档文件中删除文件"><span class="post-toc-text">e) 从归档文件中删除文件</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-Best-Known-Linux-Archive-or-Compress-Tools"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] Linux 下最为人熟知的归档/压缩工具</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-03-27 09:27:05" datetime="2015-03-27T01:27:05.000Z"  itemprop="datePublished">2015-03-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍 Linux 下常用的归档压缩工具</p>
+</blockquote>
+<p>很多时候，通过互联网发送或接收大文件和图片是一件令人头疼的事。压缩及解压缩工具正好可以应对这个问题。下面让我们快速浏览一些可以使得我们的工作更加轻松的开源工具。</p>
+<a id="more"></a>
+<h3 id="Tar"><a href="#Tar" class="headerlink" title="Tar"></a>Tar</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155328llggxaaxtllxrzhx.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Tar 由 ‘Tape archiver（磁带归档器）’ 衍生而来，最初被用来在磁带上归档和存储文件。Tar 是一个 GNU 软件，它可以压缩一组文件（归档），或提取它们以及对已有的归档文件进行相关操作。在存储、备份以及传输文件方面，它是很有用的。在创建归档文件时，Tar 可以保持原有文件和目录结构不变。通过 Tar 归档的文件的后缀名为 ‘.tar’。</p>
+<p><strong>基本用法如下：</strong></p>
+<h4 id="a-创建归档-c-—create"><a href="#a-创建归档-c-—create" class="headerlink" title="a) 创建归档 (c / —create)"></a>a) 创建归档 (c / —create)</h4><pre><code class="lang-bash">tar --create --verbose --file=archive.tar file1 file2 file3
+</code></pre>
+<p>或</p>
+<pre><code class="lang-bash">tar cvf archive.tar file1 file2 file3
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155332fq00a601bqpb00yl.png" alt="创建一个归档" title="">
+                </div>
+                <div class="image-caption">创建一个归档</div>
+            </figure>
+<h4 id="b-列出归档文件内容-t-—list"><a href="#b-列出归档文件内容-t-—list" class="headerlink" title="b) 列出归档文件内容 ( t / —list)"></a>b) 列出归档文件内容 ( t / —list)</h4><pre><code class="lang-bash">tar --list archive.tar
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155333gtcjtjkhhustzwm0.png" alt="列出归档中包含的文件" title="">
+                </div>
+                <div class="image-caption">列出归档中包含的文件</div>
+            </figure>
+<h4 id="c-提取归档-x-—extract"><a href="#c-提取归档-x-—extract" class="headerlink" title="c) 提取归档 (x / —extract)"></a>c) 提取归档 (x / —extract)</h4><pre><code class="lang-bash">tar xvf archive.tar
+tar xvf archive.tar --wildcards &#39;*.c&#39;  # 从归档中提取后缀名为 *.c 的文件。
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155334j1p7s41e6s1z1ktg.png" alt="提取文件" title="">
+                </div>
+                <div class="image-caption">提取文件</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155335v8bz6zvdiraa7rra.png" alt="只提取需要的文件" title="">
+                </div>
+                <div class="image-caption">只提取需要的文件</div>
+            </figure>
+<h4 id="d-对归档文件进行更新-u-—update"><a href="#d-对归档文件进行更新-u-—update" class="headerlink" title="d) 对归档文件进行更新 ( u / —update)"></a>d) 对归档文件进行更新 ( u / —update)</h4><pre><code class="lang-bash">tar uvf archive.tar newfile.c   # 假如归档的newfile.c  要比先前已经归档的新，则添加更新的 newfile.c 到归档里面.
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155337a0nxlxxbssobjzdr.png" alt="更新一个归档" title="">
+                </div>
+                <div class="image-caption">更新一个归档</div>
+            </figure>
+<h4 id="e-从归档中删除文件-—delete"><a href="#e-从归档中删除文件-—delete" class="headerlink" title="e) 从归档中删除文件 (—delete)"></a>e) 从归档中删除文件 (—delete)</h4><pre><code class="lang-bash">tar --delete -f archive.tar file1.c   # 从压缩包&#39;archive.tar&#39; 中删除文件&#39;file1.c&#39;
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155338ph34ol4baaazqvpn.png" alt="删除文件" title="">
+                </div>
+                <div class="image-caption">删除文件</div>
+            </figure>
+<p>更加具体的使用方法请参考<a href="http://www.gnu.org/software/tar/" target="_blank" rel="noopener">tar 主页</a>。</p>
+<h3 id="Gzip-Gunzip"><a href="#Gzip-Gunzip" class="headerlink" title="Gzip / Gunzip"></a>Gzip / Gunzip</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155343r6le6osz6eglmvze.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Gzip 即 GNU zip，它是一个被广泛用于 Linux 操作系统中的压缩应用，被其压缩的文件的后缀名为’*.gz’ 。</p>
+<p><strong>基本用法如下：</strong></p>
+<h4 id="a-压缩文件"><a href="#a-压缩文件" class="headerlink" title="a) 压缩文件"></a>a) 压缩文件</h4><pre><code class="lang-bash">gzip file(s)
+</code></pre>
+<p>每个文件将被<strong>单独压缩</strong>。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155343ckwgs2kcgsiciks2.png" alt="压缩文件" title="">
+                </div>
+                <div class="image-caption">压缩文件</div>
+            </figure>
+<p>通常在压缩完成后，它会将原来的文件删除。我们可以使用 <code>-c</code> 选项来保留原来的文件。</p>
+<pre><code class="lang-bash">gzip -c file &gt; file.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155344a1t1bll1r6ll1761.png" alt="压缩后保留原有文件" title="">
+                </div>
+                <div class="image-caption">压缩后保留原有文件</div>
+            </figure>
+<p>我们也可以将一组文件压缩到一个单独的文件中</p>
+<pre><code class="lang-bash">cat file1 file2 file3 | gzip &gt; archieve.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155345b92712nzi1rga299.png" alt="压缩一组文件" title="">
+                </div>
+                <div class="image-caption">压缩一组文件</div>
+            </figure>
+<h4 id="b-检查压缩比"><a href="#b-检查压缩比" class="headerlink" title="b) 检查压缩比"></a>b) 检查压缩比</h4><p>被压缩文件的压缩比可以使用 ‘-l’ 选项来进行检验。</p>
+<pre><code class="lang-bash">gzip -l archieve.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155346sjtsguj6tb4cebj8.png" alt="检查压缩率" title="">
+                </div>
+                <div class="image-caption">检查压缩率</div>
+            </figure>
+<h4 id="c-解压文件"><a href="#c-解压文件" class="headerlink" title="c) 解压文件"></a>c) 解压文件</h4><p>Gunzip 用来解压文件，在这里，原有的（压缩）文件在被解压后同样会被删除。使用 <code>-c</code> 选项来保留原始文件。</p>
+<pre><code class="lang-bash">gunzip -c archieve.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155347r6gcqa4yeaocavgj.png" alt="解压文件" title="">
+                </div>
+                <div class="image-caption">解压文件</div>
+            </figure>
+<p>gzip 加上’-d’选项 和 gunzip 对压缩文件有同样的效果。</p>
+<p>更多细节可以从 <a href="http://www.gzip.org/" target="_blank" rel="noopener">gzip 主页</a> 得到。</p>
+<h3 id="Bzip2-Bunzip2"><a href="#Bzip2-Bunzip2" class="headerlink" title="Bzip2 / Bunzip2"></a>Bzip2 / Bunzip2</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155347ivkih4zijh99k0la.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>同 gzip 一样，<a href="http://www.bzip.org/" target="_blank" rel="noopener">Bzip2</a> 也是一个压缩工具，与其他传统的工具相比，它可以将文件压缩到更小，但其缺点为：运行速度比 gzip 慢。</p>
+<p><strong>基本用法如下：</strong></p>
+<h4 id="a-压缩文件-1"><a href="#a-压缩文件-1" class="headerlink" title="a) 压缩文件"></a>a) 压缩文件</h4><p>一般情况下，针对压缩而言，Bzip2 不用什么选项，将被压缩的文件被传递为它的参数。每个文件被单独压缩，且压缩文件以 ‘bz2’ 为后缀名。</p>
+<pre><code class="lang-bash">bzip2 file1 file2 file3
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155348zkgt66ztg74hj6gh.png" alt="文件压缩" title="">
+                </div>
+                <div class="image-caption">文件压缩</div>
+            </figure>
+<p>使用 ‘-k’ 选项可以使得在压缩或解压缩之后保留原有的文件。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155349t7p3qhz0pzrrgep1.png" alt="在压缩后保留原有文件" title="">
+                </div>
+                <div class="image-caption">在压缩后保留原有文件</div>
+            </figure>
+<h4 id="b-解压"><a href="#b-解压" class="headerlink" title="b) 解压"></a>b) 解压</h4><p>‘-d’ 选项被用来解压缩。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155349ge4aoz4cse77des8.png" alt="使用 -d 选项解压缩文件" title="">
+                </div>
+                <div class="image-caption">使用 -d 选项解压缩文件</div>
+            </figure>
+<p>也可以使用 bunzip2 来解压缩。</p>
+<pre><code class="lang-bash">bunzip2 filename
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155350nt9sguuy1hy9osfy.png" alt="解压文件" title="">
+                </div>
+                <div class="image-caption">解压文件</div>
+            </figure>
+<p>bunzip2 可以解压后缀名为 bz2, bz, tbz2 和 tbz 的文件。带有 tbz2 和 tbz 的文件在压缩后，后缀名将变为’.tar’ 。</p>
+<pre><code class="lang-bash">bzip2 -dc  # 执行解压文件到标准输出的功能。
+</code></pre>
+<h3 id="7-zip"><a href="#7-zip" class="headerlink" title="7-zip"></a>7-zip</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155351hh7ic04vf323icvi.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><a href="http://www.7-zip.org/" target="_blank" rel="noopener">7-zip</a> 是另一个开源压缩软件。它使用 7z 这种新的压缩格式，并支持高压缩比。因此，它被认为是比先前提及的压缩工具更好的软件。在 Linux 下，可以通过 p7zip 软件包得到，该软件包里包含 3 个二进制文件： 7z, 7za 和 7zr，读者可以参考 <a href="https://wiki.archlinux.org/index.php/p7zip" target="_blank" rel="noopener">p7zip wiki</a> 来了解这三个二进制文件之间的不同。在本篇中，我们将使用 7zr 来解释 7-zip 的用法。归档文件以 ‘.7z’ 为后缀名。</p>
+<p><strong>基本用法如下：</strong></p>
+<h4 id="a-创建归档"><a href="#a-创建归档" class="headerlink" title="a) 创建归档"></a>a) 创建归档</h4><pre><code class="lang-bash">7zr a archive-name.7z file-name(s) / directory-name(s)
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155352hdguhaheeu47pef4.png" alt="创建一个归档文件" title="">
+                </div>
+                <div class="image-caption">创建一个归档文件</div>
+            </figure>
+<h4 id="b-列出归档包含文件"><a href="#b-列出归档包含文件" class="headerlink" title="b) 列出归档包含文件"></a>b) 列出归档包含文件</h4><pre><code class="lang-bash">7zr l archive-name.7z
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="hhttps://img.linux.net.cn/data/attachment/album/201503/26/155353bvyrpg12c6jgb7j5.png" alt="列出归档中包含的文件" title="">
+                </div>
+                <div class="image-caption">列出归档中包含的文件</div>
+            </figure>
+<h4 id="c-提取归档文件"><a href="#c-提取归档文件" class="headerlink" title="c) 提取归档文件"></a>c) 提取归档文件</h4><pre><code class="lang-bash">7zr e archive-name.7z
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155354xegkfugcb4yre4ge.png" alt="提取归档" title="">
+                </div>
+                <div class="image-caption">提取归档</div>
+            </figure>
+<h4 id="d-更新归档文件"><a href="#d-更新归档文件" class="headerlink" title="d) 更新归档文件"></a>d) 更新归档文件</h4><pre><code class="lang-bash">7zr u archive-name.7z new-file
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155356td1viigihg9ijddi.png" alt="更新一个归档文件" title="">
+                </div>
+                <div class="image-caption">更新一个归档文件</div>
+            </figure>
+<h4 id="e-从归档文件中删除文件"><a href="#e-从归档文件中删除文件" class="headerlink" title="e) 从归档文件中删除文件"></a>e) 从归档文件中删除文件</h4><pre><code class="lang-bash">7zr d archive-name.7z file-to-be-deleted
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155356tysrcjsu0zsraxjj.png" alt="删除文件" title="">
+                </div>
+                <div class="image-caption">删除文件</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201503/26/155358lck57zchhkbe5595.png" alt="确认文件删除" title="">
+                </div>
+                <div class="image-caption">确认文件删除</div>
+            </figure>
+<hr>
+<p>via: <a href="http://linoxide.com/tools/linux-compress-decompress-tools/" target="_blank" rel="noopener">http://linoxide.com/tools/linux-compress-decompress-tools/</a><br>publish: <a href="https://linux.cn/article-5131-1.html" target="_blank" rel="noopener">https://linux.cn/article-5131-1.html</a></p>
+<p>作者：<a href="http://linoxide.com/author/bnpoornima/" target="_blank" rel="noopener">B N Poornima</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-02T13:54:19.831Z" itemprop="dateUpdated">2020-03-02 21:54:19</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" target="_blank" rel="external">https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%BD%92%E6%A1%A3%E5%B7%A5%E5%85%B7/" rel="tag">压缩归档工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/&title=《[翻译] Linux 下最为人熟知的归档/压缩工具》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/&title=《[翻译] Linux 下最为人熟知的归档/压缩工具》 — FLC&source=
+介绍 Linux 下常用的归档压缩工具
+
+很多时候，通过互联网发送或接收大文件和图片是一件令人头疼的事。压缩及解压缩工具正好可以应对这个问题。下面让我们..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Linux 下最为人熟知的归档/压缩工具》 — FLC&url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/03/27/Translate-How-to-limit-network-bandwidth-on-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 怎样在 Linux 中限制网络带宽使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/26/Translate-How-To-Use-Smartphones-Like-Weather-Conky-In-Linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 如何在 Linux 中使用类似智能手机外观的 Conky 天气插件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/&title=《[翻译] Linux 下最为人熟知的归档/压缩工具》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/&title=《[翻译] Linux 下最为人熟知的归档/压缩工具》 — FLC&source=
+介绍 Linux 下常用的归档压缩工具
+
+很多时候，通过互联网发送或接收大文件和图片是一件令人头疼的事。压缩及解压缩工具正好可以应对这个问题。下面让我们..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Linux 下最为人熟知的归档/压缩工具》 — FLC&url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/03/27/Translate-Best-Known-Linux-Archive-or-Compress-Tools/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLklEQVR42u3aQW7jQAwEwP3/p72XPSwQ2O4mZcCalE6BYitTowND9vz5E1+P/66fd57df3Ynuf/z5/YzF1zY2NjYN2E/Xl7tZ5Ilvv7us+14va35OrGxsbFPZbdF4s1D4219XcCSO+3WY2NjY2O3DUneluy3CRsbGxt7M7jZj5ZmhQobGxsbezYwmrUT+aioDSo+OEvDxsbG/np2nop+/88fybexsbGxv5j9KK/NGCgvYJ/77r8nYGNjYx/EbgdGeanIo999UDFcPzY2NvYR7HZk/4k49nPjoaefxMbGxj6I3ZaN/FDO65Agf0L7MvIgARsbG/sMdvtPfHEgZhHxzoZKxVEhbGxs7IPYLaxtCdph0GaoVL8ebGxs7CPY7dLbctWOpdpRV7K2p6ULGxsb+yB2UpBmZSNvXTZBRVvksLGxsU9iz+LSWcPQNi1tYbsMjI2NjX1zdvsv/qolKAvY7LhPElFgY2Nj35edl4RZM3BthFC/wyQPwcbGxj6CnR+jmQ2MZmOj9lhP0gK9CXqxsbGxD2LnA/r8ft6QtIFE+y1sbGzsU9nJ49qysSozo09Gm46NjY19EHs/6M83axYVXDVUKv4MNjY29q3YeWOQj+/bEVI+VEqKXFREsbGxsQ9iX1Uw9jFDOyTahMfY2NjYJ7GT4tEerMk34qqIN9+4IlvGxsbGvgk7KQyzGKDdiNmIKn9hb945NjY29hHs2fh+1nLk+E0Y/OZlYGNjYx/EbpuHTfHIY4NNPlusExsbG/sgdl5mkuI0O/qzCZtnT8PGxsY+g90ezUlKzv4oz1Xb/SYbwcbGxj6InTcV7SLaZqY9lDM7PISNjY39e9jJonPeVa3OplHBxsbGPpWdFIyrjtfkJXM47p91YNjY2Ng3ZD/KazNU2rcueZuEjY2N/XvYbQHIg9XX5SdpGzbRbxsnY2NjY9+dnQ+G8mFTG9+2EcI+csbGxsY+j70Z62wWvR9gtc/BxsbGxk7KW94kbPqnWZODjY2Njb1ZSrvQOrWOB2HY2NjY57Fnw518VJTEwLNQOV8hNjY29qnsfNCT/5n2t3m4m4+W9uMtbGxs7K9n/wVZ6EoVjHYMFgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
