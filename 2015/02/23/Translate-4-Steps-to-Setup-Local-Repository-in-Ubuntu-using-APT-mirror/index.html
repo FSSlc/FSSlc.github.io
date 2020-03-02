@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,Ubuntu,APT-mirror">
+    <meta name="description" content="介绍使用 APT-Mirror 来制作本地源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库">
+<meta property="og:url" content="https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍使用 APT-Mirror 来制作本地源">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201502/22/222342ybiibj1mj1jdrbam.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201502/22/222345kfzfsdrdyrq0dbbr.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201502/22/222346n1bcve3ytotgjct5.png">
+<meta property="article:published_time" content="2015-02-23T03:17:07.000Z">
+<meta property="article:modified_time" content="2020-03-02T06:17:56.890Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="APT-mirror">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201502/22/222342ybiibj1mj1jdrbam.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-02-23T03:17:07.000Z" itemprop="datePublished" class="page-time">
+  2015-02-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-安装需要的软件包"><span class="post-toc-text">1. 安装需要的软件包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-配置-APT-Mirror"><span class="post-toc-text">2. 配置 APT-Mirror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-配置网络服务器"><span class="post-toc-text">3.配置网络服务器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-配置客户端"><span class="post-toc-text">4. 配置客户端</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-02-23 11:17:07" datetime="2015-02-23T03:17:07.000Z"  itemprop="datePublished">2015-02-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍使用 APT-Mirror 来制作本地源</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201502/22/222342ybiibj1mj1jdrbam.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<a id="more"></a>
+<p>今天，我们将向你展示如何在你的 Ubuntu 个人电脑或 Ubuntu 服务器中，直接通过 Ubuntu 官方软件仓库来配置本地软件仓库。在你的电脑中创建一个本地软件仓库有着许多的好处。假如你有许多电脑需要安装软件 、安全升级和修复补丁，那么配置一个本地软件仓库是一个做这些事情的高效方法。因为，所有需要安装的软件包都可以通过快速的局域网连接从你的本地服务器中下载，这样可以节省你的网络带宽，降低互联网接入的年度开支 …</p>
+<p>你可以使用多种工具在你的本地个人电脑或服务器中配置一个 Ubuntu 的本地软件仓库，但在本教程中，我们将为你介绍 APT-Mirror。这里，我们将把默认的镜像包镜像到我们本地的服务器或个人电脑中，并且在你的本地或外置硬盘中，我们至少需要 <strong>120 GB</strong> 或更多的可用空间才行。 我们可以通过配置一个 <strong>HTTP</strong> 或 <strong>FTP</strong> 服务器来与本地系统客户端共享这个软件仓库。</p>
+<p>我们需要安装 Apache 网络服务器和 APT-Mirror 来使得我们的工作得以开始。下面是配置一个可工作的本地软件仓库的步骤：</p>
+<h3 id="1-安装需要的软件包"><a href="#1-安装需要的软件包" class="headerlink" title="1. 安装需要的软件包"></a>1. 安装需要的软件包</h3><p>我们需要从 Ubuntu 的公共软件包仓库中取得所有的软件包，然后在我们本地的 Ubuntu 服务器硬盘中保存它们。</p>
+<p>首先我们安装一个Web 服务器来承载我们的本地软件仓库。这里我们将安装 Apache Web 服务器，但你可以安装任何你中意的 Web 服务器。对于 http 协议，Web 服务器是必须的。假如你需要配置 ftp 协议 及 rsync 协议，你还可以再分别额外安装 FTP 服务器，如  proftpd, vsftpd 等等 和 Rsync 。</p>
+<pre><code class="lang-bash">$ sudo apt-get install apache2
+</code></pre>
+<p>然后我们需要安装 apt-mirror:</p>
+<pre><code class="lang-bash">$ sudo apt-get install apt-mirror
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201502/22/222345kfzfsdrdyrq0dbbr.png" alt="apt-mirror-installation" title="">
+                </div>
+                <div class="image-caption">apt-mirror-installation</div>
+            </figure>
+<p><strong>注: 正如我先前提到的，我们需要至少 120 GB 的可用空间来使得所有的软件包被镜像或下载。</strong></p>
+<h3 id="2-配置-APT-Mirror"><a href="#2-配置-APT-Mirror" class="headerlink" title="2. 配置 APT-Mirror"></a>2. 配置 APT-Mirror</h3><p>现在，在你的硬盘上创建一个目录来保存所有的软件包。例如，我们创建一个名为 <code>/linoxide</code>的目录，我们将在这个目录中保存所有的软件包：</p>
+<pre><code class="lang-bash">$ sudo mkdir /linoxide
+</code></pre>
+<p>现在，打开文件 <strong>/etc/apt/mirror.list</strong> :</p>
+<pre><code class="lang-bash">$ sudo nano /etc/apt/mirror.list
+</code></pre>
+<p>复制下面的命令行配置到 <code>mirror.list</code>文件中并按照你的需求进行修改：</p>
+<pre><code class="lang-bash">############# config ##################
+#
+set base_path    /linoxide
+#
+# set mirror_path  $base_path/mirror
+# set skel_path    $base_path/skel
+# set var_path     $base_path/var
+# set cleanscript $var_path/clean.sh
+# set defaultarch  &lt;running host architecture&gt;
+# set postmirror_script $var_path/postmirror.sh
+# set run_postmirror 0
+set nthreads     20
+set _tilde 0
+#
+############# end config ##############
+
+deb http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse
+#deb http://archive.ubuntu.com/ubuntu trusty-proposed main restricted universe multiverse
+#deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
+
+deb-src http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse
+#deb-src http://archive.ubuntu.com/ubuntu trusty-proposed main restricted universe multiverse
+#deb-src http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
+
+clean http://archive.ubuntu.com/ubuntu
+</code></pre>
+<p><strong>注: 你可以将上面的官方镜像服务器网址更改为离你最近的服务器的网址，可以通过访问 <a href="https://launchpad.net/ubuntu/+archivemirrors" target="_blank" rel="noopener">Ubuntu Mirror Server</a>来找到这些服务器地址。假如你并不太在意镜像完成的时间，你可以沿用默认的官方镜像服务器网址。</strong></p>
+<p>这里，我们将要镜像最新和最大的 Ubuntu LTS 发行版 —- 即 Ubuntu 14.04 LTS (Trusty Tahr) —- 的软件包仓库，所以在上面的配置中发行版本号为 trusty 。假如我们需要镜像 Saucy 或其他的 Ubuntu 发行版本，请修改上面的 trusy 为相应的代号。</p>
+<p>现在，我们必须运行 apt-mirror 来下载或镜像官方仓库中的所有软件包。</p>
+<pre><code class="lang-bash">sudo apt-mirror
+</code></pre>
+<p>从 Ubuntu 服务器中下载所有的软件包所花费的时间取决于你和镜像服务器之间的网络连接速率和性能。这里我中断了下载，因为我已经下载好了 …</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201502/22/222346n1bcve3ytotgjct5.png" alt="downloading-packages" title="">
+                </div>
+                <div class="image-caption">downloading-packages</div>
+            </figure>
+<h3 id="3-配置网络服务器"><a href="#3-配置网络服务器" class="headerlink" title="3.配置网络服务器"></a>3.配置网络服务器</h3><p>为了使得其他的电脑能够访问这个软件仓库，你需要一个Web服务器。你也可以通过 ftp 来完成这件事，但我选择使用一个Web服务器因为在上面的步骤 1 中我提及到使用Web服务器。因此，我们现在要对 Apache 服务器进行配置:</p>
+<p>我们将为我们本地的软件仓库目录 建立一个到 Apache 托管目录 —- 即 <code>/var/www/ubuntu</code> —- 的符号链接。</p>
+<pre><code class="lang-bash">$ sudo ln -s /linoxide /var/www/ubuntu
+$ sudo service apache2 start
+</code></pre>
+<p>上面的命令将允许我们从本地主机(localhost) —- 即 <a href="http://127.0.0.1(默认情况下" target="_blank" rel="noopener">http://127.0.0.1(默认情况下</a>) —-  浏览我们的镜像软件仓库。</p>
+<h3 id="4-配置客户端"><a href="#4-配置客户端" class="headerlink" title="4. 配置客户端"></a>4. 配置客户端</h3><p>最后，我们需要在其他的电脑中添加软件源，来使得它们可以从我们的电脑中取得软件包或软件仓库。为达到此目的，我们需要编辑 <code>/etc/apt/sources.list</code> 文件并添加下面的命令：</p>
+<pre><code class="lang-bash">$ sudo nano /etc/apt/sources.list
+</code></pre>
+<p>添加下面的一行到<code>/etc/apt/sources.list</code>中并保存。</p>
+<pre><code class="lang-bash">deb http://192.168.0.100/ubuntu/ trusty main restricted universe
+</code></pre>
+<p><strong>注: 这里的 192.168.0.100 是我们的服务器电脑的局域网 IP 地址，你需要替换为你的服务器电脑的局域网 IP 地址</strong></p>
+<pre><code class="lang-bash">$ sudo apt-get update
+</code></pre>
+<p>最终，我们完成了任务。现在，你可以使用<code>sudo apt-get install packagename</code> 命令来从你的本地 Ubuntu 软件仓库中安装所需的软件包，这将会是高速的且消耗很少的带宽。</p>
+<hr>
+<p>via: <a href="http://linoxide.com/ubuntu-how-to/setup-local-repository-ubuntu/" target="_blank" rel="noopener">http://linoxide.com/ubuntu-how-to/setup-local-repository-ubuntu/</a><br>public: <a href="https://linux.cn/article-4926-1.html" target="_blank" rel="noopener">https://linux.cn/article-4926-1.html</a></p>
+<p>作者：<a href="http://linoxide.com/author/arunp/" target="_blank" rel="noopener">Arun Pyasi</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-02T06:17:56.890Z" itemprop="dateUpdated">2020-03-02 14:17:56</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/" target="_blank" rel="external">https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APT-mirror/" rel="tag">APT-mirror</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/&title=《[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/&title=《[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库》 — FLC&source=
+介绍使用 APT-Mirror 来制作本地源
+
+
+                
+                    
+             ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库》 — FLC&url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/02/25/Translate-Undelete-Files-on-Linux-Systems/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 怎样在 Linux 系统中恢复已删除文件</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/&title=《[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/&title=《[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库》 — FLC&source=
+介绍使用 APT-Mirror 来制作本地源
+
+
+                
+                    
+             ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 使用 APT-mirror 四步配置 Ubuntu 本地软件仓库》 — FLC&url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/02/23/Translate-4-Steps-to-Setup-Local-Repository-in-Ubuntu-using-APT-mirror/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADRUlEQVR42u3aQZLiMAwF0L7/pZnNLHpqOvD1na7C5mVFBWL7OQshyV9f8fX4dn2/k3w7vXN1XT37/7e3XdjY2NibsJPJrqZPNuhqluSp5yt8/gKez4iNjY19HvtqsiRcPX8qCW8dPg9m2NjY2NgJexqikgSjewobGxsbuxsuD2z5/elGYGNjY38ye1q46RbXJSFdo+K2Who2Njb227Pzruj7f/6V/jY2Njb2G7Mfw2v93Es3zl3P/h0BGxsb+yB2HgC6Yz1dC+GulvOLVAcbGxv7CHa+xLwRmxeectL6Zg36HtjY2Ngbsqdl9LyRsNIwTubNjxD9MzI2Njb2Qeyk1Zrc7w7r5K3ilSbxixeJjY2NvTk7D0J5cMpD1DRk3pauYGNjYx/EzhfXBbxuK5Pxk9cwONCDjY2NfQR7WtbJmwTTkNOlPeWBIWxsbOzN2flPp23daZk+2YKVVvGLrgg2Njb25uxk+pVCT/5UvvT8ONEPd7CxsbGPY0//4ncpRJ7YrITG5CVhY2Njn8SeFvSnB2jyYv20pDVtQix1ubGxsbHfnt0dixknANWhnJUgmoRnbGxs7N3Z02XlYaZrGOdBaPoCLrsi2NjY2Juz88OXydbkByiT45JJOFxZGzY2NvZJ7HyChHRXUpFsTZ4s/TA+NjY29hHsKXi6xK7lMC1ajdMPbGxs7KPZeZLQpQdd6ErC1aD1i42NjX0cu6u65OD8/nT8rmiFjY2NfRJ7Wh7KU4vpIroEpitdYWNjY5/E7vZpeidJPLomQdk2xsbGxj6OnQyXpBDTJa6kK9PfjE8SYWNjY2/CzsPPXUtcT3WScQYVNWxsbOyD2F0BqCOVR23iVxIFSGxsbOwPYA/KNMG//Wm5P9+4bruxsbGxz2MnwaALKuthbHpMp8zAsLGxsTdkP4bXNC1ZD415wWiwTmxsbOyD2F0jNi8q5Q2AfKOn7YFxAxgbGxt7Q3Z+4HJa9JkGwq6clDcMsLGxsc9md4Fh5TfJ52TTy/CGjY2Njb1cvpk2JPJvo6wLGxsb++PZ3fTdL7v2w4tEBRsbG/s4dnekJpkmL1F1ZaPnK7yhloaNjY399uyuNNMdkem2dTr7eikKGxsbexP2Hzm0ct7sOBQGAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
