@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 一大波你可能不知道的 Linux 网络工具  | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,网络工具">
+    <meta name="description" content="介绍一大波的网络工具  如果要在你的系统上监控网络，那么使用命令行工具是非常实用的，并且对于 Linux 用户来说，有着许许多多现成的工具可以使用，如： nethogs, ntopng, nload, iftop, iptraf, bmon, slurm, tcptrack, cbm, netwatch, collectl, trafshow, cacti, etherape, ipband,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 一大波你可能不知道的 Linux 网络工具 ">
+<meta property="og:url" content="https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍一大波的网络工具  如果要在你的系统上监控网络，那么使用命令行工具是非常实用的，并且对于 Linux 用户来说，有着许许多多现成的工具可以使用，如： nethogs, ntopng, nload, iftop, iptraf, bmon, slurm, tcptrack, cbm, netwatch, collectl, trafshow, cacti, etherape, ipband,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145257j2fumafcy1nnh1hm.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145258ddyrnzs2soddg18r.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145259ustjy0xut24ewr4r.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145259wia38exx1hapzhxx.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145300xdap6drbdyybf4w4.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145301jybg1tyhobt7opxd.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145301iahi0efpp4i1956p.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145302wwqjz555q57q0qg9.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145302x33zknj0rz6udj6w.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145303mzuagwzxwpwxg6ng.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145304hueslqebrlg5z15n.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145304h9gd54rn8gnl89zn.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145305dj4ghh43n4lb5elk.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145305hqaj42j76jo8yssu.png">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2015/02/tcptrack.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145306bwfbknz2kenblffy.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145307ht3e3tj4j5dp4ozm.png">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2015/02/bmon.png">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2015/02/tcpdump.png">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2015/02/tcpdump-port.png">
+<meta property="article:published_time" content="2015-05-12T06:52:49.000Z">
+<meta property="article:modified_time" content="2020-03-06T14:07:38.248Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="网络工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201505/12/145257j2fumafcy1nnh1hm.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 一大波你可能不知道的 Linux 网络工具 </div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 一大波你可能不知道的 Linux 网络工具 </h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-12T06:52:49.000Z" itemprop="datePublished" class="page-time">
+  2015-05-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-nethogs"><span class="post-toc-text">1) nethogs</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-nload"><span class="post-toc-text">2) nload</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-slurm"><span class="post-toc-text">3) slurm</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-iftop"><span class="post-toc-text">4) iftop</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-collectl"><span class="post-toc-text">5) collectl</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-Netstat"><span class="post-toc-text">6) Netstat</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-Netload"><span class="post-toc-text">7) Netload</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-Nagios"><span class="post-toc-text">8) Nagios</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-EtherApe"><span class="post-toc-text">9) EtherApe</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-tcpflow"><span class="post-toc-text">10) tcpflow</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-IPTraf"><span class="post-toc-text">11) IPTraf</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-Speedometer"><span class="post-toc-text">12) Speedometer</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13-Netwatch"><span class="post-toc-text">13) Netwatch</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#14-Trafshow"><span class="post-toc-text">14) Trafshow</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#15-Vnstat"><span class="post-toc-text">15) Vnstat</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#16-tcptrack"><span class="post-toc-text">16) tcptrack</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#17-CBM"><span class="post-toc-text">17) CBM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#18-bmon"><span class="post-toc-text">18) bmon</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#19-tcpdump"><span class="post-toc-text">19) tcpdump</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#20-ntopng"><span class="post-toc-text">20) ntopng</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-text">结论</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 一大波你可能不知道的 Linux 网络工具 </h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-05-12 14:52:49" datetime="2015-05-12T06:52:49.000Z"  itemprop="datePublished">2015-05-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍一大波的网络工具</p>
+</blockquote>
+<p>如果要在你的系统上监控网络，那么使用命令行工具是非常实用的，并且对于 Linux 用户来说，有着许许多多现成的工具可以使用，如： nethogs, ntopng, nload, iftop, iptraf, bmon, slurm, tcptrack, cbm, netwatch, collectl, trafshow, cacti, etherape, ipband, jnettop, netspeed 以及 speedometer。</p>
+<p>鉴于世上有着许多的 Linux 专家和开发者，显然还存在其他的网络监控工具，但在这篇教程中，我不打算将它们所有包括在内。</p>
+<a id="more"></a>
+<p>上面列出的工具都有着自己的独特之处，但归根结底，它们都做着监控网络流量的工作，只是通过各种不同的方法。例如 nethogs 可以被用来展示每个进程的带宽使用情况，以防你想知道究竟是哪个应用在消耗了你的整个网络资源； iftop 可以被用来展示每个套接字连接的带宽使用情况，而像 nload 这类的工具可以帮助你得到有关整个带宽的信息。</p>
+<h3 id="1-nethogs"><a href="#1-nethogs" class="headerlink" title="1) nethogs"></a>1) nethogs</h3><p>nethogs 是一个免费的工具，当要查找哪个 PID (注：即 process identifier，进程 ID) 给你的网络流量带来了麻烦时，它是非常方便的。它按每个进程来分组带宽，而不是像大多数的工具那样按照每个协议或每个子网来划分流量。它功能丰富，同时支持 IPv4 和 IPv6，并且我认为，若你想在你的 Linux 主机上确定哪个程序正消耗着你的全部带宽，它是来做这件事的最佳的程序。</p>
+<p>一个 Linux 用户可以使用 <strong>nethogs</strong> 来显示每个进程的 TCP 下载和上传速率，可以使用命令 <strong>nethogs eth0</strong> 来监控一个指定的设备，上面的 eth0 是那个你想获取信息的设备的名称，你还可以得到有关正在传输的数据的传输速率信息。</p>
+<p>对我而言， nethogs 是非常容易使用的，或许是因为我非常喜欢它，以至于我总是在我的 Ubuntu 12.04 LTS 机器中使用它来监控我的网络带宽。</p>
+<p>例如要想使用混杂模式来嗅探，可以像下面展示的命令那样使用选项 -p：</p>
+<pre><code class="lang-bash">nethogs -p wlan0
+</code></pre>
+<p>假如你想更多地了解 nethogs 并深入探索它，那么请毫不犹豫地阅读我们做的关于这个网络带宽监控工具的整个教程。</p>
+<p>（LCTT 译注：关于 nethogs 的更多信息可以参考：<a href="https://linux.cn/article-2808-1.html" target="_blank" rel="noopener">https://linux.cn/article-2808-1.html</a> ）</p>
+<h3 id="2-nload"><a href="#2-nload" class="headerlink" title="2) nload"></a>2) nload</h3><p>nload 是一个控制台应用，可以被用来实时地监控网络流量和带宽使用情况，它还通过提供两个简单易懂的图表来对流量进行可视化。这个绝妙的网络监控工具还可以在监控过程中切换被监控的设备，而这可以通过按左右箭头来完成。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145257j2fumafcy1nnh1hm.png" alt="network monitoring tools in linux" title="">
+                </div>
+                <div class="image-caption">network monitoring tools in linux</div>
+            </figure>
+<p>正如你在上面的截图中所看到的那样，由 nload 提供的图表是非常容易理解的。nload 提供了有用的信息，也展示了诸如被传输数据的总量和最小/最大网络速率等信息。</p>
+<p>而更酷的是你只需要直接运行 nload 这个工具就行，这个命令是非常的短小且易记的：</p>
+<pre><code class="lang-bash">nload
+</code></pre>
+<p>我很确信的是：我们关于如何使用 nload 的详细教程将帮助到新的 Linux 用户，甚至可以帮助那些正寻找关于 nload 信息的老手。</p>
+<p>（LCTT 译注：关于 nload 的更新信息可以参考：<a href="https://linux.cn/article-5114-1.html" target="_blank" rel="noopener">https://linux.cn/article-5114-1.html</a> ）</p>
+<h3 id="3-slurm"><a href="#3-slurm" class="headerlink" title="3) slurm"></a>3) slurm</h3><p>slurm 是另一个 Linux 网络负载监控工具，它以一个不错的 ASCII 图来显示结果，它还支持许多按键用以交互，例如 <strong>c</strong> 用来切换到经典模式， <strong>s</strong> 切换到分图模式， <strong>r</strong> 用来重绘屏幕， <strong>L</strong> 用来启用 TX/RX 灯（注：TX，发送流量；RX，接收流量） ，<strong>m</strong> 用来在经典分图模式和大图模式之间进行切换， <strong>q</strong> 退出 slurm。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145258ddyrnzs2soddg18r.png" alt="linux network load monitoring tools" title="">
+                </div>
+                <div class="image-caption">linux network load monitoring tools</div>
+            </figure>
+<p>在网络负载监控工具 slurm 中，还有许多其它的按键可用，你可以很容易地使用下面的命令在 man 手册中学习它们。</p>
+<pre><code class="lang-bash">man slurm
+</code></pre>
+<p>slurm 在 Ubuntu 和 Debian 的官方软件仓库中可以找到，所以使用这些发行版本的用户可以像下面展示的那样，使用 apt-get 安装命令来轻松地下载它：</p>
+<pre><code class="lang-bash">sudo apt-get install slurm
+</code></pre>
+<p>我们已经在一个<a href="http://linoxide.com/ubuntu-how-to/monitor-network-load-slurm-tool/" target="_blank" rel="noopener">教程</a>中对 slurm 的使用做了介绍，不要忘记和其它使用 Linux 的朋友分享这些知识。</p>
+<h3 id="4-iftop"><a href="#4-iftop" class="headerlink" title="4) iftop"></a>4) iftop</h3><p>当你想显示连接到网卡上的各个主机的带宽使用情况时，iftop 是一个非常有用的工具。根据 man 手册，<strong>iftop</strong> 在一个指定的接口或在它可以找到的第一个接口（假如没有任何特殊情况，它应该是一个对外的接口）上监听网络流量，并且展示出一个表格来显示当前的一对主机间的带宽使用情况。</p>
+<p>通过在虚拟终端中使用下面的命令，Ubuntu 和 Debian 用户可以在他们的机器中轻易地安装 iftop：</p>
+<pre><code class="lang-bash">sudo apt-get install iftop
+</code></pre>
+<p>在你的机器上，可以使用下面的命令通过 yum 来安装 iftop：</p>
+<pre><code class="lang-bash">yum -y install iftop
+</code></pre>
+<p>（LCTT 译注：关于 nload 的更多信息请参考：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a> ）</p>
+<h3 id="5-collectl"><a href="#5-collectl" class="headerlink" title="5) collectl"></a>5) collectl</h3><p>collectl 可以被用来收集描述当前系统状态的数据，并且它支持如下两种模式：</p>
+<ul>
+<li>记录模式</li>
+<li>回放模式</li>
+</ul>
+<p><strong>记录模式</strong> 允许从一个正在运行的系统中读取数据，然后将这些数据要么显示在终端中，要么写入一个或多个文件或一个套接字中。</p>
+<p><strong>回放模式</strong></p>
+<p>根据 man 手册，在这种模式下，数据从一个或多个由记录模式生成的数据文件中读取。</p>
+<p>Ubuntu 和 Debian 用户可以在他们的机器上使用他们默认的包管理器来安装 colletcl。下面的命令将为他们做这个工作：</p>
+<pre><code class="lang-bash">sudo apt-get install collectl
+</code></pre>
+<p>还可以使用下面的命令来安装 collectl， 因为对于这些发行版本（注：这里指的是用 yum 作为包管理器的发行版本），在它们官方的软件仓库中也含有 collectl：</p>
+<pre><code class="lang-bash">yum install collectl
+</code></pre>
+<p>（LCTT 译注：关于 collectl 的更多信息请参考： <a href="https://linux.cn/article-3154-1.html" target="_blank" rel="noopener">https://linux.cn/article-3154-1.html</a> ）</p>
+<h3 id="6-Netstat"><a href="#6-Netstat" class="headerlink" title="6) Netstat"></a>6) Netstat</h3><p>Netstat 是一个用来监控<strong>传入和传出的网络数据包统计数据</strong>的接口统计数据命令行工具。它会显示 TCP 连接 (包括上传和下行)，路由表，及一系列的网络接口（网卡或者SDN接口）和网络协议统计数据。</p>
+<p>Ubuntu 和 Debian 用户可以在他们的机器上使用默认的包管理器来安装 netstat。Netsta 软件被包括在 net-tools 软件包中，并可以在 shell 或虚拟终端中运行下面的命令来安装它：</p>
+<pre><code class="lang-bash">sudo apt-get install net-tools
+</code></pre>
+<p>CentOS, Fedora, RHEL 用户可以在他们的机器上使用默认的包管理器来安装 netstat。Netstat 软件被包括在 net-tools 软件包中，并可以在 shell 或虚拟终端中运行下面的命令来安装它：</p>
+<pre><code class="lang-bash">yum install net-tools
+</code></pre>
+<p>运行下面的命令使用 Netstat 来轻松地监控网络数据包统计数据：</p>
+<pre><code class="lang-bash">netstat
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145259ustjy0xut24ewr4r.png" alt="Netstat" title="">
+                </div>
+                <div class="image-caption">Netstat</div>
+            </figure>
+<p>更多的关于 netstat 的信息，我们可以简单地在 shell 或终端中键入 man netstat 来了解：</p>
+<pre><code class="lang-bash">man netstat
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145259wia38exx1hapzhxx.png" alt="man netstat" title="">
+                </div>
+                <div class="image-caption">man netstat</div>
+            </figure>
+<p>（LCTT 译注：关于 netstat 的更多信息请参考：<a href="https://linux.cn/article-2434-1.html" target="_blank" rel="noopener">https://linux.cn/article-2434-1.html</a>  ）</p>
+<h3 id="7-Netload"><a href="#7-Netload" class="headerlink" title="7) Netload"></a>7) Netload</h3><p>netload 命令只展示一个关于当前网络荷载和自从程序运行之后传输数据总的字节数目的简要报告，它没有更多的功能。它是 netdiag 软件的一部分。</p>
+<p>我们可以在 fedora 中使用 yum 来安装 Netload，因为它在 fedora 的默认软件仓库中。但假如你运行的是 CentOS 或 RHEL，则我们需要安装 <a href="http://pkgs.org/centos-7/repoforge-x86_64/netwatch-1.0c-1.el7.rf.x86_64.rpm.html" target="_blank" rel="noopener">rpmforge 软件仓库</a>。</p>
+<pre><code class="lang-bash"># yum install netdiag
+</code></pre>
+<p>Netload 是默认仓库中 netdiag 的一部分，我们可以轻易地使用下面的命令来利用 <strong>apt</strong> 包管理器安装 <strong>netdiag</strong>：</p>
+<pre><code class="lang-bash">$ sudo apt-get install netdiag
+</code></pre>
+<p>为了运行 netload，我们需要确保选择了一个正在工作的网络接口的名称，如 eth0, eh1, wlan0, mon0等，然后在 shell 或虚拟终端中运行下面的命令：</p>
+<pre><code class="lang-bash">$ netload wlan2
+</code></pre>
+<p>注意： 请将上面的 wlan2 替换为你想使用的网络接口名称，假如你想通过扫描了解你的网络接口名称，可以在一个虚拟终端或 shell 中运行 <code>ip link show</code> 命令。</p>
+<h3 id="8-Nagios"><a href="#8-Nagios" class="headerlink" title="8) Nagios"></a>8) Nagios</h3><p>Nagios 是一个领先且功能强大的开源监控系统，它使得网络或系统管理员可以在服务器的各种问题影响到服务器的主要事务之前，发现并解决这些问题。 有了 Nagios 系统，管理员便可以在一个单一的窗口中监控远程的 Linux 、Windows 系统、交换机、路由器和打印机等。它会显示出重要的警告并指出在你的网络或服务器中是否出现某些故障，这可以间接地帮助你在问题发生前就着手执行补救行动。</p>
+<p>Nagios 有一个 web 界面，其中有一个图形化的活动监视器。通过浏览网页 <a href="http://localhost/nagios/" target="_blank" rel="noopener">http://localhost/nagios/</a> 或 <a href="http://localhost/nagios3/" target="_blank" rel="noopener">http://localhost/nagios3/</a> 便可以登录到这个 web 界面。假如你在远程的机器上进行操作，请使用你的 IP 地址来替换 localhost，然后键入用户名和密码，我们便会看到如下图所展示的信息：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145300xdap6drbdyybf4w4.png" alt="在 Chromium 浏览器中的 Nagios3" title="">
+                </div>
+                <div class="image-caption">在 Chromium 浏览器中的 Nagios3</div>
+            </figure>
+<p>（LCTT 译注：关于 Nagios 的更多信息请参考：<a href="https://linux.cn/article-2436-1.html" target="_blank" rel="noopener">https://linux.cn/article-2436-1.html</a> ）</p>
+<h3 id="9-EtherApe"><a href="#9-EtherApe" class="headerlink" title="9) EtherApe"></a>9) EtherApe</h3><p>EtherApe 是一个针对 Unix 的图形化网络监控工具，它仿照了 etherman 软件。它支持链路层、IP 和 TCP 等模式，并支持以太网, FDDI, 令牌环, ISDN, PPP, SLIP 及 WLAN 设备等接口，以及一些封装格式。主机和连接随着流量和协议而改变其尺寸和颜色。它可以过滤要展示的流量，并可从一个文件或运行的网络中读取数据包。</p>
+<p>在 CentOS、Fedora、RHEL 等 Linux 发行版本中安装 etherape 是一件容易的事，因为在它们的官方软件仓库中就可以找到 etherape。我们可以像下面展示的命令那样使用 yum 包管理器来安装它：</p>
+<pre><code class="lang-bash">yum install etherape
+</code></pre>
+<p>我们也可以使用下面的命令在 Ubuntu、Debian 及它们的衍生发行版本中使用 <strong>apt</strong> 包管理器来安装 EtherApe ：</p>
+<pre><code class="lang-bash">sudo apt-get install etherape
+</code></pre>
+<p>在 EtherApe 安装到你的系统之后，我们需要像下面那样以 root 权限来运行 etherape：</p>
+<pre><code class="lang-bash">sudo etherape
+</code></pre>
+<p>然后， <strong>etherape</strong> 的 <strong>图形用户界面</strong> 便会被执行。接着，在菜单上面的 <strong>捕捉</strong> 选项下，我们可以选择 <strong>模式</strong>(IP，链路层，TCP) 和 <strong>接口</strong>。一切设定完毕后，我们需要点击 <strong>开始</strong> 按钮。接着我们便会看到类似下面截图的东西：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145301jybg1tyhobt7opxd.png" alt="EtherApe" title="">
+                </div>
+                <div class="image-caption">EtherApe</div>
+            </figure>
+<h3 id="10-tcpflow"><a href="#10-tcpflow" class="headerlink" title="10) tcpflow"></a>10) tcpflow</h3><p>tcpflow 是一个命令行工具，它可以捕捉 TCP 连接(流)的部分传输数据，并以一种方便协议分析或除错的方式来存储数据。它重构了实际的数据流并将每个流存储在不同的文件中，以备日后的分析。它能识别 TCP 序列号并可以正确地重构数据流，不管是在重发还是乱序发送状态下。</p>
+<p>通过 <strong>apt</strong> 包管理器在 Ubuntu 、Debian 系统中安装 tcpflow 是很容易的，因为默认情况下在官方软件仓库中可以找到它。</p>
+<pre><code class="lang-bash">$ sudo apt-get install tcpflow
+</code></pre>
+<p>我们可以使用下面的命令通过 <strong>yum</strong> 包管理器在 Fedora 、CentOS 、RHEL 及它们的衍生发行版本中安装 tcpflow：</p>
+<pre><code class="lang-bash"># yum install tcpflow
+</code></pre>
+<p>假如在软件仓库中没有找到它或不能通过 yum 包管理器来安装它，则我们需要像下面展示的那样从 <strong><a href="http://pkgs.repoforge.org/tcpflow/" target="_blank" rel="noopener">http://pkgs.repoforge.org/tcpflow/</a></strong> 上手动安装它：</p>
+<p>假如你运行 64 位的 PC：</p>
+<pre><code class="lang-bash"># yum install --nogpgcheck http://pkgs.repoforge.org/tcpflow/tcpflow-0.21-1.2.el6.rf.x86_64.rpm
+</code></pre>
+<p>假如你运行 32 位的 PC：</p>
+<pre><code class="lang-bash"># yum install --nogpgcheck http://pkgs.repoforge.org/tcpflow/tcpflow-0.21-1.2.el6.rf.i686.rpm
+</code></pre>
+<p>我们可以使用 tcpflow 来捕捉全部或部分 tcp 流量，并以一种简单的方式把它们写到一个可读的文件中。下面的命令就可以完成这个事情，但我们需要在一个空目录中运行下面的命令，因为它将创建诸如  x.x.x.x.y-a.a.a.a.z 格式的文件，运行之后，只需按 Ctrl-C 便可停止这个命令。</p>
+<pre><code class="lang-bash">$ sudo tcpflow -i eth0 port 8000
+</code></pre>
+<p>注意：请将上面的 eth0 替换为你想捕捉的网卡接口名称。</p>
+<h3 id="11-IPTraf"><a href="#11-IPTraf" class="headerlink" title="11) IPTraf"></a>11) IPTraf</h3><p><a href="http://iptraf.seul.org/" target="_blank" rel="noopener">IPTraf</a> 是一个针对 Linux 平台的基于控制台的网络统计应用。它生成一系列的图形，如 TCP 连接的包/字节计数、接口信息和活动指示器、 TCP/UDP 流量故障以及局域网内设备的包/字节计数。</p>
+<p>在默认的软件仓库中可以找到 IPTraf，所以我们可以使用下面的命令通过 <strong>apt</strong> 包管理器轻松地安装 IPTraf：</p>
+<pre><code class="lang-bash">$ sudo apt-get install iptraf
+</code></pre>
+<p>我们可以使用下面的命令通过 <strong>yum</strong> 包管理器轻松地安装 IPTraf：</p>
+<pre><code class="lang-bash"># yum install iptraf
+</code></pre>
+<p>我们需要以管理员权限来运行 IPTraf，并带有一个有效的网络接口名。这里，我们的网络接口名为 wlan2，所以我们使用 wlan2 来作为参数：</p>
+<pre><code class="lang-bash">$ sudo iptraf wlan2
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145301iahi0efpp4i1956p.png" alt="IPTraf" title="">
+                </div>
+                <div class="image-caption">IPTraf</div>
+            </figure>
+<p>开始通常的网络接口统计，键入：</p>
+<pre><code class="lang-bash"># iptraf -g
+</code></pre>
+<p>查看接口 eth0 的详细统计信息，使用：</p>
+<pre><code class="lang-bash"># iptraf -d eth0
+</code></pre>
+<p>查看接口 eth0 的 TCP 和 UDP 监控信息，使用：</p>
+<pre><code class="lang-bash"># iptraf -z eth0
+</code></pre>
+<p>查看接口 eth0 的包的大小和数目，使用：</p>
+<pre><code class="lang-bash"># iptraf -z eth0
+</code></pre>
+<p>注意: 请将上面的 eth0 替换为你的接口名称。你可以通过运行 <code>ip link show</code> 命令来检查你的接口。</p>
+<p>（LCTT 译注：关于 iptraf 的更多详细信息请参考：<a href="https://linux.cn/article-5430-1.html" target="_blank" rel="noopener">https://linux.cn/article-5430-1.html</a>  ）</p>
+<h3 id="12-Speedometer"><a href="#12-Speedometer" class="headerlink" title="12) Speedometer"></a>12) Speedometer</h3><p>Speedometer 是一个小巧且简单的工具，它只用来绘出一幅包含有通过某个给定端口的上行、下行流量的好看的图。</p>
+<p>在默认的软件仓库中可以找到 Speedometer ，所以我们可以使用下面的命令通过 <strong>yum</strong> 包管理器轻松地安装 Speedometer：</p>
+<pre><code class="lang-bash"># yum install speedometer
+</code></pre>
+<p>我们可以使用下面的命令通过 <strong>apt</strong> 包管理器轻松地安装 Speedometer：</p>
+<pre><code class="lang-bash">$ sudo apt-get install speedometer
+</code></pre>
+<p>Speedometer 可以简单地通过在 shell 或虚拟终端中执行下面的命令来运行：</p>
+<pre><code class="lang-bash">$ speedometer -r wlan2 -t wlan2
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145302wwqjz555q57q0qg9.png" alt="Speedometer" title="">
+                </div>
+                <div class="image-caption">Speedometer</div>
+            </figure>
+<p>注：请将上面的 wlan2 替换为你想要使用的网络接口名称。</p>
+<h3 id="13-Netwatch"><a href="#13-Netwatch" class="headerlink" title="13) Netwatch"></a>13) Netwatch</h3><p>Netwatch 是 netdiag 工具集里的一部分，它也显示当前主机和其他远程主机的连接情况，以及在每个连接中数据传输的速率。</p>
+<p>我们可以使用 yum 在 fedora 中安装 Netwatch，因为它在 fedora 的默认软件仓库中。但若你运行着 CentOS 或 RHEL ， 我们需要安装 <a href="http://pkgs.org/centos-7/repoforge-x86_64/netwatch-1.0c-1.el7.rf.x86_64.rpm.html" target="_blank" rel="noopener">rpmforge 软件仓库</a>。</p>
+<pre><code class="lang-bash"># yum install netwatch
+</code></pre>
+<p>Netwatch 是 netdiag 的一部分，可以在默认的软件仓库中找到，所以我们可以轻松地使用下面的命令来利用 <strong>apt</strong> 包管理器安装 <strong>netdiag</strong>：</p>
+<pre><code class="lang-bash">$ sudo apt-get install netdiag
+</code></pre>
+<p>为了运行 netwatch， 我们需要在虚拟终端或 shell 中执行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo netwatch -e wlan2 -nt
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145302x33zknj0rz6udj6w.png" alt="Netwatch" title="">
+                </div>
+                <div class="image-caption">Netwatch</div>
+            </figure>
+<p>注意： 请将上面的 wlan2 替换为你想使用的网络接口名称，假如你想通过扫描了解你的网络接口名称，可以在一个虚拟终端或 shell 中运行 <code>ip link show</code> 命令。</p>
+<h3 id="14-Trafshow"><a href="#14-Trafshow" class="headerlink" title="14) Trafshow"></a>14) Trafshow</h3><p>Trafshow 同 netwatch 和 pktstat 一样，可以报告当前活动的连接里使用的协议和每个连接中数据传输的速率。它可以使用 pcap 类型的过滤器来筛选出特定的连接。</p>
+<p>我们可以使用 yum 在 fedora 中安装 trafshow ，因为它在 fedora 的默认软件仓库中。但若你正运行着 CentOS 或 RHEL ， 我们需要安装 <a href="http://pkgs.org/centos-6/epel-x86_64/trafshow-5.2.3-6.el6.x86_64.rpm.html" target="_blank" rel="noopener">rpmforge 软件仓库</a>。</p>
+<pre><code class="lang-bash"># yum install trafshow
+</code></pre>
+<p>Trafshow 在默认仓库中可以找到，所以我们可以轻松地使用下面的命令来利用 <strong>apt</strong> 包管理器安装它：</p>
+<pre><code class="lang-bash">$ sudo apt-get install trafshow
+</code></pre>
+<p>为了使用 trafshow 来执行监控任务，我们需要在虚拟终端或 shell 中执行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo trafshow -i wlan2
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145303mzuagwzxwpwxg6ng.png" alt="Trafshow" title="">
+                </div>
+                <div class="image-caption">Trafshow</div>
+            </figure>
+<p>为了专门监控 tcp 连接，如下面一样添加上 tcp 参数：</p>
+<pre><code class="lang-bash">$ sudo trafshow -i wlan2 tcp
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145304hueslqebrlg5z15n.png" alt="Trafshow tcp" title="">
+                </div>
+                <div class="image-caption">Trafshow tcp</div>
+            </figure>
+<p>注意： 请将上面的 wlan2 替换为你想使用的网络接口名称，假如你想通过扫描了解你的网络接口名称，可以在一个虚拟终端或 shell 中运行 <code>ip link show</code> 命令。</p>
+<h3 id="15-Vnstat"><a href="#15-Vnstat" class="headerlink" title="15) Vnstat"></a>15) Vnstat</h3><p>与大多数的其他工具相比，Vnstat 有一点不同。实际上它运行着一个后台服务或守护进程，并时刻记录着传输数据的大小。另外，它可以被用来生成一个网络使用历史记录的报告。</p>
+<p>我们需要开启 EPEL 软件仓库，然后运行 <strong>yum</strong> 包管理器来安装 vnstat。</p>
+<pre><code class="lang-bash"># yum install vnstat
+</code></pre>
+<p>Vnstat 在默认软件仓库中可以找到，所以我们可以使用下面的命令运行 <strong>apt</strong> 包管理器来安装它：</p>
+<pre><code class="lang-bash">$ sudo apt-get install vnstat
+</code></pre>
+<p>不带有任何选项运行 vnstat 将简单地展示出从该守护进程运行后数据传输的总量。</p>
+<pre><code class="lang-bash">$ vnstat
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145304h9gd54rn8gnl89zn.png" alt="vnstat" title="">
+                </div>
+                <div class="image-caption">vnstat</div>
+            </figure>
+<p>为了实时地监控带宽使用情况，使用 ‘-l’ 选项(live 模式)。然后它将以一种非常精确的方式来展示上行和下行数据所使用的带宽总量，但不会显示任何有关主机连接或进程的内部细节。</p>
+<pre><code class="lang-bash">$ vnstat -l
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145305dj4ghh43n4lb5elk.png" alt="Vnstat 实时模式" title="">
+                </div>
+                <div class="image-caption">Vnstat 实时模式</div>
+            </figure>
+<p>完成了上面的步骤后，按 Ctrl-C 来停止，这将会得到如下类型的输出：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145305hqaj42j76jo8yssu.png" alt="Vnstat 实时结果" title="">
+                </div>
+                <div class="image-caption">Vnstat 实时结果</div>
+            </figure>
+<h3 id="16-tcptrack"><a href="#16-tcptrack" class="headerlink" title="16) tcptrack"></a>16) tcptrack</h3><p><a href="http://linux.die.net/man/1/tcptrack" target="_blank" rel="noopener">tcptrack</a> 可以展示 TCP 连接的状态，它在一个给定的网络端口上进行监听。tcptrack 监控它们的状态并展示出排序且不断更新的列表，包括来源/目标地址、带宽使用情况等信息，这与 <strong>top</strong> 命令的输出非常类似 。</p>
+<p>鉴于 tcptrack 在软件仓库中，我们可以轻松地在 Debian、Ubuntu 系统中从软件仓库使用 <strong>apt</strong> 包管理器来安装 tcptrack。为此，我们需要在 shell 或虚拟终端中执行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo apt-get install tcptrack
+</code></pre>
+<p>我们可以通过 yum 在 fedora 中安装它，因为它在 fedora 的默认软件仓库中。但若你运行着 CentOS 或 RHEL 系统，我们需要安装 <a href="http://pkgs.org/centos-6/repoforge-x86_64/tcptrack-1.4.0-1.el6.rf.x86_64.rpm.html" target="_blank" rel="noopener">rpmforge 软件仓库</a>。为此，我们需要运行下面的命令：</p>
+<pre><code class="lang-bash"># wget http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+
+# rpm -Uvh rpmforge-release*rpm
+
+# yum install tcptrack
+</code></pre>
+<p>注：这里我们下载了 rpmforge-release 的当前最新版本，即 0.5.3-1，你总是可以从 rpmforge 软件仓库中下载其最新版本，并请在上面的命令中替换为你下载的版本。</p>
+<p><strong>tcptrack</strong> 需要以 root 权限或超级用户身份来运行。执行 tcptrack 时，我们需要带上要监视的网络接口 TCP 连接状况的接口名称。这里我们的接口名称为 wlan2，所以如下面这样使用：</p>
+<pre><code class="lang-bash">sudo tcptrack -i wlan2
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://blog.linoxide.com/wp-content/uploads/2015/02/tcptrack.png" alt="tcptrack" title="">
+                </div>
+                <div class="image-caption">tcptrack</div>
+            </figure>
+<p>假如你想监控特定的端口，则使用：</p>
+<pre><code class="lang-bash"># tcptrack -i wlan2 port 80
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145306bwfbknz2kenblffy.png" alt="tcptrack port 80" title="">
+                </div>
+                <div class="image-caption">tcptrack port 80</div>
+            </figure>
+<p>请替换上面的 80 为你想要监控的端口号。注意： 请将上面的 wlan2 替换为你想使用的网络接口名称，假如你想通过扫描了解你的网络接口名称，可以在一个虚拟终端或 shell 中运行 <code>ip link show</code> 命令。</p>
+<h3 id="17-CBM"><a href="#17-CBM" class="headerlink" title="17) CBM"></a>17) CBM</h3><p>CBM （ Color Bandwidth Meter） 可以展示出当前所有网络设备的流量使用情况。这个程序是如此的简单，以至于都可以从它的名称中看出其功能。CBM 的源代码和新版本可以在 <a href="http://www.isotton.com/utils/cbm/" target="_blank" rel="noopener">http://www.isotton.com/utils/cbm/</a> 上找到。</p>
+<p>鉴于 CBM 已经包含在软件仓库中，我们可以简单地使用 <strong>apt</strong> 包管理器从 Debian、Ubuntu 的软件仓库中安装 CBM。为此，我们需要在一个 shell 窗口或虚拟终端中运行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo apt-get install cbm
+</code></pre>
+<p>我们只需使用下面展示的命令来在 shell 窗口或虚拟终端中运行 cbm：</p>
+<pre><code class="lang-bash">$ cbm
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/12/145307ht3e3tj4j5dp4ozm.png" alt="Color Bandwidth Meter" title="">
+                </div>
+                <div class="image-caption">Color Bandwidth Meter</div>
+            </figure>
+<h3 id="18-bmon"><a href="#18-bmon" class="headerlink" title="18) bmon"></a>18) bmon</h3><p><a href="https://github.com/tgraf/bmon/" target="_blank" rel="noopener">Bmon</a> （ Bandwidth Monitoring） ，是一个用于调试和实时监控带宽的工具。这个工具能够检索各种输入模块的统计数据。它提供了多种输出方式，包括一个基于 curses 库的界面，轻量级的HTML输出，以及 ASCII 输出格式。</p>
+<p>bmon 可以在软件仓库中找到，所以我们可以通过使用 apt 包管理器来在 Debian、Ubuntu 中安装它。为此，我们需要在一个 shell 窗口或虚拟终端中运行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo apt-get install bmon
+</code></pre>
+<p>我们可以使用下面的命令来运行 bmon 以监视我们的网络状态：</p>
+<pre><code class="lang-bash">$ bmon
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://blog.linoxide.com/wp-content/uploads/2015/02/bmon.png" alt="bmon" title="">
+                </div>
+                <div class="image-caption">bmon</div>
+            </figure>
+<h3 id="19-tcpdump"><a href="#19-tcpdump" class="headerlink" title="19) tcpdump"></a>19) tcpdump</h3><p><a href="http://www.tcpdump.org/" target="_blank" rel="noopener">TCPDump</a> 是一个用于网络监控和数据获取的工具。它可以为我们节省很多的时间，并可用来调试网络或服务器的相关问题。它可以打印出在某个网络接口上与布尔表达式相匹配的数据包所包含的内容的一个描述。</p>
+<p>tcpdump 可以在 Debian、Ubuntu 的默认软件仓库中找到，我们可以简单地以 sudo 权限使用 apt 包管理器来安装它。为此，我们需要在一个 shell 窗口或虚拟终端中运行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo apt -get install tcpdump
+</code></pre>
+<p>tcpdump 也可以在 Fedora、CentOS、RHEL 的软件仓库中找到。我们可以像下面一样通过 yum 包管理器来安装它：</p>
+<pre><code class="lang-bash"># yum install tcpdump
+</code></pre>
+<p>tcpdump 需要以 root 权限或超级用户来运行，我们需要带上我们想要监控的 TCP 连接的网络接口名称来执行 tcpdump 。在这里，我们有 wlan2 这个网络接口，所以可以像下面这样使用：</p>
+<pre><code class="lang-bash">$ sudo tcpdump -i wlan2
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://blog.linoxide.com/wp-content/uploads/2015/02/tcpdump.png" alt="tcpdump" title="">
+                </div>
+                <div class="image-caption">tcpdump</div>
+            </figure>
+<p>假如你只想监视一个特定的端口，则可以运行下面的命令。下面是一个针对 80 端口(网络服务器)的例子：</p>
+<pre><code class="lang-bash">$ sudo tcpdump -i wlan2 &#39;port 80&#39;
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://blog.linoxide.com/wp-content/uploads/2015/02/tcpdump-port.png" alt="tcpdump port" title="">
+                </div>
+                <div class="image-caption">tcpdump port</div>
+            </figure>
+<h3 id="20-ntopng"><a href="#20-ntopng" class="headerlink" title="20) ntopng"></a>20) ntopng</h3><p>[ntopng][20] 是 ntop 的下一代版本。它是一个用于展示网络使用情况的网络探头，在一定程度上它与 top 针对进程所做的工作类似。ntopng 基于 libpcap 并且它以可移植的方式被重写，以达到可以在每一个 Unix 平台 、 MacOSX 以及 Win32 上运行的目的。</p>
+<p>为了在 Debian，Ubuntu 系统上安装 ntopng，首先我们需要安装 <strong>编译 ntopng 所需的依赖软件包</strong>。你可以通过在一个 shell 窗口或一个虚拟终端中运行下面的命令来安装它们：</p>
+<pre><code class="lang-bash">$ sudo apt-get install libpcap-dev libglib2.0-dev libgeoip-dev redis-server wget libxml2-dev build-essential checkinstall
+</code></pre>
+<p>现在，我们需要像下面一样针对我们的系统手动编译 ntopng ：</p>
+<pre><code class="lang-bash">$ sudo wget http://sourceforge.net/projects/ntop/files/ntopng/ntopng-1.1_6932.tgz/download
+$ sudo tar zxfv ntopng-1.1_6932.tgz
+$ sudo cd ntopng-1.1_6932
+$ sudo ./configure
+$ sudo make
+$ sudo make install
+</code></pre>
+<p>这样，在你的 Debian 或 Ubuntu 系统上应该已经安装上了你编译的 ntopng 。</p>
+<p>我们已经有了有关 ntopng 的使用方法的<a href="linoxide.com/monitoring-2/ntopng-network-monitoring-tool/">教程</a>，它既可以在命令行也可以在 Web 界面中使用，我们可以前往这些教程来获得有关 ntopng 的知识。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>在这篇文章中，我们介绍了一些在 Linux 下的网络负载监控工具，这对于系统管理员甚至是新手来说，都是很有帮助的。在这篇文章中介绍的每一个工具都具有其特点，不同的选项等，但最终它们都可以帮助你来监控你的网络流量。</p>
+<hr>
+<p>via: <a href="http://linoxide.com/monitoring-2/network-monitoring-tools-linux/" target="_blank" rel="noopener">http://linoxide.com/monitoring-2/network-monitoring-tools-linux/</a><br>publish: <a href="https://linux.cn/article-5435-1.html" target="_blank" rel="noopener">https://linux.cn/article-5435-1.html</a></p>
+<p>作者：<a href="http://linoxide.com/author/bobbin/" target="_blank" rel="noopener">Bobbin Zachariah</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-06T14:07:38.248Z" itemprop="dateUpdated">2020-03-06 22:07:38</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/" target="_blank" rel="external">https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/" rel="tag">网络工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/&title=《[翻译] 一大波你可能不知道的 Linux 网络工具 》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/&title=《[翻译] 一大波你可能不知道的 Linux 网络工具 》 — FLC&source=
+介绍一大波的网络工具
+
+如果要在你的系统上监控网络，那么使用命令行工具是非常实用的，并且对于 Linux 用户来说，有着许许多多现成的工具可以使用，如：..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 一大波你可能不知道的 Linux 网络工具 》 — FLC&url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/22/Translate-How-to-Generate-or-Encrypt-or-Decrypt-Random-Passwords-in-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 如何在 Linux 中产生、加密或解密随机密码 </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/04/25/Translate-Chess-in-a-Few-Bytes/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 只有几百个字节大小的国际象棋程序 </h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/&title=《[翻译] 一大波你可能不知道的 Linux 网络工具 》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/&title=《[翻译] 一大波你可能不知道的 Linux 网络工具 》 — FLC&source=
+介绍一大波的网络工具
+
+如果要在你的系统上监控网络，那么使用命令行工具是非常实用的，并且对于 Linux 用户来说，有着许许多多现成的工具可以使用，如：..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 一大波你可能不知道的 Linux 网络工具 》 — FLC&url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADK0lEQVR42u3aQW7jQAwEQP//097rAoHjblIBrHHpFMSKPDU6TNjk4xFfz/+un7/5+WnynORp+f2Pv7iwsbGxb8LOv+bnX+Wb8urOV0979b3J/dErwcbGxj6OnT96tmXJFvy+0OSVJBZsbGxs7OR4y58/+7RdCTY2NjZ2frTMFrQpUbCxsbGx23KiDf2TjUjY7XMuy9KwsbGxP56dd0U//+c/6W9jY2NjfzD7WV6z8iMvM646Pt8osLGxsQ9iz0Z2ZoVHuxGzgZ5kg7CxsbFPYiexS/6PfjtMk7OvGvHBxsbGPpU9OxjyI21zEOZNiGLN2NjY2Mex87inHehpD5g8rpoNcWJjY2Ofx26bqcn4S47fNCTy4/blndjY2NjHsfNlbUYe8wbALOQqGgbY2NjYB7FnzYD8/jzu2UdLRSmCjY2NfQQ7Ly3aYZ22OMlDpfxge/NusbGxsY9j57HRrGDYH1ft1hdxEjY2NvbN2ZthmvwYmx11m0LoTYqGjY2N/TXstniYbd+sNMqHirCxsbHPZicjL7N72gMsH8FJqC+3GxsbG/sg9oY6OxeuwrcHMDY2NvY3sGczPs/4yp/c3n/BpBI2Njb2bdn5WMw++s+3aVacFC8PGxsb+yD2LKxPFr3fgnZ8BxsbG/s72ZsHtWHTZjvyqCiqtLCxsbGPYycLbcduNnF/22ZoXxI2Njb2Sex9DyFfRI5Mtvj357RFDjY2NvZ92clS8v3blCKbhnFRhORvABsbG/uG7Ly5u1nWpjHcljQv78HGxsY+iD0Lg9pjqR3ZuWolUbSEjY2NfRw7j+bzyD4veDYtirb9jI2NjX0SO4mKZuVHDmjTnrZkwsbGxv4Gdrv0JADKN3ffcm4bIdjY2NhnsC+Y8VkUG22pk7cr3rwwbGxs7IPYswPgqsGaduDm79rJ2NjY2HdnJ4B8LKYNd5LvzUugIqjCxsbGPo6dxO6zQiWJq9o1PPYXNjY29hezZ2HQrE2br7P+W2xsbOwvZrfItszYBEzFa8PGxsY+jt2GSnmLNzlmNsFWHjwVHQ9sbGzsW7HbBGY2OpNv1ibeujiQwsbGxv509j9SZabi/82zpAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

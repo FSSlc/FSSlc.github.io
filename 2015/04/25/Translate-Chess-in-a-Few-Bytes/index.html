@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 只有几百个字节大小的国际象棋程序  | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,游戏">
+    <meta name="description" content="介绍几款占用非常小的象棋游戏  当我在这里提到了 ZX81 电脑时，我已经暴露了我的年龄。ZX81 是一个由英国开发者（Sincilair 研究所）生产的家庭电脑，它拥有”高达” 1KB 的内存！上面的 1KB 并不是打印错误，这个家庭电脑确实只配置有 1KB 的板载内存。但这个内存大小上的限制并没有阻止爱好者制作种类繁多的软件。事实上，这个机器引发了一代编程奇才的出现，这让他们掌握了让程序在该">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 只有几百个字节大小的国际象棋程序 ">
+<meta property="og:url" content="https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍几款占用非常小的象棋游戏  当我在这里提到了 ZX81 电脑时，我已经暴露了我的年龄。ZX81 是一个由英国开发者（Sincilair 研究所）生产的家庭电脑，它拥有”高达” 1KB 的内存！上面的 1KB 并不是打印错误，这个家庭电脑确实只配置有 1KB 的板载内存。但这个内存大小上的限制并没有阻止爱好者制作种类繁多的软件。事实上，这个机器引发了一代编程奇才的出现，这让他们掌握了让程序在该">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201504/25/184013j9unqq7xqqzu9zpo.jpg">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201504/25/184015lrqghr0rz0h1th33.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201504/25/184016c922qucqqjr7cbrj.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201504/25/184017vb55on5x5nbbqjbb.png">
+<meta property="article:published_time" content="2015-04-25T10:40:45.000Z">
+<meta property="article:modified_time" content="2020-03-06T14:22:50.764Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="游戏">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201504/25/184013j9unqq7xqqzu9zpo.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 只有几百个字节大小的国际象棋程序 </div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 只有几百个字节大小的国际象棋程序 </h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-04-25T10:40:45.000Z" itemprop="datePublished" class="page-time">
+  2015-04-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Toledo-Atomchess"><span class="post-toc-text">Toledo Atomchess</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BootChess"><span class="post-toc-text">BootChess</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Micro-Max"><span class="post-toc-text">Micro-Max</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-Chess-in-a-Few-Bytes"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 只有几百个字节大小的国际象棋程序 </h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-04-25 18:40:45" datetime="2015-04-25T10:40:45.000Z"  itemprop="datePublished">2015-04-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍几款占用非常小的象棋游戏</p>
+</blockquote>
+<p>当我在这里提到了 ZX81 电脑时，我已经暴露了我的年龄。ZX81 是一个由英国开发者（Sincilair 研究所）生产的家庭电脑，它拥有”高达” 1KB 的内存！上面的 1KB 并不是打印错误，这个家庭电脑确实只配置有 1KB 的板载内存。但这个内存大小上的限制并没有阻止爱好者制作种类繁多的软件。事实上，这个机器引发了一代编程奇才的出现，这让他们掌握了让程序在该机上运行起来的技能。这个机器可以通过一个 16 KB 的内存卡来进行升级，这就提供了更多的编程可能。但未经扩展的 1KB 机器仍然激励着编程者们发布卓越的软件。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201504/25/184013j9unqq7xqqzu9zpo.jpg" alt="1K ZX Chess" title="">
+                </div>
+                <div class="image-caption">1K ZX Chess</div>
+            </figure>
+<a id="more"></a>
+<p>我最喜爱的 ZX81 游戏有： 模拟飞行（Flight Simulation）, 3D 版怪物迷宫（3D Monster Maze）, 小蜜蜂（Galaxians）, 以及最重要的 1K ZX Chess。 只有最后一个程序是为未扩展版的 ZX81 电脑设计的。事实上，David Horne 开发的 1K ZX Chess 只使用了仅仅 672 字节的 RAM（LCTT 译注：如果读者有兴趣，可以看看<a href="http://users.ox.ac.uk/~uzdm0006/scans/1kchess/" target="_blank" rel="noopener">这里</a>对该程序的代码及解释）。尽管如此，该游戏尽力去实现大多数的国际象棋规则，并提供了一个计算机虚拟对手。虽然一些重要的规则被忽略了（如：王车易位，兵的升变，和吃过路兵）<br>（LCTT 译注：参考了<a href="http://zh.wikibooks.org/zh/%E5%9B%BD%E9%99%85%E8%B1%A1%E6%A3%8B/%E8%A7%84%E5%88%99" target="_blank" rel="noopener">这里</a>和<a href="http://en.wikipedia.org/wiki/Rules_of_chess" target="_blank" rel="noopener">这里</a>），但能够和人工智能相对抗，这仍然令人惊讶。这个游戏占据了我逝去的青春里的相当一部分。</p>
+<p>1K ZX Chess 保持了在所有计算机上国际象棋的最小实现的地位长达 33 年之久，直到今年由 BootChess 打破了该记录，紧接着由 Toledo AtomChess 打破。这三个程序都没有实现所有的国际象棋规则，所以为了完整性，我介绍了我最喜爱的那些实现了所有国际象棋规则的极小的国际象棋。</p>
+<p>Linux 有着一系列极其强大的国际象棋引擎，如 Stockfish, Critter, Togo II, Crafty, GNU Chess 和 Komodo 。 在这篇文章精选的国际象棋程序虽敌不过这些好的国际象棋程序，但它们展示了使用微不足道的代码库究竟可以实现多少东西。</p>
+<hr>
+<h3 id="Toledo-Atomchess"><a href="#Toledo-Atomchess" class="headerlink" title="Toledo Atomchess"></a>Toledo Atomchess</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201504/25/184015lrqghr0rz0h1th33.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>你可能已经看到了大量有关 BootChess 新闻报道，这个只用 487 字节写就的国际象棋程序，一举打破了先前最小的国际象棋程序 1K ZX Chess 的记录。所以，Óscar Toledo Gutiérrez 挽起袖子自己编写了一个更加紧凑的国际象棋游戏。Toledo Atomchess 是仅有 481 字节的 x86 汇编代码，都能放到引导扇区里。 在难以置信的代码大小下，这个引擎实现了一个可玩的国际象棋游戏。</p>
+<p>特点包括:</p>
+<ul>
+<li>基本的棋子移动</li>
+<li>用 ASCII 文本表现的棋盘</li>
+<li>以代数形式来输入移动(注：如 D2D4)</li>
+<li>3 层的搜索深度</li>
+</ul>
+<p>显然，为了将这个国际象棋程序压缩到 481 字节中，作者必须做出某些牺牲，这些局限包括：</p>
+<ul>
+<li>没有兵的升变</li>
+<li>没有王车易位</li>
+<li>没有吃过路兵</li>
+<li>没有移动确认</li>
+</ul>
+<p>该作者也使用 C，JavaScript 和 Java 来写这个国际象棋程序，每种实现都非常小。</p>
+<ul>
+<li>网站: <a href="http://nanochess.org/chess6.html" target="_blank" rel="noopener">nanochess.org/chess6.html</a></li>
+<li>开发者: Óscar Toledo Gutiérrez</li>
+<li>协议: 非商业用途可免费使用</li>
+<li>版本号: -</li>
+</ul>
+<hr>
+<h3 id="BootChess"><a href="#BootChess" class="headerlink" title="BootChess"></a>BootChess</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201504/25/184016c922qucqqjr7cbrj.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>BootChess 是一个国际象棋的极其小巧的计算机实现。这个程序被塞进到仅仅 487 字节里，并可运行在 Windows, Mac OS X 和 Linux 等操作系统。BootChess 的棋盘和棋子单独用文本表示，其中 P 代表兵， Q 用来代表王后，以及“点”代表空白格子。</p>
+<p>特点包括:</p>
+<ul>
+<li>象棋棋盘和用户输入的形象的文本表示</li>
+<li>引导扇区大小（512 字节）的可玩的象棋游戏</li>
+<li>只需 x86 bios 硬件引导程序（没有软件依赖）</li>
+<li>所有主要的正规移动包括双兵开局</li>
+<li>兵升变为王后(与 1k ZX Chess 相反)</li>
+<li>名为 taxiMax &gt; minMax half-ply 的 CPU 人工智能</li>
+<li>硬编码的西班牙白子开局</li>
+</ul>
+<p>同样，它也存在一些重要的限制。这些遗漏的功能包括：</p>
+<ul>
+<li>兵的低升变（升变为非王后的棋子）</li>
+<li>吃过路兵</li>
+<li>没有王车易位</li>
+<li>3 次位置重复和局规则（注：下一步之前，同样的移动出现了两次；可以参考<a href="http://www.netplaces.com/chess-basics/ending-the-game/three-position-repetition.htm" target="_blank" rel="noopener">这里</a>）</li>
+<li>50 步移动和局规则（注：在连续的50个回合内，双方既没有棋子被吃掉，也没有兵被移动过，则和局；可以参考<a href="http://www.chessvariants.org/d.chess/chess.html" target="_blank" rel="noopener">这里</a>）</li>
+<li>没有开放式和封闭式布局</li>
+<li><p>一个或多个 minMAX/negaMax 全层人工智能</p>
+</li>
+<li><p>网站: <a href="http://www.pouet.net/prod.php?which=64962" target="_blank" rel="noopener">www.pouet.net/prod.php?which=64962</a></p>
+</li>
+<li>开发者: Olivier “Baudsurfer/RSi” Poudade</li>
+<li>协议: WTFPL v2</li>
+<li>版本号: .02</li>
+</ul>
+<hr>
+<h3 id="Micro-Max"><a href="#Micro-Max" class="headerlink" title="Micro-Max"></a>Micro-Max</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201504/25/184017vb55on5x5nbbqjbb.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Micro-Max 是一个用 133 行 C 语言写就的象棋源程序。</p>
+<p>作者实现了一个 hash 变换表，该引擎检查输入移动的合法性，以及支持 FIDE（注： World Chess Federation 缩写，参见其<a href="https://www.fide.com/" target="_blank" rel="noopener">官网</a>） 的全部规则，除了低升变。</p>
+<p>特点包括:</p>
+<ul>
+<li>递归的 negamax 搜索</li>
+<li>反夺的静态搜索</li>
+<li>反夺规则的扩展</li>
+<li>迭代深化</li>
+<li>最佳移动优先的 <code>排序</code> </li>
+<li>存储分数和最佳移动的 Hash 表</li>
+<li>完整的 FIDE 规则（除了低位升变）和移动合法性检查</li>
+</ul>
+<p>还有一个 1433个字符的较大版本，但允许你使用完整的 FIDE 规则的低升变。</p>
+<ul>
+<li>网站: <a href="http://home.hccnet.nl/h.g.muller/max-src2.html" target="_blank" rel="noopener">home.hccnet.nl/h.g.muller/max-src2.html</a></li>
+<li>开发者: Harm Geert Muller</li>
+<li>协议: The MIT License</li>
+<li>版本号: 3.2</li>
+</ul>
+<hr>
+<p>via: <a href="http://www.linuxlinks.com/article/20150222033906262/ChessBytes.html" target="_blank" rel="noopener">http://www.linuxlinks.com/article/20150222033906262/ChessBytes.html</a><br>public: <a href="https://linux.cn/article-5329-1.html" target="_blank" rel="noopener">https://linux.cn/article-5329-1.html</a></p>
+<p>作者：Frazer Kline<br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-06T14:22:50.764Z" itemprop="dateUpdated">2020-03-06 22:22:50</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/04/25/Translate-Chess-in-a-Few-Bytes/" target="_blank" rel="external">https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/&title=《[翻译] 只有几百个字节大小的国际象棋程序 》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/&title=《[翻译] 只有几百个字节大小的国际象棋程序 》 — FLC&source=
+介绍几款占用非常小的象棋游戏
+
+当我在这里提到了 ZX81 电脑时，我已经暴露了我的年龄。ZX81 是一个由英国开发者（Sincilair 研究所）生产..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 只有几百个字节大小的国际象棋程序 》 — FLC&url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/12/Translate-Bringing-a-Bunch-of-Best-Known-Linux-Network-Tools/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 一大波你可能不知道的 Linux 网络工具 </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/04/06/Translate-Intense-Gameplay-Try-these-13-Roguelike-games/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 想找点激烈的游戏？那就试试这 13 款 Roguelike 游戏吧！</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/&title=《[翻译] 只有几百个字节大小的国际象棋程序 》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/&title=《[翻译] 只有几百个字节大小的国际象棋程序 》 — FLC&source=
+介绍几款占用非常小的象棋游戏
+
+当我在这里提到了 ZX81 电脑时，我已经暴露了我的年龄。ZX81 是一个由英国开发者（Sincilair 研究所）生产..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 只有几百个字节大小的国际象棋程序 》 — FLC&url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/04/25/Translate-Chess-in-a-Few-Bytes/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQW7jMBAEwPz/09mrgV073TOk4wVKpyASJBYP5LiHX1/x9f1w/f2fx/8/3n395LNnkruHLzw8PLzF0F8PZfbka/br9+eT+3QK8PDw8K7xnq2oyQdyWDspyabygwUPDw/vA3jFq18WxPnQ8fDw8P533myIr0vqZKB4eHh4n8ZLSt58k0gAebGehxd4eHh47+HlXaTP+ftKfw8PDw9v3VXPt4q8ubW5W48TDw8P7wIvD0mT0nlWBOfR7bCwxsPDw7vGy2F5advGBEkkUcfHeHh4eBd47fbQHqhK4trZEa5i0vHw8PCO8pI44F5zK2+htSEFHh4e3j3eJpLIG1dtK2tWUh/Y9/Dw8PACXl7UtiVvPrj268lX8PDw8N7Da8PZWfyaR7dXUhY8PDy8Qx2rvDieBRNJoDB7vggj8PDw8A7xkmX9XtOrXckPbAl4eHh413gtIJ+adnLb9+Dh4eG9kzeLCZIPz0LhfOLw8PDw3sPLf9i3RwQ2gPyo1g9sPDw8vAu8NrTdFLvFMalRD+vpyPHw8PCO8tqjUfmxg/ZgwWwMdUmNh4eHdzSMyBf32RaSR8DJm4vNBg8PD+8or40PksMBm+lIMEWjDg8PD+8Crz7AFJe8m0U/SlDKJhweHh7eKd5mwU0ihhtbCB4eHt7v8tootg1VN4VyO3F1Vo2Hh4c34m2K2mRRbge62VSiAAIPDw9vzdt3i/KlfLYZJNNRF9Z4eHh4C953ebWbSgs7dQALDw8P7x5v0+hql/780EBeoOPh4eH9Fm/T5k8W8c0UtKX2P+7i4eHhXeNtQtg8PpgNN9+6iht4eHh4b+HNSuFZgd7GEMUBAjw8PLw38mZHBzYRcFvEH9v38PDw8A7lnLOGWdv+34fLw6wFDw8PL+atfuqPgt19d25T0OPh4eEteH8A5Q0DJ9FxbLkAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,取证工具">
+    <meta name="description" content="SIFT 是一个由 SANS 公司提供的基于 Ubuntu 的取证发行版。它包含许多取证工具，如 Sleuth kit&#x2F;Autopsy 。但 Sleuth kit&#x2F;Autopsy 可以直接在 Ubuntu 或 Fedora 发行版本上直接安装，而不必下载 SIFT 的整个发行版本。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具">
+<meta property="og:url" content="https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="SIFT 是一个由 SANS 公司提供的基于 Ubuntu 的取证发行版。它包含许多取证工具，如 Sleuth kit&#x2F;Autopsy 。但 Sleuth kit&#x2F;Autopsy 可以直接在 Ubuntu 或 Fedora 发行版本上直接安装，而不必下载 SIFT 的整个发行版本。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222403pq3faq0a68f8o8j0.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222504s0b7grgsoqu8yjes.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222420yoczb7obpm11ymay.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222421f0zphnpvhs8y1hep.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222422ke7p4up3cc4zexrr.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222422ttpra550o6yftm5n.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222422l59daai59a9ah9ja.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222423ijz6c8il5ioi8k78.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222424kqmqbholbb1bqhqc.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222425p9w6k67ctzh2td46.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222425lru6lruif70zqrlh.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222426g5pwn7cncz04vv82.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222426fag7aaasffal0foa.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222427q7dydrbmpqp17y4z.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222427b51twt5si1ux5gxi.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222428d4xyvxxkxy5vs5kn.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222428tl0pmeaajojnx6si.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222428vc8hh8kfhkmlgg8m.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222429gmz3p3k3dr73hb1f.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222429dbtk7a03mqz0ufa0.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222430tyg1g2czv256vd62.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222431azn6kp6firwc5qpf.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222432zrnndmb1qdrv2dqr.png">
+<meta property="article:published_time" content="2015-05-30T14:24:23.000Z">
+<meta property="article:modified_time" content="2020-03-06T14:30:29.026Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="取证工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201505/30/222403pq3faq0a68f8o8j0.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-30T14:24:23.000Z" itemprop="datePublished" class="page-time">
+  2015-05-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Sleuth-kit"><span class="post-toc-text">安装 Sleuth kit</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Autopsy-工具"><span class="post-toc-text">安装 Autopsy 工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-text">结论</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-05-30 22:24:23" datetime="2015-05-30T14:24:23.000Z"  itemprop="datePublished">2015-05-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>SIFT 是一个由 SANS 公司提供的基于 Ubuntu 的取证发行版。它包含许多取证工具，如 Sleuth kit/Autopsy 。但 Sleuth kit/Autopsy 可以直接在 Ubuntu 或 Fedora 发行版本上直接安装，而不必下载 SIFT 的整个发行版本。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222403pq3faq0a68f8o8j0.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<a id="more"></a>
+<p>Sleuth Kit/Autopsy 是一个开源的电子取证调查工具，它可以用于从磁盘映像中恢复丢失的文件，以及为了特殊事件进行磁盘映像分析。 Autopsy 工具是 sleuth kit 的一个网页接口，支持 sleuth kit 的所有功能。这个工具在 Windows 和 Linux 平台下都可获取到。</p>
+<h3 id="安装-Sleuth-kit"><a href="#安装-Sleuth-kit" class="headerlink" title="安装 Sleuth kit"></a>安装 Sleuth kit</h3><p>首先，从 <a href="http://www.sleuthkit.org/sleuthkit/download.php" target="_blank" rel="noopener">sleuthkit</a> 的网站下载 Sleuth kit 软件。使用下面的命令在虚拟终端下使用 wget 命令来下载它，下图展示了这个过程。</p>
+<pre><code class="lang-bash"># wget http://cznic.dl.sourceforge.net/project/sleuthkit/sleuthkit/4.1.3/sleuthkit-4.1.3.tar.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222504s0b7grgsoqu8yjes.png" alt="下载 Sleuth Kit" title="">
+                </div>
+                <div class="image-caption">下载 Sleuth Kit</div>
+            </figure>
+<p>使用下面的命令解压 sleuthkit-4.1.3.tar.gz 并进入解压后的目录：</p>
+<pre><code class="lang-bash"># tar -xvzf sleuthkit-4.1.3.tar.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222420yoczb7obpm11ymay.png" alt="解压过程" title="">
+                </div>
+                <div class="image-caption">解压过程</div>
+            </figure>
+<p>在安装 sleuth kit 之前，运行下面的命令来执行所需的检查：</p>
+<pre><code class="lang-bash">#./configure
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222421f0zphnpvhs8y1hep.png" alt="configure" title="">
+                </div>
+                <div class="image-caption">configure</div>
+            </figure>
+<p>然后使用 Make 命令来编译 sleuth kit ：</p>
+<pre><code class="lang-bash">#make
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222422ke7p4up3cc4zexrr.png" alt="make" title="">
+                </div>
+                <div class="image-caption">make</div>
+            </figure>
+<p>最后，使用下面的命令将它安装到 <strong>/usr/local</strong> 目录下：</p>
+<pre><code class="lang-bash">#make install
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222422ttpra550o6yftm5n.png" alt="安装" title="">
+                </div>
+                <div class="image-caption">安装</div>
+            </figure>
+<h3 id="安装-Autopsy-工具"><a href="#安装-Autopsy-工具" class="headerlink" title="安装 Autopsy 工具"></a>安装 Autopsy 工具</h3><p>Sleuth kit 已经安装完毕，现在我们将为它安装 autopsy 界面。从 <a href="http://www.sleuthkit.org/autopsy/download.php" target="_blank" rel="noopener">sleuthkit 的 autopsy 页面</a>下载 Autopsy 软件。使用下面的命令在虚拟终端下使用 wget 命令来下载它，下图展示了这个过程。</p>
+<pre><code class="lang-bash"># wget http://kaz.dl.sourceforge.net/project/autopsy/autopsy/2.24/autopsy-2.24.tar.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222422l59daai59a9ah9ja.png" alt="Autpsy 的下载链接" title="">
+                </div>
+                <div class="image-caption">Autpsy 的下载链接</div>
+            </figure>
+<p>使用下面的命令解压 autopsy-2.24.tar.gz 并进入解压后的目录：</p>
+<pre><code class="lang-bash"># tar -xvzf autopsy-2.24.tar.gz
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222423ijz6c8il5ioi8k78.png" alt="Autopsy 的解压" title="">
+                </div>
+                <div class="image-caption">Autopsy 的解压</div>
+            </figure>
+<p>autopsy 的配置脚本将询问 NSRL (National Software Reference Library) 和 <strong>Evidence_Locker</strong> 文件夹的路径。</p>
+<p>当弹窗问及 NSRL 时，输入 “n”，并在 <strong>/usr/local</strong> 目录下创建名为 Evidence_Locker 的文件夹。Autopsy 将在 Evidence_Locker 文件夹下存储配置文件，审计记录和输出文件。</p>
+<pre><code class="lang-bash">#mkdir /usr/local/Evidence_Locker
+#cd autopsy-2.24
+#./configure
+</code></pre>
+<p>![Autopsy 配置脚本](<a href="https://img.linux.net.cn/data/attachment/album/201505/30/222424k55u5ox5oku3hkzk.png" target="_blank" rel="noopener">https://img.linux.net.cn/data/attachment/album/201505/30/222424k55u5ox5oku3hkzk.png</a></p>
+<p>在安装过程中添加完 Evidence_Locker 的安装路径后， autopsy 在那里存储配置文件并展现如下的信息来运行 autopsy 程序。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222424kqmqbholbb1bqhqc.png" alt="启动 Autopsy" title="">
+                </div>
+                <div class="image-caption">启动 Autopsy</div>
+            </figure>
+<p>在虚拟终端中键入 <strong>./autopsy</strong> 命令来启动 Sleuth kit 工具的图形界面：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222425p9w6k67ctzh2td46.png" alt="Autopsy" title="">
+                </div>
+                <div class="image-caption">Autopsy</div>
+            </figure>
+<p>在浏览器中键入下面的地址来访问 autopsy 的界面：</p>
+<pre><code class="lang-bash">http://localhost:9999/autopsy
+</code></pre>
+<p>下图展现了 autopsy 插件的主页面：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222425lru6lruif70zqrlh.png" alt="主页" title="">
+                </div>
+                <div class="image-caption">主页</div>
+            </figure>
+<p>在 autopsy 工具中，点击 <strong>新案例</strong> 按钮来开始进行分析。键入案例名称，此次调查的描述和检查人的姓名，下图有具体的展示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222426g5pwn7cncz04vv82.png" alt="创建新事件" title="">
+                </div>
+                <div class="image-caption">创建新事件</div>
+            </figure>
+<p>在接下来的网页中，将展示在上一个的网页中键入的详细信息。接着点击 <strong>增加主机</strong> 按钮来添加有关要分析的机器的详细信息。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222426fag7aaasffal0foa.png" alt="增加主机" title="">
+                </div>
+                <div class="image-caption">增加主机</div>
+            </figure>
+<p>在下一个网页中键入主机名，相关的描述和要分析的机器的时区设置。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222427q7dydrbmpqp17y4z.png" alt="添加主机的详细信息" title="">
+                </div>
+                <div class="image-caption">添加主机的详细信息</div>
+            </figure>
+<p>添加主机后，点击 <strong>增加映像</strong> 按钮来为取证分析添加映像文件。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222427b51twt5si1ux5gxi.png" alt="添加映像" title="">
+                </div>
+                <div class="image-caption">添加映像</div>
+            </figure>
+<p>在接下来的网页中点击 <strong>增加映像文件</strong> 按钮。它将打开一个新的网页，来询问映像文件的路径和选择映像的类型以及导入的方法。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222428d4xyvxxkxy5vs5kn.png" alt="添加映像文件" title="">
+                </div>
+                <div class="image-caption">添加映像文件</div>
+            </figure>
+<p>正如下图中展示的那样，我们已经键入了 Linux 映像文件的路径。在我们这个例子中，映像文件类型是磁盘分区。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222428tl0pmeaajojnx6si.png" alt="添加映像分区" title="">
+                </div>
+                <div class="image-caption">添加映像分区</div>
+            </figure>
+<p>点击“下一步”按钮并在下一页中选择 <strong>计算散列值</strong> 的选项，这在下图中有展示。它也将检测所给映像的文件系统类型。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222428vc8hh8kfhkmlgg8m.png" alt="映像和文件系统详情" title="">
+                </div>
+                <div class="image-caption">映像和文件系统详情</div>
+            </figure>
+<p>下面的图片展示了静态分析之前映像文件的 MD5 散列值。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222429gmz3p3k3dr73hb1f.png" alt="散列值" title="">
+                </div>
+                <div class="image-caption">散列值</div>
+            </figure>
+<p>在下一个网页中， autopsy 展现了有关映像文件的如下信息：</p>
+<ul>
+<li>映像的挂载点</li>
+<li>映像的名称</li>
+<li>所给映像的文件系统类型</li>
+</ul>
+<p>点击 <strong>详情</strong> 按钮来获取更多有关所给映像文件的信息。它还提供了从映像文件的卷中导出未分配的片段和字符串的数据信息，这在下图中有展现。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222429dbtk7a03mqz0ufa0.png" alt="映像的详细信息" title="">
+                </div>
+                <div class="image-caption">映像的详细信息</div>
+            </figure>
+<p>在下图中那样，点击 <strong>分析</strong> 按钮来开始分析所给映像。它将开启另一个页面，其中包含了映像分析的多个选项。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222430tyg1g2czv256vd62.png" alt="分析" title="">
+                </div>
+                <div class="image-caption">分析</div>
+            </figure>
+<p>在映像分析过程中，Autopsy 提供了如下的功能：</p>
+<ul>
+<li>文件分析</li>
+<li>关键字搜索</li>
+<li>文件类型</li>
+<li>映像详情</li>
+<li>数据单元</li>
+</ul>
+<p>下图展示的是在给定的 Linux 分区映像上进行文件分析：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222431azn6kp6firwc5qpf.png" alt="映像的分析" title="">
+                </div>
+                <div class="image-caption">映像的分析</div>
+            </figure>
+<p>它将从所给映像中提取所有的文件和文件夹。在下图中也展示了已被删除的文件的提取：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.linux.net.cn/data/attachment/album/201505/30/222432zrnndmb1qdrv2dqr.png" alt="已被删除的文件" title="">
+                </div>
+                <div class="image-caption">已被删除的文件</div>
+            </figure>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>希望这篇文章能够给那些进入磁盘映像静态分析领域的新手提供帮助。Autopsy 是 sleuth kit 的网页界面，提供了在 Windows 和 Linux 磁盘映像中进行诸如字符串提取，恢复被删文件，时间线分析，网络浏览历史，关键字搜索和邮件分析等功能。</p>
+<hr>
+<p>via: <a href="http://linoxide.com/ubuntu-how-to/autopsy-sleuth-kit-installation-ubuntu/" target="_blank" rel="noopener">http://linoxide.com/ubuntu-how-to/autopsy-sleuth-kit-installation-ubuntu/</a><br>public: <a href="https://linux.cn/article-5541-1.html" target="_blank" rel="noopener">https://linux.cn/article-5541-1.html</a></p>
+<p>作者：<a href="http://linoxide.com/author/naveeda/" target="_blank" rel="noopener">nido</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="http://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-06T14:30:29.026Z" itemprop="dateUpdated">2020-03-06 22:30:29</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/" target="_blank" rel="external">https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%96%E8%AF%81%E5%B7%A5%E5%85%B7/" rel="tag">取证工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/&title=《[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/&title=《[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具》 — FLC&source=SIFT 是一个由 SANS 公司提供的基于 Ubuntu 的取证发行版。它包含许多取证工具，如 Sleuth kit/Autopsy 。但 Sleuth..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具》 — FLC&url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/07/29/Translate-LINUX-101-POWER-UP-YOUR-SHELL/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] LINUX 101: 让你的 SHELL 更强大</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/22/Translate-How-to-Generate-or-Encrypt-or-Decrypt-Random-Passwords-in-Linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 如何在 Linux 中产生、加密或解密随机密码 </h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/&title=《[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/&title=《[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具》 — FLC&source=SIFT 是一个由 SANS 公司提供的基于 Ubuntu 的取证发行版。它包含许多取证工具，如 Sleuth kit/Autopsy 。但 Sleuth..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Sleuth Kit：一个用来分析磁盘映像和恢复文件的开源取证工具》 — FLC&url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/05/30/Translate-Sleuth-Kit-Open-Source-Forensic-Tool-to-Analyze-Disk-Images-and-Recover-Files/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiElEQVR42u3aS24bMRAFwNz/0s42gO3xe92jYCiXVoIgj8iigf7xz5/49fHP67tPkm9+9/3P79uV5OtMfmX4woQJEyZMj2T6uHxdb/X683x71ytJtrf55vXvYsKECROm92DKf/iHxwV/m2ysTSwS6BwUEyZMmDD9ZqY2hG/K4KTAbg8MEyZMmDBhygN28sn1NtqW7uaoMGHChAnTb2bKH5cH9bwR3G4yH2fun48JEyZMmE5nygPz+71/yf0mTJgwYcL0GKaP8rUvTWct3fwX27Qj2jUmTJgwYTqWKQ+Q7aiyZbqrgduOM4vDwIQJEyZMxzJt2qD7Cz35k/ft42Sd9VATEyZMmDA9mOm69ZmE9jYkzwJ2wn1XKf7tfxAmTJgwYTqWadbGTTaTDBFnacEmvWjTFEyYMGHCdDpTW6zOgn3b3s2fM2vy5qCYMGHChOl0pqSY3DRn2zA861K3a873iwkTJkyYzmXabGbTAp6lHZs0Ij/O4tGYMGHChOnxTC1HHjhf0aLNk4DNqPWL72PChAkTpsOZ7r240xaZSWDOR6dtGzraKSZMmDBhOpbpdQVwPgT9nwnBJgHChAkTJkwnMrUFYT7wm5Wds9RkdmzFjjBhwoQJ0+FMr7sEs0kykufMWtV1uYsJEyZMmI5luutyz34Img8j29Rkn7hgwoQJE6Z3YkqW1V7ZaUvNtjM9S0TaBjcmTJgwYTqX6YW5Q9nMnSUfd+VBRasXEyZMmDAdxbTJINr7Qe322oRj8/36fhMmTJgwYXo806Y5mwTdPKzmxXYbwutrOp8/x4QJEyZMxzLlAbIdHLZXfNrLQG0LeLbfqMmLCRMmTJgezDSsieOC897hYjvCvK0ljQkTJkyY3ohpFjKTQeOmfZwnKG2pHK0cEyZMmDC9EdNsGDlb0CZI55d4brhUhAkTJkyYDmfalJ2z0rQtVq8J2oZym3xgwoQJE6Zzmdql5FizUWhe9LYFcF5m/7BCTJgwYcJ0LFOeEMygk/J4X0jPWsar4S4mTJgwYXow02wo2ILeFcL3132Go1xMmDBhwnQ4U95CbQnawjgfNLYHPGsTY8KECROm05k2Td68QJ0NL9t6Pd92OzrFhAkTJkznMuWBOb8WM3s/49gceTGgxYQJEyZMb8HUFp/tNvJSti10r2ny9Xy7L0yYMGHCdDhTEhTzYnJWJLeJyOY7+WF8MfXFhAkTJkzHMuVt0KSpOiubE8rkYPKhZnRsmDBhwoTpLZj2QTQP0nn7NU8dotA+SjswYcKECdO5TLNLM7OhZr70tsk7Szja38WECRMmTCcyvaKNm5fE7fG00Tk5pOhoMWHChAnTsUz7PCJfRNvGbZeeH21bWmPChAkTptOZNklAC7fpmuYHk5fEeSGNCRMmTJhOZ5pdnWmXMissZ4PMTRFbz34xYcKECdMbMW2K2KR8nRXk+7r/h3QEEyZMmDD9Gqb2yk4byDfDzrZsLigxYcKECdPhTHkpm2w4GTrmR5X/ev63+d4xYcKECdPpTLOmZwuas85ShNlBrlAwYcKECdPTmf4C2CVtvvnbjbMAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
