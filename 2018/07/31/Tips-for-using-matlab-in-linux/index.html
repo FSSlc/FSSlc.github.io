@@ -52,7 +52,7 @@ ga('send', 'pageview');
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
-    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -175,7 +175,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#终端使用-matlab"><span class="post-toc-text">终端使用 matlab</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#matlab-使用-gpu"><span class="post-toc-text">matlab 使用 gpu</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#几个常见问题"><span class="post-toc-text">几个常见问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#帮助系统没有-CSS-渲染效果"><span class="post-toc-text">帮助系统没有 CSS 渲染效果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#libGL-error-for-MATLAB"><span class="post-toc-text">libGL error for MATLAB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无法使用并行工具箱"><span class="post-toc-text">无法使用并行工具箱</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#matlab-无法使用系统中文字体"><span class="post-toc-text">matlab 无法使用系统中文字体</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#终端使用-matlab"><span class="post-toc-number">2.</span> <span class="post-toc-text">终端使用 matlab</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#matlab-使用-gpu"><span class="post-toc-number">3.</span> <span class="post-toc-text">matlab 使用 gpu</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#几个常见问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">几个常见问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#帮助系统没有-CSS-渲染效果"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">帮助系统没有 CSS 渲染效果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#libGL-error-for-MATLAB"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">libGL error for MATLAB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无法使用并行工具箱"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">无法使用并行工具箱</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#matlab-无法使用系统中文字体"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">matlab 无法使用系统中文字体</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -624,23 +624,6 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
 
 
 <script src="/js/prism.min.js?v=1.7.2"></script>

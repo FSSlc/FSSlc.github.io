@@ -50,7 +50,7 @@ ga('send', 'pageview');
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
-    <link rel="stylesheet" href="/css/prism/prism-tomorrow-night.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -173,7 +173,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复杂-json-示例"><span class="post-toc-text">复杂 json 示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-标准库中对-json-数据的处理"><span class="post-toc-text">Python 标准库中对 json 数据的处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见处理-JSON-的-Python-软件包"><span class="post-toc-text">常见处理 JSON 的 Python 软件包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dpath"><span class="post-toc-text">dpath</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath"><span class="post-toc-text">jsonpath</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath2"><span class="post-toc-text">jsonpath2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-rw"><span class="post-toc-text">jsonpath-rw</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-rw-ext"><span class="post-toc-text">jsonpath-rw-ext</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-ng"><span class="post-toc-text">jsonpath-ng</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何查询复杂-json-数据"><span class="post-toc-text">如何查询复杂 json 数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何筛选复杂-json-数据"><span class="post-toc-text">如何筛选复杂 json 数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何修改复杂-json-数据"><span class="post-toc-text">如何修改复杂 json 数据</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复杂-json-示例"><span class="post-toc-number">1.</span> <span class="post-toc-text">复杂 json 示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-标准库中对-json-数据的处理"><span class="post-toc-number">2.</span> <span class="post-toc-text">Python 标准库中对 json 数据的处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见处理-JSON-的-Python-软件包"><span class="post-toc-number">3.</span> <span class="post-toc-text">常见处理 JSON 的 Python 软件包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dpath"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">dpath</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">jsonpath</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath2"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">jsonpath2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-rw"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">jsonpath-rw</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-rw-ext"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">jsonpath-rw-ext</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsonpath-ng"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">jsonpath-ng</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何查询复杂-json-数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">如何查询复杂 json 数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何筛选复杂-json-数据"><span class="post-toc-number">5.</span> <span class="post-toc-text">如何筛选复杂 json 数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何修改复杂-json-数据"><span class="post-toc-number">6.</span> <span class="post-toc-text">如何修改复杂 json 数据</span></a></li></ol>
         </nav>
     </aside>
 
@@ -528,7 +528,14 @@ def Modify_model(refVar, refValue, modelFile, modModleFile=&#39;run.json&#39;):
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/03/21/Note-for-geektime-Linux-in-Action/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《Linux 实战技能 100 讲》笔记</h4>
+      </a>
+    </div>
   
 
   
@@ -772,23 +779,6 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
 
 
 <script src="/js/prism.min.js?v=1.7.2"></script>

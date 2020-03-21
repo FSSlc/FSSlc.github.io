@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fsslc.github.io/2020/03/21/Note-for-geektime-Linux-in-Action/</loc>
+    <lastmod>2020-03-21</lastmod>
+  </url>  <url>
     <loc>https://fsslc.github.io/2015/07/29/Translate-LINUX-101-POWER-UP-YOUR-SHELL/</loc>
     <lastmod>2020-03-06</lastmod>
   </url>  <url>
@@ -55,10 +58,10 @@
     <loc>https://fsslc.github.io/2018/05/06/Translate-Recursion--dream-within-a-dream/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
-    <loc>https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/</loc>
+    <loc>https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
-    <loc>https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</loc>
+    <loc>https://fsslc.github.io/2015/11/03/Cannot-convert-string-to-type-FontStruct/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
     <loc>https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/</loc>
@@ -67,16 +70,16 @@
     <loc>https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
-    <loc>https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/</loc>
-    <lastmod>2020-03-01</lastmod>
-  </url>  <url>
     <loc>https://fsslc.github.io/2016/12/15/Install-opendx-In-Archlinux/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
-    <loc>https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/</loc>
+    <loc>https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
     <loc>https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/</loc>
+    <lastmod>2020-03-01</lastmod>
+  </url>  <url>
+    <loc>https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>
 </urlset>

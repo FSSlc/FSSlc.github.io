@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fsslc.github.io/"/>
-  <updated>2020-03-01T15:42:43.027Z</updated>
+  <updated>2020-03-21T02:33:10.658Z</updated>
   <id>https://fsslc.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《Linux 实战技能 100 讲》笔记</title>
+    <link href="https://fsslc.github.io/2020/03/21/Note-for-geektime-Linux-in-Action/"/>
+    <id>https://fsslc.github.io/2020/03/21/Note-for-geektime-Linux-in-Action/</id>
+    <published>2020-03-21T02:30:30.000Z</published>
+    <updated>2020-03-21T02:33:10.658Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文目的主要是对学习 《Linux 实战技能 100 讲》过程中的内容做记录，防止忘记，即便忘记了也可以再回来查。</p><p>极客专栏地址： <a href="https://time.geekbang.org/course/intro/193" target="_blank" rel="noopener">https://time.geekbang.org/course/intro/193</a></p><h2 id="第三章：-系统管理篇"><a href="#第三章：-系统管理篇" class="headerlink" title="第三章： 系统管理篇"></a>第三章： 系统管理篇</h2><h3 id="26-网络管理"><a href="#26-网络管理" class="headerlink" title="26 网络管理"></a>26 网络管理</h3><h4 id="网络状态查看工具"><a href="#网络状态查看工具" class="headerlink" title="网络状态查看工具"></a>网络状态查看工具</h4><p>早期使用 <code>net-tools</code> 工具集，现在较新的 Linux 发行版使用 <code>iproute2</code> 工具集。</p><p>简要介绍如下：</p><h5 id="1-net-tools"><a href="#1-net-tools" class="headerlink" title="1.net-tools"></a>1.net-tools</h5><ul><li>ifconfig<ul><li>eth0 第一块网卡</li><li>ens33 PCI-E 网卡</li><li>enp0s3 无法获取物理信息的 PCI-E 网卡</li><li>CentOS 7 使用了一致性网络设备命名，以上都不匹配则使用 eth0</li></ul></li><li>route</li><li>netstat</li></ul><h5 id="2-iproute2"><a href="#2-iproute2" class="headerlink" title="2.iproute2"></a>2.iproute2</h5><ul><li>ip</li><li>ss</li></ul><h4 id="网卡接口命名修改"><a href="#网卡接口命名修改" class="headerlink" title="网卡接口命名修改"></a>网卡接口命名修改</h4><ul><li>网卡命名规则受 <code>biosdevname</code> 和 <code>net.ifnames</code> 两个参数影响</li><li>编辑 <code>/etc/default/grub</code> 文件，增加 <code>biosdevname=0 net.ifnames=0</code></li><li>更新 grub<ul><li><code>#grub2-mkconfig -o /boot/grub2/grub.cfg</code></li></ul></li><li>重启<ul><li><code>#reboot</code></li></ul></li></ul><div class="table-container"><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">biosdevname</th><th style="text-align:center">net.ifnames</th><th style="text-align:center">网卡名</th></tr></thead><tbody><tr><td style="text-align:center">默认</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center">ens33</td></tr><tr><td style="text-align:center">组合 1</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">em1</td></tr><tr><td style="text-align:center">组合 2</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">eth0</td></tr></tbody></table></div><blockquote><p>systemd 网络端口命名规则</p></blockquote><p><a href="https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/" target="_blank" rel="noopener">https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/</a></p><h3 id="27-查看网络配置"><a href="#27-查看网络配置" class="headerlink" title="27 查看网络配置"></a>27 查看网络配置</h3><h4 id="ifconfig-输出"><a href="#ifconfig-输出" class="headerlink" title="ifconfig 输出"></a>ifconfig 输出</h4><pre><code class="lang-bash">ifconfig/sbin/ifconfig</code></pre><pre><code class="lang-bash">enp0s31f6: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500        ether e8:6a:64:44:77:3c  txqueuelen 1000  (Ethernet)        RX packets 0  bytes 0 (0.0 B)        RX errors 0  dropped 0  overruns 0  frame 0        TX packets 0  bytes 0 (0.0 B)        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0        device interrupt 16  memory 0xee300000-ee320000lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536        inet 127.0.0.1  netmask 255.0.0.0        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;        loop  txqueuelen 1000  (Local Loopback)        RX packets 1425567  bytes 5078552462 (4.7 GiB)        RX errors 0  dropped 0  overruns 0  frame 0        TX packets 1425567  bytes 5078552462 (4.7 GiB)        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0wlp2s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500        inet 192.168.1.9  netmask 255.255.255.0  broadcast 192.168.1.255        inet6 fe80::92ed:8a43:7e6:6880  prefixlen 64  scopeid 0x20&lt;link&gt;        ether 1c:1b:b5:3f:4b:4d  txqueuelen 1000  (Ethernet)        RX packets 78354285  bytes 111604642686 (103.9 GiB)        RX errors 0  dropped 0  overruns 0  frame 0        TX packets 40923681  bytes 4766853522 (4.4 GiB)        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre><ul><li><code>inet</code> 网卡的 ipv4 地址</li><li><code>inet6</code> 网卡的 ipv6 地址</li><li><code>ether</code> 网卡的 MAC 地址</li><li><code>RX</code>  <code>TX</code> 发送、接收数据包统计</li><li><code>lo</code> 代表本地环回 网卡，本地地址永远是 <code>127.0.0.1</code></li></ul><h4 id="查看网卡物理链接状态"><a href="#查看网卡物理链接状态" class="headerlink" title="查看网卡物理链接状态"></a>查看网卡物理链接状态</h4><p><strong>mii-tool - view, manipulate media-independent interface status</strong></p><pre><code class="lang-bash"># sudo mii-tool enp0s31f6enp0s31f6: no link</code></pre><h4 id="查看网关命令"><a href="#查看网关命令" class="headerlink" title="查看网关命令"></a>查看网关命令</h4><ul><li><code>route -n</code></li><li>使用 <code>-n</code> 参数不解析主机名</li></ul><pre><code class="lang-bash">--&gt;$ routeKernel IP routing tableDestination     Gateway         Genmask         Flags Metric Ref    Use Ifacedefault         _gateway        0.0.0.0         UG    600    0        0 wlp2s0172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0172.18.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-a1bd391f73c0192.168.1.0     0.0.0.0         255.255.255.0   U     600    0        0 wlp2s0</code></pre><ul><li><code>default</code> 表示默认网关</li></ul><h3 id="28-修改网络配置"><a href="#28-修改网络配置" class="headerlink" title="28 修改网络配置"></a>28 修改网络配置</h3><h4 id="网络配置命令"><a href="#网络配置命令" class="headerlink" title="网络配置命令"></a>网络配置命令</h4><ul><li><code>ifconfig &lt;接口&gt; &lt;IP地址&gt; [netmask 子网掩码]</code></li><li><code>ifup &lt;接口&gt;</code></li><li><code>ifdown &lt;接口&gt;</code></li></ul><h4 id="网关配置命令"><a href="#网关配置命令" class="headerlink" title="网关配置命令"></a>网关配置命令</h4><h5 id="添加网关"><a href="#添加网关" class="headerlink" title="添加网关"></a>添加网关</h5><p>添加默认网关：<br><code>route add default gw &lt;网关ip&gt;</code><br>添加明细路由：<br><code>route add -host &lt;指定ip&gt; gw &lt;网关ip&gt;</code><br><code>route add -net &lt;指定网段&gt; netmask &lt;子网掩码&gt;  gw &lt;网关ip&gt;</code> 访问某个网段的明细路由</p><h4 id="ip-命令"><a href="#ip-命令" class="headerlink" title="ip 命令"></a>ip 命令</h4><ul><li><code>ip addr ls</code> = <code>ifconfig</code></li><li><code>ip link set dev eth0 up</code> = <code>ipup eth0</code></li><li><code>ip addr add 10.0.0.1/24 dev eth1</code> = <code>ifconfig eth1 10.0.0.1/24 netmask 255.255.255.0</code></li><li><code>ip route add 10.0.0.1/24 via 192.168.0.1</code> = <code>route add -net 10.0.0.0 netmask 255.255.255.0 gw 192.168.0.1</code></li></ul><h3 id="29-网络故障排除"><a href="#29-网络故障排除" class="headerlink" title="29 网络故障排除"></a>29 网络故障排除</h3><p><strong>排除命令：</strong></p><ul><li><code>ping</code> 检测网络是否可达 , <code>-c</code> 指定次数</li><li><code>traceroute</code> 检测每一跳的情况 ； <code>-w</code> 等待时间</li><li><code>mtr</code> 检测包是否丢失 <code>My traceroute</code></li><li><code>nslookup</code> 域名查看 ip</li><li><code>telnet</code> 检查端口连接状态 <code>telnet www.baidu.com 80</code></li><li><code>tcpdump</code> 抓取数据包 <code>tcpdump -i any -n port 80</code>  <code>tcpdump -i any -n host 10.0.0.1</code>  <code>tcpdump -i any -n host 10,0.0.1 and port 80 -w /tmp/dump.txt</code></li><li><code>netstat</code> 端口查看状态 <code>-n</code> 显示 ip 地址， <code>t</code> tcp <code>-p</code> 进程 <code>l</code> listen</li><li><code>ss</code> 参数与 netstat 类似</li></ul><h3 id="30-网络管理和配置文件"><a href="#30-网络管理和配置文件" class="headerlink" title="30 网络管理和配置文件"></a>30 网络管理和配置文件</h3><h4 id="网络服务管理"><a href="#网络服务管理" class="headerlink" title="网络服务管理"></a>网络服务管理</h4><p>网络服务管理程序分为 SysV 和 systemd， 下面是常用的一些命令：</p><ul><li><code>service network start/stop/restart</code></li><li><code>chkconfig -list network</code>  <code>chkconfig --level 2345 network off/on</code></li><li><code>systemctl list-unit-files NetworkManager.service</code></li><li><code>systemctl start/stop/restart NetworkManager</code></li><li><code>systemctl enable/disable NetworkManager</code></li></ul><h4 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h4><ul><li><code>/et/sysconfig/network-scripts/ifcfg-**</code><ul><li><code>BOOTPROTO=dhcp/static/none</code></li><li><code>ONBOOT=&quot;yes&quot;/&quot;no&quot;</code></li><li><code>IPADDR</code>  <code>NETMASK</code>  <code>GATEWAY</code>  <code>DNS1</code>  <code>DNS2</code>  <code>DNS3</code></li></ul></li><li><code>/etc/hosts</code></li></ul><h4 id="主机名"><a href="#主机名" class="headerlink" title="主机名"></a>主机名</h4><ul><li><code>hostname # 展示主机名</code></li><li><code>hostname NAME # 临时设置主机名</code></li><li><code>hostnamectl set-hostname NAME # 永久设置主机名</code></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文目的主要是对学习 《Linux 实战技能 100 讲》过程中的内容做记录，防止忘记，即便忘记了也可以再回来查。&lt;/p&gt;
+&lt;p&gt;极客专栏地址： &lt;a href=&quot;https://time.geekbang.org/course/intro/193&quot; target=&quot;_bl
+      
+    
+    </summary>
+    
+    
+      <category term="笔记" scheme="https://fsslc.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="笔记" scheme="https://fsslc.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="Linux" scheme="https://fsslc.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 Python 软件包来处理较为复杂的 JSON 文件</title>
@@ -535,9 +564,9 @@
     
       <category term="翻译" scheme="https://fsslc.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
     
-      <category term="Roguelike" scheme="https://fsslc.github.io/tags/Roguelike/"/>
-    
       <category term="游戏" scheme="https://fsslc.github.io/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+      <category term="Roguelike" scheme="https://fsslc.github.io/tags/Roguelike/"/>
     
   </entry>
   
