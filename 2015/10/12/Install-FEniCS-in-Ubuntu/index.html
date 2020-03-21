@@ -32,21 +32,21 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="FEniCS,Anaconda">
-    <meta name="description" content="在 Ubuntu 中安装 FEniCS                                                                                               FEniCS Logo              Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网的说明。这样">
+    <meta name="description" content="在 Ubuntu 中安装 FEniCS   Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网的说明。这样就可以少折腾了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Ubuntu 中安装 FEniCS">
 <meta property="og:url" content="https://fsslc.github.io/2015/10/12/Install-FEniCS-in-Ubuntu/index.html">
 <meta property="og:site_name" content="FLC">
-<meta property="og:description" content="在 Ubuntu 中安装 FEniCS                                                                                               FEniCS Logo              Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网的说明。这样">
+<meta property="og:description" content="在 Ubuntu 中安装 FEniCS   Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网的说明。这样就可以少折腾了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://fenicsproject.org/pub/tutorial/sphinx1/_static/fenics_banner.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/fenics_banner.png">
 <meta property="article:published_time" content="2015-10-12T04:32:13.000Z">
-<meta property="article:modified_time" content="2020-03-01T15:42:43.027Z">
+<meta property="article:modified_time" content="2020-03-21T05:19:10.607Z">
 <meta property="article:author" content="FSSlc">
 <meta property="article:tag" content="FEniCS">
 <meta property="article:tag" content="Anaconda">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://fenicsproject.org/pub/tutorial/sphinx1/_static/fenics_banner.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/fenics_banner.png">
     
         <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
     
@@ -205,17 +205,11 @@ ga('send', 'pageview');
             <blockquote>
 <p>在 Ubuntu 中安装 FEniCS</p>
 </blockquote>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://fenicsproject.org/pub/tutorial/sphinx1/_static/fenics_banner.png" alt="FEniCS Logo" title="">
-                </div>
-                <div class="image-caption">FEniCS Logo</div>
-            </figure>
+<p><img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/fenics_banner.png" alt="FEniCS Logo" style="zoom:50%;" /></p>
 <p><strong>Update 20161212</strong><br>现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看<a href="https://fenics-containers.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">官网的说明</a>。这样就可以少折腾了。</p>
 <a id="more"></a>
 <h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>最近导师去开了个会议，从其他人那里打听到有很多人都在 FEniCS 的基础上写代码了。导师她最开始认为，它是用来写 Fortran 代码的一个平台，加之她主要使用的编程语言为 Fortran，所以希望我们能够去学习一下。</p>
-<p>第一次看到 FEniCS 这个词，应该可以追溯到我大四做毕业论文的时候。那时想找个软件来书写有限元程序，因为自己从底层开始写起太费事了。通过搜索，找到了许多软件，具体可以看看这个链接。通过试用，左右权衡，最后决定使用 deal. II 来做毕业论文。</p>
+<p>第一次看到 FEniCS 这个词，应该可以追溯到我大四做毕业论文的时候。那时想找个软件来书写有限元程序，因为自己从底层开始写起太费事了。通过搜索，找到了许多软件，具体可以看看这个链接。通过试用，左右权衡，最后决定使用 deal.II 来做毕业论文。</p>
 <p>当时对于 FEniCS 的认识是：</p>
 <pre><code>它是用 Python 写的，自己对 Python 不熟悉，查找到的资料不是很齐全；
 当时自己尝试从 PPA 安装了 FEniCS， 但程序运行地不是很顺利；
@@ -276,7 +270,7 @@ conda install &quot;vtk=5.10&quot;
 <p>另外，我发现我自己申请的 license 同样也可以用在别人的机器上，不知这是不是一个 bug。</p>
 <h3 id="安装后软件的学习"><a href="#安装后软件的学习" class="headerlink" title="安装后软件的学习"></a>安装后软件的学习</h3><p>关于入门，可以直接看官网的文档，例如 tutorial，The FEniCS Book, Manual。</p>
 <p>PS： 可以到<a href="https://launchpadlibrarian.net/83776282/fenics-book-2011-10-27-final.pdf" target="_blank" rel="noopener">这里</a>下载到 The FEniCS Book。</p>
-<p>关于这两天学习的感受：我是从 tutorial 入门的，看了过后感觉这货居然这么简单，相比于我用 deal. II 写代码，这不知要轻松多少倍。另外，tutorial 里面的例子有些代码不能运行了，应该是 dolfin(或其他组件) 更新的缘故，而文档还没有被更新。下一步继续看文档来学习。</p>
+<p>关于这两天学习的感受：我是从 tutorial 入门的，看了过后感觉这货居然这么简单，相比于我用 deal.II 写代码，这不知要轻松多少倍。另外，tutorial 里面的例子有些代码不能运行了，应该是 dolfin(或其他组件) 更新的缘故，而文档还没有被更新。下一步继续看文档来学习。</p>
 <p>以后深入后，再写点东西来分享。</p>
 <p><strong>UPDATE 2018.07.31</strong><br>有几点需要更新的：</p>
 <ol>
@@ -293,7 +287,7 @@ conda install &quot;vtk=5.10&quot;
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-01T15:42:43.027Z" itemprop="dateUpdated">2020-03-01 23:42:43</time>
+    最后更新时间：<time datetime="2020-03-21T05:19:10.607Z" itemprop="dateUpdated">2020-03-21 13:19:10</time>
 </span><br>
 
 
@@ -343,9 +337,7 @@ conda install &quot;vtk=5.10&quot;
 在 Ubuntu 中安装 FEniCS
 
 
-                
-                    
-                ..." data-title=" QQ">
+Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -385,7 +377,7 @@ conda install &quot;vtk=5.10&quot;
     <div class="waves-block waves-effect prev">
       <a href="/2015/11/03/Cannot-convert-string-to-type-FontStruct/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Ubuntu 下 Opendx Data Explorer 的字体问题</h4>
+        <h4 class="title">Ubuntu 下 OpenDX Data Explorer 的字体问题</h4>
       </a>
     </div>
   
@@ -394,7 +386,7 @@ conda install &quot;vtk=5.10&quot;
     <div class="waves-block waves-effect next">
       <a href="/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</h4>
+        <h4 class="title">在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView</h4>
       </a>
     </div>
   
@@ -563,9 +555,7 @@ conda install &quot;vtk=5.10&quot;
 在 Ubuntu 中安装 FEniCS
 
 
-                
-                    
-                ..." data-title=" QQ">
+Update 20161212现在容器大热，Fenics 也提供通过 docker 安装了，具体可以参看官网..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

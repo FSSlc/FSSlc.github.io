@@ -31,19 +31,19 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="AFEPack,Deal. II">
-    <meta name="description" content="在 Ubuntu 中安装 AFEPack  Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考我的说明进行安装。 系统准备我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、Ubuntu 16.04 安装成功。）">
+    <meta name="keywords" content="AFEPack,deal.II">
+    <meta name="description" content="在 Ubuntu 中安装 AFEPack  Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考我的说明进行安装，当然，当时做的时候有些库可能用不了了。。 系统准备我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、U">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Ubuntu 中安装 AFEPack">
 <meta property="og:url" content="https://fsslc.github.io/2015/11/03/Install-AFEPack-In-Ubuntu/index.html">
 <meta property="og:site_name" content="FLC">
-<meta property="og:description" content="在 Ubuntu 中安装 AFEPack  Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考我的说明进行安装。 系统准备我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、Ubuntu 16.04 安装成功。）">
+<meta property="og:description" content="在 Ubuntu 中安装 AFEPack  Update相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考我的说明进行安装，当然，当时做的时候有些库可能用不了了。。 系统准备我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、U">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2015-11-03T06:02:55.000Z">
-<meta property="article:modified_time" content="2020-03-01T15:42:43.027Z">
+<meta property="article:modified_time" content="2020-03-21T05:14:01.682Z">
 <meta property="article:author" content="FSSlc">
 <meta property="article:tag" content="AFEPack">
-<meta property="article:tag" content="Deal. II">
+<meta property="article:tag" content="deal.II">
 <meta name="twitter:card" content="summary">
     
         <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
@@ -173,7 +173,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">系统准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备安装包"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备安装包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装必要软件"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装必要软件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-deal-II"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装 deal. II</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-mpich"><span class="post-toc-number">5.</span> <span class="post-toc-text">安装 mpich</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-AFEPack"><span class="post-toc-number">6.</span> <span class="post-toc-text">安装 AFEPack</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">系统准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备安装包"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备安装包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装必要软件"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装必要软件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-deal-II"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装 deal.II</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-mpich"><span class="post-toc-number">5.</span> <span class="post-toc-text">安装 mpich</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-AFEPack"><span class="post-toc-number">6.</span> <span class="post-toc-text">安装 AFEPack</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
         </nav>
     </aside>
 
@@ -203,11 +203,11 @@ ga('send', 'pageview');
             <blockquote>
 <p>在 Ubuntu 中安装 AFEPack</p>
 </blockquote>
-<p><strong>Update</strong><br>相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考<a href="https://hub.docker.com/r/fsslc/afepack/" target="_blank" rel="noopener">我的说明</a>进行安装。</p>
+<p><strong>Update</strong><br>相对来说这里的内容有些陈旧了，最近学了点 docker，便做了个 AFEPack 的 docker 镜像，若嫌安装麻烦，可以直接参考<a href="https://hub.docker.com/r/fsslc/afepack/" target="_blank" rel="noopener">我的说明</a>进行安装，当然，当时做的时候有些库可能用不了了。。</p>
 <h2 id="系统准备"><a href="#系统准备" class="headerlink" title="系统准备"></a>系统准备</h2><p>我现在使用的系统 Ubuntu 14.04，经过测试可以安装运行 AFEPack，其他的可能需要检验。（另：已经在 Linux Mint 、Ubuntu 16.04 安装成功。）</p>
 <a id="more"></a>
-<h2 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h2><p>首先，下载好 deal. II、AFEPack、mpich（非必须） 这几个软件的安装包。</p>
-<p>其中的 deal. II 和 AFEPack 可以到我的百度网盘去下载，这个是我从我大学同学的未来的师兄那里获得的，而那位师兄的老师正是这个软件包的作者 李若 老师。由于高版本的 deal. II 版本经过了许多的修改，且鉴于 AFEPack 几乎停滞的开发状态，我们采用的是 deal. II 的 6.3.1 版本。而 mpich 则可以到官网去下载最新的稳定版本。</p>
+<h2 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h2><p>首先，下载好 deal.II、AFEPack、mpich（非必须） 这几个软件的安装包。</p>
+<p>其中的 deal.II 和 AFEPack 可以到我的百度网盘去下载，这个是我从我大学同学的未来的师兄那里获得的，而那位师兄的老师正是这个软件包的作者 李若 老师。由于高版本的 deal.II 版本经过了许多的修改，且鉴于 AFEPack 几乎停滞的开发状态，我们采用的是 deal.II 的 6.3.1 版本。而 mpich 则可以到官网去下载最新的稳定版本。</p>
 <p>相关软件的下载地址为：</p>
 <p>deal.II 和 AFEPack : 链接: <a href="https://pan.baidu.com/s/1jxjO5wRhMjbQjqetQxSU6g" target="_blank" rel="noopener">https://pan.baidu.com/s/1jxjO5wRhMjbQjqetQxSU6g</a> 密码: utxt<br>mpich : <a href="http://www.mpich.org/downloads/" target="_blank" rel="noopener">http://www.mpich.org/downloads/</a></p>
 <p>下载好这些包后，将他们进行解压备用。</p>
@@ -225,15 +225,15 @@ cd /usr/bin
 sudo ln -s gcc-4.6 gcc
 sudo ln -s g++-4.6 g++
 </code></pre>
-<h2 id="安装-deal-II"><a href="#安装-deal-II" class="headerlink" title="安装 deal. II"></a>安装 deal. II</h2><p>根据李若老师的解释，他选用这个包的原因是看上了这个包里面 <code>lac</code> 、 <code>base</code> 中的代码，即关于基础线性代数相关的代码写得很好，所以才采用了 deal. II 。所以我们可以只编译里面的部分文件，当然如果你不在乎占用一点额外的磁盘空间，也可以选择完整安装。</p>
+<h2 id="安装-deal-II"><a href="#安装-deal-II" class="headerlink" title="安装 deal.II"></a>安装 deal.II</h2><p>根据李若老师的解释，他选用这个包的原因是看上了这个包里面 <code>lac</code> 、 <code>base</code> 中的代码，即关于基础线性代数相关的代码写得很好，所以才采用了 deal.II 。所以我们可以只编译里面的部分文件，当然如果你不在乎占用一点额外的磁盘空间，也可以选择完整安装。</p>
 <p>关于安装路径，下面以我的安装位置 <code>/home/lc/Pkg/deal.II</code> 来举例，其中 <code>/home/lc</code> 为我的家目录，可以对应地修改，也可以安装到其他路径，如 <code>/usr/local/deal.II</code> 等。</p>
-<p>首先，进入解压后的 deal. II 目录，我的在 <code>/home/lc/Pkg/deal.II</code> 。 然后在终端中依次输入下面的命令，其中 # 后的内容为注释，可以忽略。</p>
+<p>首先，进入解压后的 deal.II 目录，我的在 <code>/home/lc/Pkg/deal.II</code> 。 然后在终端中依次输入下面的命令，其中 # 后的内容为注释，可以忽略。</p>
 <pre><code class="lang-bash">cd /home/lc/Pkg/deal.II # 进入解压后的 deal.II 目录
 ./configure
 make -j4 lac base contrib # -j 选项是启用多线程，以此来加快编译的速度，后面的数字最好与你机子的 CPU 的线程数相同或更少
 # 或者使用 make all 来完整安装
 </code></pre>
-<p>经过一段时间后(根据你的机器配置而定)，就把需要的文件编译好了。下面需要做一些软链接。在以前安装时，我尝试过直接把 deal. II 编译后产生的相应目录加在系统变量中，然后再安装 AFEPack，结果 AFEPack 不能找到 deal. II 的头文件，所以还是做个链接。具体的原因我也不清楚，可能需要问作者本人。</p>
+<p>经过一段时间后(根据你的机器配置而定)，就把需要的文件编译好了。下面需要做一些软链接。在以前安装时，我尝试过直接把 deal.II 编译后产生的相应目录加在系统变量中，然后再安装 AFEPack，结果 AFEPack 不能找到 deal.II 的头文件，所以还是做个链接。具体的原因我也不清楚，可能需要问作者本人。</p>
 <p>下面是我做链接时使用的命令，请相应做些修改：</p>
 <pre><code class="lang-bash">cd /usr/local/include
 sudo ln -s ~/Pkg/deal.II/deal.II/include/ .
@@ -290,6 +290,10 @@ sudo ldconfig
 </code></pre>
 <p>至此， AFEPack 的安装就结束了。</p>
 <p>如果你在安装期间有什么问题，可以来询问我，我尽量帮忙。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="dsec.pku.edu.cn/~rli/software_e.php">AFEPack 官网</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/25360918" target="_blank" rel="noopener">尝试在ubuntu 16.04下安装AFEPack</a></li>
+</ul>
 
         </div>
 
@@ -298,7 +302,7 @@ sudo ldconfig
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-01T15:42:43.027Z" itemprop="dateUpdated">2020-03-01 23:42:43</time>
+    最后更新时间：<time datetime="2020-03-21T05:14:01.682Z" itemprop="dateUpdated">2020-03-21 13:14:01</time>
 </span><br>
 
 
@@ -324,7 +328,7 @@ sudo ldconfig
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AFEPack/" rel="tag">AFEPack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deal-II/" rel="tag">Deal. II</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AFEPack/" rel="tag">AFEPack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deal-II/" rel="tag">deal.II</a></li></ul>
 
 
             
@@ -396,7 +400,7 @@ Update相对来说这里的内容有些陈旧了，最近学了点 docker，便�
     <div class="waves-block waves-effect next">
       <a href="/2015/11/03/Cannot-convert-string-to-type-FontStruct/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Ubuntu 下 Opendx Data Explorer 的字体问题</h4>
+        <h4 class="title">Ubuntu 下 OpenDX Data Explorer 的字体问题</h4>
       </a>
     </div>
   

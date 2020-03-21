@@ -25,31 +25,31 @@ ga('send', 'pageview');
     
     
     
-    <title>在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView | FLC | Wir müssen wissen, wir werden wissen</title>
+    <title>在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView | FLC | Wir müssen wissen, wir werden wissen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="Deal. II,Paraview,VisIt">
-    <meta name="description" content="介绍如何在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView  Deal. II 的安装与配置                                                                                             Deal. II Logo">
+    <meta name="keywords" content="deal.II,Paraview,VisIt">
+    <meta name="description" content="介绍如何在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView  deal.II 的安装与配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView">
+<meta property="og:title" content="在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView">
 <meta property="og:url" content="https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/index.html">
 <meta property="og:site_name" content="FLC">
-<meta property="og:description" content="介绍如何在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView  Deal. II 的安装与配置                                                                                             Deal. II Logo">
+<meta property="og:description" content="介绍如何在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView  deal.II 的安装与配置">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://dealii.org/developer/doxygen/deal.II/logo200.png">
-<meta property="og:image" content="https://wci.llnl.gov/content/assets/images/simulation/computer-codes/visit/visit-home.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200321141619.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200321141515.jpg">
 <meta property="og:image" content="https://www.paraview.org/wp-content/uploads/2018/02/ParaView_Logo.svg">
 <meta property="article:published_time" content="2015-10-10T04:07:08.000Z">
-<meta property="article:modified_time" content="2020-03-01T15:42:43.027Z">
+<meta property="article:modified_time" content="2020-03-21T06:36:40.088Z">
 <meta property="article:author" content="FSSlc">
-<meta property="article:tag" content="Deal. II">
+<meta property="article:tag" content="deal.II">
 <meta property="article:tag" content="Paraview">
 <meta property="article:tag" content="VisIt">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://dealii.org/developer/doxygen/deal.II/logo200.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200321141619.png">
     
         <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
     
@@ -131,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</div>
+        <div class="flex-col header-title ellipsis">在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -153,7 +153,7 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</h1>
+        <h1 class="title">在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView</h1>
         <h5 class="subtitle">
             
                 <time datetime="2015-10-10T04:07:08.000Z" itemprop="datePublished" class="page-time">
@@ -178,7 +178,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Deal-II-的安装与配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">Deal. II 的安装与配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deal-II-的安装"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Deal. II 的安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deal-II-的配置"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Deal. II 的配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VisIt-的安装和配置"><span class="post-toc-number">2.</span> <span class="post-toc-text">VisIt 的安装和配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VisIt-的安装"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">VisIt 的安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VisIt-的配置"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">VisIt 的配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Paraview-的安装和配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">Paraview 的安装和配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Paraview-的安装"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Paraview 的安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Paraview-的配置"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Paraview 的配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-number">4.</span> <span class="post-toc-text">结语</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#deal-II-的安装与配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">deal.II 的安装与配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deal-II-的安装"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">deal.II 的安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deal-II-的配置"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">deal.II 的配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VisIt-的安装和配置"><span class="post-toc-number">2.</span> <span class="post-toc-text">VisIt 的安装和配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VisIt-的安装"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">VisIt 的安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VisIt-的配置"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">VisIt 的配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Paraview-的安装和配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">Paraview 的安装和配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Paraview-的安装"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Paraview 的安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Paraview-的配置"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Paraview 的配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-number">4.</span> <span class="post-toc-text">结语</span></a></li></ol>
         </nav>
     </aside>
 
@@ -187,7 +187,7 @@ ga('send', 'pageview');
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</h1>
+        <h1 class="post-card-title">在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView</h1>
         <div class="post-meta">
             <time class="post-time" title="2015-10-10 12:07:08" datetime="2015-10-10T04:07:08.000Z"  itemprop="datePublished">2015-10-10</time>
 
@@ -206,19 +206,13 @@ ga('send', 'pageview');
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <blockquote>
-<p>介绍如何在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView</p>
+<p>介绍如何在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView</p>
 </blockquote>
-<h2 id="Deal-II-的安装与配置"><a href="#Deal-II-的安装与配置" class="headerlink" title="Deal. II 的安装与配置"></a>Deal. II 的安装与配置</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://dealii.org/developer/doxygen/deal.II/logo200.png" alt="Deal. II Logo" title="">
-                </div>
-                <div class="image-caption">Deal. II Logo</div>
-            </figure>
+<h2 id="deal-II-的安装与配置"><a href="#deal-II-的安装与配置" class="headerlink" title="deal.II 的安装与配置"></a>deal.II 的安装与配置</h2><p><img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200321141619.png" alt="deal.II Logo" style="zoom:200%;" style="margin: 0 auto;" /></p>
 <a id="more"></a>
-<h3 id="Deal-II-的安装"><a href="#Deal-II-的安装" class="headerlink" title="Deal. II 的安装"></a>Deal. II 的安装</h3><p>关于安装，有如下几种方式：</p>
+<h3 id="deal-II-的安装"><a href="#deal-II-的安装" class="headerlink" title="deal.II 的安装"></a>deal.II 的安装</h3><p>关于安装，有如下几种方式：</p>
 <ol>
-<li><p>到 dealii 的下载页面去下载打包好的文件：</p>
+<li><p>到 deal.II 的下载页面去下载打包好的文件：</p>
 <p> 对于 Ubuntu、Mac、Debain 都已经有编译好的二进制文件，Arch、Gentoo 可以分别通过 AUR 和 Gentoo Science Overlay 来得到；</p>
 </li>
 <li><p>利用 docker 来生成相关的镜像，具体可以参考<a href="https://hub.docker.com/r/dealii/dealii/" target="_blank" rel="noopener">这里</a>；</p>
@@ -227,19 +221,20 @@ ga('send', 'pageview');
 <p> 官网上推荐 <a href="https://github.com/dealii/candi" target="_blank" rel="noopener">candi</a>，也可以通过 <a href="https://spack.io/" target="_blank" rel="noopener">spack</a>来安装。</p>
 </li>
 </ol>
+<p>可以按照<a href="https://www.dealii.org/download.html" target="_blank" rel="noopener">官网的指南</a>来进行按照。</p>
 <p>下面是我自己的安装过程，算是一个记录吧。</p>
-<p>下载好源文件后，进行解压，然后进入解压的目录，具体安装方法可以通过 README.md 这个文件知晓。需要注意的是 deal. II 是一套有限元 C++ 库，所以在 Linux 上面需要进行编译安装。编译时，需要使用 cmake 和 make，所以先将这两个软件安装好。<br>然后依次执行下面的命令来进行编译安装：</p>
+<p>下载好源文件后，进行解压，然后进入解压的目录，具体安装方法可以通过 README.md 这个文件知晓。需要注意的是 deal.II 是一套有限元 C++ 库，所以在 Linux 上面需要进行编译安装。编译时，需要使用 cmake 和 make，所以先将这两个软件安装好。<br>然后依次执行下面的命令来进行编译安装：</p>
 <pre><code class="lang-bash">cmake -DCMAKE_INSTALL_PREFIX=/path/where/deal.II/should/be/intalled/to ..
 make install  # (alternatively $ make -j&lt;N&gt; install)
 </code></pre>
 <p>这里需要注意的是：</p>
 <ol>
-<li>如果 dealii 的安装为一般用户不可写的目录，需要 <code>sudo</code> 命令；</li>
+<li>如果 deal.II 的安装为一般用户不可写的目录，需要 <code>sudo</code> 命令；</li>
 <li>为了加快编译的速度，在第二句中，在 make 后加上 <code>-jN</code> 参数，其中 N 最好不要超过电脑的最大 CPU 数目；</li>
 </ol>
 <p>执行完上面的命令后，接着就是漫长的等待了。在我的机子上 (Ubuntu 14.04, x86_64, Intel® Core™ i5-2430M CPU @ 2.40GHz × 4，SSD) 编译安装总共花了将近 40 min；一般的机子大概需要 1 个小时左右。</p>
-<h3 id="Deal-II-的配置"><a href="#Deal-II-的配置" class="headerlink" title="Deal. II 的配置"></a>Deal. II 的配置</h3><p>首先是 将 dealii 的目录加入系统环境变量之中，只需要在 <code>~/.bashrc</code> 中加入如下几行代码即可：</p>
-<pre><code class="lang-bash"># dealii 环境变量
+<h3 id="deal-II-的配置"><a href="#deal-II-的配置" class="headerlink" title="deal.II 的配置"></a>deal.II 的配置</h3><p>首先是 将 deal.II 的目录加入系统环境变量之中，只需要在 <code>~/.bashrc</code> 中加入如下几行代码即可：</p>
+<pre><code class="lang-bash"># deal.II 环境变量
 export PATH=/opt/deal.II:$PATH
 DEAL_II_DIR=/opt/deal.II
 </code></pre>
@@ -248,16 +243,10 @@ DEAL_II_DIR=/opt/deal.II
 make # 也可以直接使用 make release, 这样编译出来的出现运行快些
 make run
 </code></pre>
-<p>关于 deal. II 的学习，开发者为自学者提供了详尽的文档，可以在 dealii 的下载页面里找到离线的文档，并且在 dealii 的安装目录下有文档中的示例代码；</p>
-<p>另外，dealii 的主要开发者 Wolfgan Bangerth 还在他的教学网址上提供了讲义和授课的<a href="http://www.math.colostate.edu/~bangerth/videos.html" target="_blank" rel="noopener">视频链接</a>(不过视频在 YouTube 上)。</p>
-<p><strong>Update 20161210</strong><br>这里只是介绍了最简单的安装，要安装额外的软件库还需要自己去安装。可以参考 <a href="https://github.com/dealii/docker-files" target="_blank" rel="noopener">这里</a> 中的命令来进行安装。当然，在 Ubuntu 、Debian 、Gento 中有官方支持的版本，如果嫌麻烦，可以直接用包管理器安装。</p>
-<h2 id="VisIt-的安装和配置"><a href="#VisIt-的安装和配置" class="headerlink" title="VisIt 的安装和配置"></a>VisIt 的安装和配置</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://wci.llnl.gov/content/assets/images/simulation/computer-codes/visit/visit-home.jpg" alt="VisIt Logo" title="">
-                </div>
-                <div class="image-caption">VisIt Logo</div>
-            </figure>
+<p>关于 deal.II 的学习，开发者为自学者提供了详尽的文档，可以在 deal.II 的下载页面里找到离线的文档，并且在 deal.II 的安装目录下有文档中的示例代码；</p>
+<p>另外，deal.II 的主要开发者 Wolfgan Bangerth 还在他的教学网址上提供了讲义和授课的<a href="http://www.math.colostate.edu/~bangerth/videos.html" target="_blank" rel="noopener">视频链接</a>(不过视频在 YouTube 上)。</p>
+<p><strong>Update 20161210</strong><br>这里只是介绍了最简单的安装，要安装额外的软件库还需要自己去安装。可以参考 <a href="https://github.com/dealii/docker-files" target="_blank" rel="noopener">这里</a> 中的命令来进行安装。当然，在 Ubuntu 、Debian 、Gentoo 中有官方支持的版本，如果嫌麻烦，可以直接用包管理器安装。</p>
+<h2 id="VisIt-的安装和配置"><a href="#VisIt-的安装和配置" class="headerlink" title="VisIt 的安装和配置"></a>VisIt 的安装和配置</h2><p><img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200321141515.jpg" alt="VisIt Logo" style="zoom:80%;" /></p>
 <h3 id="VisIt-的安装"><a href="#VisIt-的安装" class="headerlink" title="VisIt 的安装"></a>VisIt 的安装</h3><p>安装方面，首先到<a href="https://wci.llnl.gov/simulation/computer-codes/visit/" target="_blank" rel="noopener">官网</a>的下载页面里下载相关的包，并在同一页面下载 <code>Visit install script</code> 文件，具体安装过程，可以参考同一页面的 <code>Visit install notes</code> 。</p>
 <h3 id="VisIt-的配置"><a href="#VisIt-的配置" class="headerlink" title="VisIt 的配置"></a>VisIt 的配置</h3><p>关于配置，在 <code>~/.bashrc</code> 中加入如下几行代码来添加环境变量：</p>
 <pre><code class="lang-bash"># visit 环境变量
@@ -320,7 +309,7 @@ Actions=Window;Document;
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-01T15:42:43.027Z" itemprop="dateUpdated">2020-03-01 23:42:43</time>
+    最后更新时间：<time datetime="2020-03-21T06:36:40.088Z" itemprop="dateUpdated">2020-03-21 14:36:40</time>
 </span><br>
 
 
@@ -346,7 +335,7 @@ Actions=Window;Document;
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deal-II/" rel="tag">Deal. II</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Paraview/" rel="tag">Paraview</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VisIt/" rel="tag">VisIt</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Paraview/" rel="tag">Paraview</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VisIt/" rel="tag">VisIt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deal-II/" rel="tag">deal.II</a></li></ul>
 
 
             
@@ -356,7 +345,7 @@ Actions=Window;Document;
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -366,11 +355,10 @@ Actions=Window;Document;
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView》 — FLC&source=
-介绍如何在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView》 — FLC&source=
+介绍如何在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView
 
-Deal. II 的安装与配置
-              ..." data-title=" QQ">
+deal.II 的安装与配置" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -380,7 +368,7 @@ Deal. II 的安装与配置
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView》 — FLC&url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView》 — FLC&url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -574,7 +562,7 @@ Deal. II 的安装与配置
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -584,11 +572,10 @@ Deal. II 的安装与配置
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView》 — FLC&source=
-介绍如何在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&title=《在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView》 — FLC&source=
+介绍如何在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView
 
-Deal. II 的安装与配置
-              ..." data-title=" QQ">
+deal.II 的安装与配置" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -598,7 +585,7 @@ Deal. II 的安装与配置
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装设置 Deal. II、VisIt 和 ParaView》 — FLC&url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在 Ubuntu 中安装设置 deal.II、VisIt 和 ParaView》 — FLC&url=https://fsslc.github.io/2015/10/10/Set-up-Deal-II-VisIt-and-ParaView-in-Ubuntu/&via=https://fsslc.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

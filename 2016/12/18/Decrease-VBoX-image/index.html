@@ -32,18 +32,20 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="VBox">
-    <meta name="description" content="如何使用 VBOX 自带工具减小虚拟磁盘大小  由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。 虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有占用那么大的空间">
+    <meta name="description" content="如何使用 VBOX 自带工具减小虚拟磁盘大小      缘由由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ, WPS, MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。 虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有">
 <meta property="og:type" content="article">
 <meta property="og:title" content="减小 VBoX 虚拟磁盘大小">
 <meta property="og:url" content="https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/index.html">
 <meta property="og:site_name" content="FLC">
-<meta property="og:description" content="如何使用 VBOX 自带工具减小虚拟磁盘大小  由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。 虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有占用那么大的空间">
+<meta property="og:description" content="如何使用 VBOX 自带工具减小虚拟磁盘大小      缘由由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ, WPS, MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。 虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/Virtualbox_logo.png">
 <meta property="article:published_time" content="2016-12-18T08:28:48.000Z">
-<meta property="article:modified_time" content="2020-03-01T15:42:43.027Z">
+<meta property="article:modified_time" content="2020-03-21T06:47:20.828Z">
 <meta property="article:author" content="FSSlc">
 <meta property="article:tag" content="VBox">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/Virtualbox_logo.png">
     
         <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
     
@@ -172,7 +174,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#碎片整理"><span class="post-toc-number">1.</span> <span class="post-toc-text">碎片整理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#压缩磁盘"><span class="post-toc-number">2.</span> <span class="post-toc-text">压缩磁盘</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缘由"><span class="post-toc-number">1.</span> <span class="post-toc-text">缘由</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#碎片整理"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">碎片整理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#压缩磁盘"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">压缩磁盘</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
         </nav>
     </aside>
 
@@ -202,12 +204,19 @@ ga('send', 'pageview');
             <blockquote>
 <p>如何使用 VBOX 自带工具减小虚拟磁盘大小</p>
 </blockquote>
-<p>由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。</p>
+<div style="text-align: center">
+<img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/Virtualbox_logo.png" style="zoom:25%;" />
+</div>
+
+<h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ, WPS, MS Office）的安装，所以我还是在 Linux 系统里面用虚拟机装了个精简版的 Win 7。Linux 下 Virtual Box 免费开源，所以我一般使用的是它。</p>
 <p>虚拟机用着用着就会发现，它的虚拟磁盘变得越来越大，但虚拟机里面的系统可能并没有占用那么大的空间。所以有必要压缩一下。</p>
+<blockquote>
+<p>WPS 终于出了 <a href="https://www.wps.com/linux/" target="_blank" rel="noopener">Linux 版本</a>了，还算良心，就 鹅厂 还一直没有什么进展。。</p>
+</blockquote>
 <a id="more"></a>
 <p>问题来了，便开始上网搜索方法。在<a href="http://my.oschina.net/tsl0922/blog/188276" target="_blank" rel="noopener">开源中国的一个博客</a>里面找到了方法，下面进行简单的记录。</p>
-<p>根据博主的文章，要达到减小 VBox 虚拟磁盘的大小，主要有两个步骤：</p>
-<h2 id="碎片整理"><a href="#碎片整理" class="headerlink" title="碎片整理"></a>碎片整理</h2><p>首先需要在虚拟机里面的系统下做碎片整理。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>根据博主的文章，要达到减小 VBox 虚拟磁盘的大小，主要有两个步骤：</p>
+<h3 id="碎片整理"><a href="#碎片整理" class="headerlink" title="碎片整理"></a>碎片整理</h3><p>首先需要在虚拟机里面的系统下做碎片整理。</p>
 <p>对于 Linux 系统，可以使用：</p>
 <pre><code class="lang-bash">sudo dd if=/dev/zero of=/EMPTY bs=1M
 sudo rm -f /EMPTY
@@ -216,13 +225,16 @@ sudo rm -f /EMPTY
 <pre><code class="lang-bash">sdelete -z c:
 </code></pre>
 <p>等待进度完成即可。然后关闭虚拟机。</p>
-<h2 id="压缩磁盘"><a href="#压缩磁盘" class="headerlink" title="压缩磁盘"></a>压缩磁盘</h2><p>如果虚拟磁盘是 <code>Virtual Box</code> 自家的 <code>VDI</code> 格式，则只需要先通过终端到达含有后缀为 <code>.vdi</code> 的文件所在的那个目录，再执行：</p>
+<h3 id="压缩磁盘"><a href="#压缩磁盘" class="headerlink" title="压缩磁盘"></a>压缩磁盘</h3><p>如果虚拟磁盘是 <code>Virtual Box</code> 自家的 <code>VDI</code> 格式，则只需要先通过终端到达含有后缀为 <code>.vdi</code> 的文件所在的那个目录，再执行：</p>
 <pre><code class="lang-bash">VBoxManage modifyhd win7.vdi --compact
 </code></pre>
 <p>这样就可以达到压缩磁盘的目的。</p>
 <p>如果虚拟磁盘是 <code>VMDK</code> 的格式，则可以使用 vmware 自带的 <code>vmware-vdiskmanager</code> 工具，具体命令如下：</p>
 <pre><code class="lang-bash">vmware-vdiskmanager -k disk.vmdk
 </code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://my.oschina.net/tsl0922/blog/188276" target="_blank" rel="noopener">如何减小VirtualBox虚拟硬盘文件的大小</a></li>
+</ul>
 
         </div>
 
@@ -231,7 +243,7 @@ sudo rm -f /EMPTY
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-01T15:42:43.027Z" itemprop="dateUpdated">2020-03-01 23:42:43</time>
+    最后更新时间：<time datetime="2020-03-21T06:47:20.828Z" itemprop="dateUpdated">2020-03-21 14:47:20</time>
 </span><br>
 
 
@@ -280,7 +292,11 @@ sudo rm -f /EMPTY
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&title=《减小 VBoX 虚拟磁盘大小》 — FLC&source=
 如何使用 VBOX 自带工具减小虚拟磁盘大小
 
-由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）..." data-title=" QQ">
+
+
+
+
+缘由由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ, WPS, MS..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -329,7 +345,7 @@ sudo rm -f /EMPTY
     <div class="waves-block waves-effect next">
       <a href="/2016/12/15/Install-opendx-In-Archlinux/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">在 Archlinux 中安装 Opendx</h4>
+        <h4 class="title">在 Archlinux 中安装 OpenDX</h4>
       </a>
     </div>
   
@@ -497,7 +513,11 @@ sudo rm -f /EMPTY
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/18/Decrease-VBoX-image/&title=《减小 VBoX 虚拟磁盘大小》 — FLC&source=
 如何使用 VBOX 自带工具减小虚拟磁盘大小
 
-由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ,WPS,MS Office）..." data-title=" QQ">
+
+
+
+
+缘由由于在 Linux 下还没有完美解决 Windows 下一些必备软件（QQ, WPS, MS..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
