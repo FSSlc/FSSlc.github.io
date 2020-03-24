@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何在 Linux 中根据国家位置来阻断网络流量 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,阻断网络,xtables-addons">
+    <meta name="description" content="根据 IP 地址进行网络流量阻断                                                                                               source: https:&#x2F;&#x2F;www.needpix.com&#x2F;photo&#x2F;download&#x2F;1790674&#x2F;network-networking-block-chain-co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何在 Linux 中根据国家位置来阻断网络流量">
+<meta property="og:url" content="https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="根据 IP 地址进行网络流量阻断                                                                                               source: https:&#x2F;&#x2F;www.needpix.com&#x2F;photo&#x2F;download&#x2F;1790674&#x2F;network-networking-block-chain-co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200324084400.png">
+<meta property="og:image" content="https://c2.staticflickr.com/6/5654/23665427845_050241b03f_c.jpg">
+<meta property="article:published_time" content="2016-01-14T01:12:52.000Z">
+<meta property="article:modified_time" content="2020-03-24T00:49:37.968Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="阻断网络">
+<meta property="article:tag" content="xtables-addons">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200324084400.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何在 Linux 中根据国家位置来阻断网络流量</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何在 Linux 中根据国家位置来阻断网络流量</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-01-14T01:12:52.000Z" itemprop="datePublished" class="page-time">
+  2016-01-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-Linux-中安装-xtables-addons"><span class="post-toc-number">1.</span> <span class="post-toc-text">在 Linux 中安装 xtables-addons</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在-Debian，Ubuntu-或-Linux-Mint-中安装依赖"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">在 Debian，Ubuntu 或 Linux Mint 中安装依赖</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在-CentOS，RHEL-或-Fedora-中安装依赖"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">在 CentOS，RHEL 或 Fedora 中安装依赖</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编译并安装-xtables-addons"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">编译并安装 xtables-addons</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为-xtables-addons-安装-GeoIP-数据库"><span class="post-toc-number">2.</span> <span class="post-toc-text">为 xtables-addons 安装 GeoIP 数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#阻断来自或流向某个国家的网络流量"><span class="post-toc-number">3.</span> <span class="post-toc-text">阻断来自或流向某个国家的网络流量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对于使用-Firewall-cmd-的用户"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">对于使用 Firewall-cmd 的用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-to-block-network-traffic-by-country-on-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何在 Linux 中根据国家位置来阻断网络流量</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-01-14 09:12:52" datetime="2016-01-14T01:12:52.000Z"  itemprop="datePublished">2016-01-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>根据 IP 地址进行网络流量阻断</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200324084400.png" alt="source: https://www.needpix.com/photo/download/1790674/network-networking-block-chain-communication-media-connection-business-internet-multimedia" title="">
+                </div>
+                <div class="image-caption">source: https://www.needpix.com/photo/download/1790674/network-networking-block-chain-communication-media-connection-business-internet-multimedia</div>
+            </figure>
+<a id="more"></a>
+<p>作为一名维护 Linux 生产服务器的系统管理员，你可能会遇到这样一些情形：你需要<strong>根据地理位置，选择性地阻断或允许网络流量通过。</strong> 例如你正经历一次由注册在某个特定国家的 IP 发起的 DoS 攻击；或者基于安全考虑，你想阻止来自未知国家的 SSH 登录请求；又或者你的公司对某些在线视频有分销权，它要求只能在特定的国家内合法发行；抑或是由于公司的政策，你需要阻止某个本地主机将文件上传至任意一个非美国的远程云端存储。</p>
+<p>所有的上述情形都需要设置防火墙，使之具有<strong>基于国家位置过滤流量</strong>的功能。有几个方法可以做到这一点，其中之一是你可以使用 TCP wrappers 来为某个应用（例如 SSH，NFS， httpd）设置条件阻塞。但其缺点是你想要保护的那个应用必须以支持 TCP wrappers 的方式构建。另外，TCP wrappers 并不总是能够在各个平台中获取到（例如，Arch Linux <a href="http://xmodulo.com/block-unwanted-ip-addresses-linux.html" target="_blank" rel="noopener">放弃了</a>对它的支持）。另一种方式是结合基于国家的 GeoIP 信息，设置 <a href="http://xtables-addons.sourceforge.net/geoip.php" target="_blank" rel="noopener">ipset</a>，并将它应用到 iptables 的规则中。后一种方式看起来更有希望一些，因为基于 iptables 的过滤器是与应用无关的，且容易设置。</p>
+<p>在本教程中，我将展示 <strong>另一个基于 iptables 的 GeoIP 过滤器，它由 xtables-addons 来实现</strong>。对于那些不熟悉它的人来说， xtables-addons 是用于 netfilter/iptables 的一系列扩展。一个包含在 xtables-addons 中的名为 xt_geoip 的模块扩展了 netfilter/iptables 的功能，使得它可以根据流量来自或流向的国家来进行过滤，IP 掩蔽（NAT）或丢包。若你想使用 xt_geoip，你不必重新编译内核或 iptables，你只需要使用当前的内核构建环境（/lib/modules/`uname -r`/build）以模块的形式构建 xtables-addons。同时也不需要进行重启。只要你构建并安装了 xtables-addons ， xt_geoip 便能够配合 iptables 使用。</p>
+<p>至于 xt_geoip 和 ipset 之间的比较，<a href="http://xtables-addons.sourceforge.net/geoip.php" target="_blank" rel="noopener">xtables-addons 的官方网站</a> 上是这么说的： 相比于 ipset，xt_geoip 在内存占用上更胜一筹，但对于匹配速度，基于哈希的 ipset 可能更有优势。</p>
+<p>在教程的余下部分，我将展示<strong>如何使用 iptables/xt_geoip 来根据流量的来源地或流入的国家阻断网络流量</strong>。</p>
+<h3 id="在-Linux-中安装-xtables-addons"><a href="#在-Linux-中安装-xtables-addons" class="headerlink" title="在 Linux 中安装 xtables-addons"></a>在 Linux 中安装 xtables-addons</h3><p>下面介绍如何在各种 Linux 平台中编译和安装 xtables-addons。</p>
+<p>为了编译 xtables-addons，首先你需要安装一些依赖软件包。</p>
+<h4 id="在-Debian，Ubuntu-或-Linux-Mint-中安装依赖"><a href="#在-Debian，Ubuntu-或-Linux-Mint-中安装依赖" class="headerlink" title="在 Debian，Ubuntu 或 Linux Mint 中安装依赖"></a>在 Debian，Ubuntu 或 Linux Mint 中安装依赖</h4><pre><code class="lang-bash">$ sudo apt-get install iptables-dev xtables-addons-common libtext-csv-xs-perl pkg-config
+</code></pre>
+<h4 id="在-CentOS，RHEL-或-Fedora-中安装依赖"><a href="#在-CentOS，RHEL-或-Fedora-中安装依赖" class="headerlink" title="在 CentOS，RHEL 或 Fedora 中安装依赖"></a>在 CentOS，RHEL 或 Fedora 中安装依赖</h4><p>CentOS/RHEL 6 需要事先设置好 EPEL 仓库（为 perl-Text-CSV_XS 所需要）。</p>
+<pre><code class="lang-bash">$ sudo yum install gcc-c++ make automake kernel-devel-`uname -r` wget unzip iptables-devel perl-Text-CSV_XS
+</code></pre>
+<h4 id="编译并安装-xtables-addons"><a href="#编译并安装-xtables-addons" class="headerlink" title="编译并安装 xtables-addons"></a>编译并安装 xtables-addons</h4><p>从 <code>xtables-addons</code> 的<a href="http://xtables-addons.sourceforge.net/" target="_blank" rel="noopener">官方网站</a> 下载源码包，然后按照下面的指令编译安装它。</p>
+<pre><code class="lang-bash">$ wget http://downloads.sourceforge.net/project/xtables-addons/Xtables-addons/xtables-addons-2.10.tar.xz
+$ tar xf xtables-addons-2.10.tar.xz
+$ cd xtables-addons-2.10
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+<p>需要注意的是，对于基于红帽的系统（CentOS、RHEL、Fedora），它们默认开启了 SELinux，所以有必要像下面这样调整 SELinux 的策略。否则，SELinux 将阻止 iptables 加载 xt_geoip 模块。</p>
+<pre><code class="lang-bash">$ sudo chcon -vR --user=system_u /lib/modules/$(uname -r)/extra/*.ko
+$ sudo chcon -vR --type=lib_t /lib64/xtables/*.so
+</code></pre>
+<h3 id="为-xtables-addons-安装-GeoIP-数据库"><a href="#为-xtables-addons-安装-GeoIP-数据库" class="headerlink" title="为 xtables-addons 安装 GeoIP 数据库"></a>为 xtables-addons 安装 GeoIP 数据库</h3><p>下一步是安装 GeoIP 数据库，它将被 xt_geoip 用来查询 IP 地址与国家地区之间的对应关系。方便的是，<code>xtables-addons</code> 的源码包中带有两个帮助脚本，它们被用来从 MaxMind 下载 GeoIP 数据库并将它转化为 xt_geoip 可识别的二进制形式文件；它们可以在源码包中的 geoip 目录下找到。请遵循下面的指导来在你的系统中构建和安装 GeoIP 数据库。</p>
+<pre><code class="lang-bash">$ cd geoip
+$ ./xt_geoip_dl
+$ ./xt_geoip_build GeoIPCountryWhois.csv
+$ sudo mkdir -p /usr/share/xt_geoip
+$ sudo cp -r {BE,LE} /usr/share/xt_geoip
+</code></pre>
+<p>根据 <a href="https://support.maxmind.com/geoip-faq/geoip2-and-geoip-legacy-databases/how-accurate-are-your-geoip2-and-geoip-legacy-databases/" target="_blank" rel="noopener">MaxMind</a> 的说明,他们的 GeoIP 数据库能够以 99.8% 的准确率识别出 ip 所对应的国家，并且每月这个数据库将进行更新。为了使得本地安装的 GeoIP 数据是最新的，或许你需要设置一个按月执行的 <a href="http://ask.xmodulo.com/add-cron-job-linux.html" target="_blank" rel="noopener">cron job</a> 来时常更新你本地的 GeoIP 数据库。</p>
+<h3 id="阻断来自或流向某个国家的网络流量"><a href="#阻断来自或流向某个国家的网络流量" class="headerlink" title="阻断来自或流向某个国家的网络流量"></a>阻断来自或流向某个国家的网络流量</h3><p>一旦 xt_geoip 模块和 GeoIP 数据库安装好后，你就可以在 iptabels 命令中使用 geoip 的匹配选项。</p>
+<pre><code class="lang-bash">$ sudo iptables -m geoip --src-cc country[,country...] --dst-cc country[,country...]
+</code></pre>
+<p>你想要阻断流量的那些国家是使用<a href="https://en.wikipedia.org/wiki/ISO_3166-1" target="_blank" rel="noopener">2个字母的 ISO3166 代码</a> 来特别指定的（例如 US（美国）、CN（中国）、IN（印度）、FR（法国））。</p>
+<p>例如，假如你想阻断来自也门（YE） 和 赞比亚（ZM）的流量，下面的 iptabels 命令便可以达到此目的。</p>
+<pre><code class="lang-bash">$ sudo iptables -I INPUT -m geoip --src-cc YE,ZM -j DROP
+</code></pre>
+<p>假如你想阻断流向中国（CN） 的流量，可以运行下面的命令：</p>
+<pre><code class="lang-bash">$ sudo iptables -A OUTPUT -m geoip --dst-cc CN -j DROP
+</code></pre>
+<p>匹配条件也可以通过在 <code>--src-cc</code> 或 <code>--dst-cc</code> 选项前加 <code>!</code> 来达到相反的目的：</p>
+<p>假如你想在你的服务器上阻断来自所有非美国的流量，可以运行：</p>
+<pre><code class="lang-bash">$ sudo iptables -I INPUT -m geoip ! --src-cc US -j DROP
+</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://c2.staticflickr.com/6/5654/23665427845_050241b03f_c.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="对于使用-Firewall-cmd-的用户"><a href="#对于使用-Firewall-cmd-的用户" class="headerlink" title="对于使用 Firewall-cmd 的用户"></a>对于使用 Firewall-cmd 的用户</h4><p>某些发行版本例如 CentOS/RHEL7 或 Fedora 已经用 firewalld 替代了 iptables 来作为默认的防火墙服务。在这些系统中，你可以类似使用 xt_geoip 那样，使用 firewall-cmd 来阻断流量。利用 firewall-cmd 命令，上面的三个例子可被重新写为：</p>
+<pre><code class="lang-bash">$ sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -m geoip --src-cc YE,ZM -j DROP
+$ sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -m geoip --dst-cc CN -j DROP
+$ sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -m geoip ! --src-cc US -j DROP
+</code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在本教程中，我展示了使用 iptables/xt_geoip 来根据流量的来源地或流入的国家轻松地阻断网络流量。假如你有这方面的需求，把它部署到你的防火墙系统中可以使之成为一个实用的办法。作为最后的警告，我应该提醒你的是：在你的服务器上通过基于 GeoIP 的流量过滤来禁止特定国家的流量并不总是万无一失的。GeoIP 数据库本身就不是很准确或齐全，且流量的来源或目的地可以轻易地通过使用 VPN、Tor 或其他任意易受攻击的中继主机来达到欺骗的目的。基于地理位置的过滤器甚至可能会阻止本不该阻止的合法网络流量。在你决定把它部署到你的生产环境之前请仔细考虑这个限制。</p>
+<hr>
+<p>via: <a href="http://xmodulo.com/block-network-traffic-by-country-linux.html" target="_blank" rel="noopener">http://xmodulo.com/block-network-traffic-by-country-linux.html</a></p>
+<p>作者：<a href="http://xmodulo.com/author/nanni" target="_blank" rel="noopener">Dan Nanni</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-24T00:49:37.968Z" itemprop="dateUpdated">2020-03-24 08:49:37</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/" target="_blank" rel="external">https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xtables-addons/" rel="tag">xtables-addons</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BB%E6%96%AD%E7%BD%91%E7%BB%9C/" rel="tag">阻断网络</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/&title=《[翻译] 如何在 Linux 中根据国家位置来阻断网络流量》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/&title=《[翻译] 如何在 Linux 中根据国家位置来阻断网络流量》 — FLC&source=
+根据 IP 地址进行网络流量阻断
+
+
+                
+                    
+                   ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 中根据国家位置来阻断网络流量》 — FLC&url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/05/24/Translate-The-Tao-of-project-management/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 《道德经》之项目管理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/11/03/Install-AFEPack-In-Ubuntu/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Ubuntu 中安装 AFEPack</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/&title=《[翻译] 如何在 Linux 中根据国家位置来阻断网络流量》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/&title=《[翻译] 如何在 Linux 中根据国家位置来阻断网络流量》 — FLC&source=
+根据 IP 地址进行网络流量阻断
+
+
+                
+                    
+                   ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 中根据国家位置来阻断网络流量》 — FLC&url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADN0lEQVR42u3aQY7jMAwEwPz/09kHDOTtphwgViqnwa6jcWkOBJt8veLPe/H5+7+r716fuXpy9d32meEHGxsb+yHs9+Vn9cz1i66euf45uaDk/OvnsbGxsU9lXxeGvEgkL9Fe5f57YmNjY2PnLUHSTlyflpcobGxsbOwZe6dFSdqM/ZYGGxsb+zfZeXCT/LK88UhCpVl5uy1Lw8bGxv569iwq+s6fPzLfxsbGxv5i9rv8JC1EPqCdvckNCmxsbOyD2LPov21C8suaxVvD0QU2Njb2EezZACAJmPJnPhcPLf882NjY2Aex94vQJ741GwnXjRA2Njb2EeykJLRFbid4mpWufLmnmCpjY2NjH8S+voi6AYjblTZUKuIqbGxs7B9jt89cv0TeilyfkFzQDXUbGxsb+4HsfGjativ5Ne20PdHQAhsbG/sgdltIZkszs+iqLWn5OdjY2NgnsdvSlcPalZ2t1qL9O2NjY2MfxE5+Qd54zJqZe1uOeqSBjY2NfQS7PaiN+2f/npeovAxHO6fY2NjYj2W3q5P3fqu90HwgsXwfbGxs7CPYeZCUR/ZJmckDqRYfrWBiY2NjH8TOj25j+gScXPFscfOGFA0bGxv7gex2LWY2GL533JuXxv90YNjY2NgPZ7ctx84wuC2W9zY2W50WNjY29leyd9ZxdkpaW7ryMGsrTsLGxsZ+LLsdvtZVsYyEkgFAHiEtCxg2Njb2D7DbxZp2iSc/Z1Zol5eIjY2N/TPsnQWafPAwK6VticXGxsY+ld0Wp+To/YiqTfJnyz3Y2NjY57HzI3bmyUlg1A6JkyL3mr0QNjY29kPYeXA/W6Nph8E7p+UDY2xsbOxT2cmoddZOzBZ02uJULBJhY2NjH8feaT9mwdNs3afusVYXh42NjX0E+11+ZoUqGe62g+GdoAobGxv7JPbO8KANntoxwM7oN58IYGNjY5/BnhWtWRnLS05ehJIyiY2Njf0L7DzK2Xm+DaSSq2l3crCxsbGxZ2OAtiHJf1d+cdjY2NjYbSifb8jcVaKK9R1sbGzs49izGKgNmPIQauecm7M0bGxs7K9nz9Yf29I1++6wzYgvBRsbG/vh7H9hJ3y43GsUEQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

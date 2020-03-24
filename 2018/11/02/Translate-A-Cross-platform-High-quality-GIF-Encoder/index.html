@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] Gifski：一个跨平台的高质量 GIF 编码器 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,Gif,Gifski">
+    <meta name="description" content="介绍一个 GIF 制作工具 Gifski                                                                                                             作为一名文字工作者，我需要在我的文章中添加图片。有时为了更容易讲清楚某个概念，我还会添加视频或者 gif 动图，相比于文字，通过视频或者 g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] Gifski：一个跨平台的高质量 GIF 编码器">
+<meta property="og:url" content="https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍一个 GIF 制作工具 Gifski                                                                                                             作为一名文字工作者，我需要在我的文章中添加图片。有时为了更容易讲清楚某个概念，我还会添加视频或者 gif 动图，相比于文字，通过视频或者 g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2018/09/gifski-720x340.png">
+<meta property="og:image" content="https://gif.ski/jazz-chromecast-ultra.gif">
+<meta property="article:published_time" content="2018-11-02T13:11:44.000Z">
+<meta property="article:modified_time" content="2020-03-24T01:04:01.545Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Gif">
+<meta property="article:tag" content="Gifski">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ostechnix.com/wp-content/uploads/2018/09/gifski-720x340.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] Gifski：一个跨平台的高质量 GIF 编码器</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] Gifski：一个跨平台的高质量 GIF 编码器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-02T13:11:44.000Z" itemprop="datePublished" class="page-time">
+  2018-11-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Gifski"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 Gifski</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-Gifski-来创建高质量的-GIF-动图"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用 Gifski 来创建高质量的 GIF 动图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从视频创建-GIF-动图"><span class="post-toc-number">3.</span> <span class="post-toc-text">从视频创建 GIF 动图</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-A-Cross-platform-High-quality-GIF-Encoder"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] Gifski：一个跨平台的高质量 GIF 编码器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-02 21:11:44" datetime="2018-11-02T13:11:44.000Z"  itemprop="datePublished">2018-11-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍一个 GIF 制作工具 Gifski</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.ostechnix.com/wp-content/uploads/2018/09/gifski-720x340.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>作为一名文字工作者，我需要在我的文章中添加图片。有时为了更容易讲清楚某个概念，我还会添加视频或者 gif 动图，相比于文字，通过视频或者 gif 格式的输出，读者可以更容易地理解我的指导。前些天，我已经写了篇文章来介绍针对 Linux 的功能丰富的强大截屏工具 <a href="https://linux.cn/article-10180-1.html" target="_blank" rel="noopener">Flameshot</a>。今天，我将向你展示如何从一段视频或者一些图片来制作高质量的 gif 动图。这个工具就是 <strong>Gifski</strong>，一个跨平台、开源、基于 <strong>Pngquant</strong> 的高质量命令行 GIF 编码器。</p>
+<a id="more"></a>
+<p>对于那些好奇 pngquant 是什么的读者，简单来说 pngquant 是一个针对 PNG 图片的无损压缩命令行工具。相信我，pngquant 是我使用过的最好的 PNG 无损压缩工具。它可以将 PNG 图片最高压缩 <strong>70%</strong> 而不会损失图片的原有质量并保存了所有的阿尔法透明度。经过压缩的图片可以在所有的网络浏览器和系统中使用。而 Gifski 是基于 Pngquant 的，它使用 pngquant 的功能来创建高质量的 GIF 动图。Gifski 能够创建每帧包含上千种颜色的 GIF 动图。Gifski 也需要 <strong>ffmpeg</strong> 来将视频转换为 PNG 图片。</p>
+<h3 id="安装-Gifski"><a href="#安装-Gifski" class="headerlink" title="安装 Gifski"></a>安装 Gifski</h3><p>首先需要确保你安装了 FFMpeg 和 Pngquant。</p>
+<p>FFmpeg 在大多数的 Linux 发行版的默认软件仓库中都可以获取到，所以你可以使用默认的包管理器来安装它。具体的安装过程，请参考下面链接中的指导。</p>
+<ul>
+<li><a href="https://www.ostechnix.com/install-ffmpeg-linux/" target="_blank" rel="noopener">在 Linux 中如何安装 FFmpeg</a></li>
+</ul>
+<p>Pngquant 可以从 <a href="https://aur.archlinux.org/packages/pngquant/" target="_blank" rel="noopener">AUR</a> 中获取到。要在基于 Arch 的系统安装它，使用任意一个 AUR 帮助程序即可，例如下面示例中的 <a href="https://www.ostechnix.com/yay-found-yet-another-reliable-aur-helper/" target="_blank" rel="noopener">Yay</a>：</p>
+<pre><code class="lang-bash">$ yay -S pngquant
+</code></pre>
+<p>在基于 Debian 的系统中，运行：</p>
+<pre><code class="lang-bash">$ sudo apt install pngquant
+</code></pre>
+<p>假如在你使用的发行版中没有 pngquant，你可以从源码编译并安装它。为此你还需要安装 <code>libpng-dev</code> 包。</p>
+<pre><code class="lang-bash">$ git clone --recursive https://github.com/kornelski/pngquant.git
+$ make
+$ sudo make install
+</code></pre>
+<p>安装完上述依赖后，再安装 Gifski。假如你已经安装了 <a href="https://www.ostechnix.com/install-rust-programming-language-in-linux/" target="_blank" rel="noopener">Rust</a> 编程语言，你可以使用 <strong>cargo</strong> 来安装它：</p>
+<pre><code class="lang-bash">$ cargo install gifski
+</code></pre>
+<p>另外，你还可以使用 <a href="https://www.ostechnix.com/linuxbrew-common-package-manager-linux-mac-os-x/" target="_blank" rel="noopener">Linuxbrew</a> 包管理器来安装它：</p>
+<pre><code class="lang-bash">$ brew install gifski
+</code></pre>
+<p>假如你不想安装 cargo 或 Linuxbrew，可以从它的 <a href="https://github.com/ImageOptim/gifski/releases" target="_blank" rel="noopener">发布页面</a> 下载最新的二进制程序，或者手动从源码编译并安装 gifski 。</p>
+<h3 id="使用-Gifski-来创建高质量的-GIF-动图"><a href="#使用-Gifski-来创建高质量的-GIF-动图" class="headerlink" title="使用 Gifski 来创建高质量的 GIF 动图"></a>使用 Gifski 来创建高质量的 GIF 动图</h3><p>进入你保存 PNG 图片的目录，然后运行下面的命令来从这些图片创建 GIF 动图：</p>
+<pre><code class="lang-bash">$ gifski -o file.gif *.png
+</code></pre>
+<p>上面的 <code>file.gif</code> 为最后输出的 gif 动图。</p>
+<p>Gifski 还有其他的特性，例如：</p>
+<ul>
+<li>创建特定大小的 GIF 动图</li>
+<li>在每秒钟展示特定数目的动图</li>
+<li>以特定的质量编码</li>
+<li>更快速度的编码</li>
+<li>以给定顺序来编码图片，而不是以排序的结果来编码</li>
+</ul>
+<p>为了创建特定大小的 GIF 动图，例如宽为 800，高为 400，可以使用下面的命令：</p>
+<pre><code class="lang-bash">$ gifski -o file.gif -W 800 -H 400 *.png
+</code></pre>
+<p>你可以设定 GIF 动图在每秒钟展示多少帧，默认值是 <strong>20</strong>。为此，可以运行下面的命令：</p>
+<pre><code class="lang-bash">$ gifski -o file.gif --fps 1 *.png
+</code></pre>
+<p>在上面的例子中，我指定每秒钟展示 1 帧。</p>
+<p>我们还能够以特定质量（1-100 范围内）来编码。显然，更低的质量将生成更小的文件，更高的质量将生成更大的 GIF 动图文件。</p>
+<pre><code class="lang-bash">$ gifski -o file.gif --quality 50 *.png
+</code></pre>
+<p>当需要编码大量图片时，Gifski 将会花费更多时间。如果想要编码过程加快到通常速度的 3 倍左右，可以运行：</p>
+<pre><code class="lang-bash">$ gifski -o file.gif --fast *.png
+</code></pre>
+<p>请注意上面的命令产生的 GIF 动图文件将减少 10% 的质量，并且文件大小也会更大。</p>
+<p>如果想让图片以某个给定的顺序（而不是通过排序）精确地被编码，可以使用 <code>--nosort</code> 选项。</p>
+<pre><code class="lang-bash">$ gifski -o file.gif --nosort *.png
+</code></pre>
+<p>假如你不想让 GIF 循环播放，只需要使用 <code>--once</code> 选项即可：</p>
+<pre><code class="lang-bash">$ gifski -o file.gif --once *.png
+</code></pre>
+<h3 id="从视频创建-GIF-动图"><a href="#从视频创建-GIF-动图" class="headerlink" title="从视频创建 GIF 动图"></a>从视频创建 GIF 动图</h3><p>有时或许你想从一个视频创建 GIF 动图。这也是可以做到的，这时候 FFmpeg 便能提供帮助。首先像下面这样，将视频转换成一系列的 PNG 图片：</p>
+<pre><code class="lang-bash">$ ffmpeg -i video.mp4 frame%04d.png
+</code></pre>
+<p>上面的命令将会从 <code>video.mp4</code> 这个视频文件创建名为 “frame0001.png”、“frame0002.png”、“frame0003.png” 等等形式的图片（其中的 <code>%04d</code> 代表帧数），然后将这些图片保存在当前的工作目录。</p>
+<p>转换好图片后，只需要运行下面的命令便可以制作 GIF 动图了：</p>
+<pre><code class="lang-bash">$ gifski -o file.gif *.png
+</code></pre>
+<p>想知晓更多的细节，请参考它的帮助部分：</p>
+<pre><code class="lang-bash">$ gifski -h
+</code></pre>
+<p>下面是使用 Gifski 创建的示例 GIF 动图文件。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://gif.ski/jazz-chromecast-ultra.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>正如你看到的那样，GIF 动图的质量看起来是非常好的。</p>
+<p>好了，这就是全部内容了。希望这篇指南对你有所帮助。更多精彩内容即将呈现，请保持关注！</p>
+<p>干杯吧！</p>
+<hr>
+<p>via: <a href="https://www.ostechnix.com/gifski-a-cross-platform-high-quality-gif-encoder/" target="_blank" rel="noopener">https://www.ostechnix.com/gifski-a-cross-platform-high-quality-gif-encoder/</a><br>publish: <a href="https://linux.cn/article-10186-1.html" target="_blank" rel="noopener">https://linux.cn/article-10186-1.html</a></p>
+<p>作者：<a href="https://www.ostechnix.com/author/sk/" target="_blank" rel="noopener">SK</a><br>选题：<a href="https://github.com/lujun9972" target="_blank" rel="noopener">lujun9972</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-24T01:04:01.545Z" itemprop="dateUpdated">2020-03-24 09:04:01</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" target="_blank" rel="external">https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gif/" rel="tag">Gif</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gifski/" rel="tag">Gifski</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/&title=《[翻译] Gifski：一个跨平台的高质量 GIF 编码器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/&title=《[翻译] Gifski：一个跨平台的高质量 GIF 编码器》 — FLC&source=
+介绍一个 GIF 制作工具 Gifski
+
+
+                
+                    
+               ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Gifski：一个跨平台的高质量 GIF 编码器》 — FLC&url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/12/16/Python-Deals-large-json-file-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用 Python 软件包来处理较为复杂的 JSON 文件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/31/Tips-for-using-matlab-in-linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">linux 下使用 matlab 的几个小提示</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/&title=《[翻译] Gifski：一个跨平台的高质量 GIF 编码器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/&title=《[翻译] Gifski：一个跨平台的高质量 GIF 编码器》 — FLC&source=
+介绍一个 GIF 制作工具 Gifski
+
+
+                
+                    
+               ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Gifski：一个跨平台的高质量 GIF 编码器》 — FLC&url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADM0lEQVR42u3aS3LiQBAFQN//0szaQVi8Vy3FSE1q5QAsdRaLoj4/P/H1erve320/+ddTju98/PfJFzY2NvZD2K/D6/0zyRGPw5EHdBaCYws2Njb2ruz2MSuBaEOWPzexYGNjY2O3jOPktFLYYGNjY2OvJLDZEZMOT/LKf8vb2NjY2DdmJ02lsw6dJ8L8WRf20rCxsbFvz84TzP3/vmS+jY2NjX1j9qu88qQyG+LOzlArsLGxsTdi5wkgafGcFabZyLk9PzY2NvZO7DypzJJN3tA/tz201EjCxsbGfgg7TwzJwCA54vF/5etBs6/hVwWGjY2NvRH7Cl5bBqykruTd4VwaGxsb+/bsWVNpRk1S12zkPEuc2NjY2Huzk+O2ZcOskMjLpHqVBxsbG3sLdvKYJHJ5ClkZys6+nmhTCRsbG/vh7Nmyzuy4bXJq20bRs7CxsbE3Yie/z/MH5EXOyvJNu+5TTEiwsbGxH85OiopZudLeIQHMypvh9AMbGxv7xux8jeasV2bpZ2U8UFdg2NjY2I9i52msbsHHzabZws0sKWJjY2Pvx17/id/GuF3cnCW2D+HDxsbG3o49+6HfvtKOEGZNqOhdbGxs7K3ZKwPXdvkmSTmzBPkhBNjY2NgbsRNYvf4ySlH5aHmlsCm+T2xsbOyHsFfKgHZxpx0JJNQ8HX4YD2BjY2M/lp2nkDblzAbAKyfJ0yc2Njb2Tuw8kcxKjvwz+YgiHxX8qcPGxsbeiJ0csW36tAkyaWC1baz2ztjY2NhPZ7eMqwe3SVo6YbkHGxsbeyP2rGWTFxXtILkNd3sqbGxs7P3YeUrIW/ZtEsqHDbOyZJi3sbGxsR/Fbo+VpJC8j9WGPr/Ph6YSNjY29kbsWYGxMrjN208rqasuRbCxsbEfxX6VVxusfDDQLu60ZRI2Njb2ruz1xZf2oLNlnXMHEtjY2Nj7sVeWLFdKlHaJZxY4bGxs7O9hn5UY2mJgfVS81FrCxsbG/kr2bF1m1mDKg9gGDhsbG/ub2UmiWi9pkgZTO5bAxsbG3pudHDdfvlkZ085GCBf20rCxsbFvz14vJ9rmft76bxd08sIGGxsbewv2PzjA7Tkly91QAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
