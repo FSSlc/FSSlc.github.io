@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何在 Linux 中验证 ISO 镜像 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,翻译,Autojump">
+    <meta name="description" content="介绍在 Linux 中使用如何验证 ISO 镜像的合法性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何在 Linux 中验证 ISO 镜像">
+<meta property="og:url" content="https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍在 Linux 中使用如何验证 ISO 镜像的合法性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2019/07/Verify-ISO-Images-In-Linux-720x340.png">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2019/07/Ubuntu-18.04-checksum-and-signature.png">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2019/07/Pop-os-SHA256-sum.png">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2019/07/Pop-os-SHA256-sum-value.png">
+<meta property="article:published_time" content="2019-08-11T00:01:36.000Z">
+<meta property="article:modified_time" content="2020-03-26T00:56:32.062Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Autojump">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ostechnix.com/wp-content/uploads/2019/07/Verify-ISO-Images-In-Linux-720x340.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何在 Linux 中验证 ISO 镜像</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何在 Linux 中验证 ISO 镜像</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-08-11T00:01:36.000Z" itemprop="datePublished" class="page-time">
+  2019-08-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-Linux-中验证-ISO-镜像"><span class="post-toc-number">1.</span> <span class="post-toc-text">在 Linux 中验证 ISO 镜像</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#下载校验和及签名"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">下载校验和及签名</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#下载有效的签名秘钥"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">下载有效的签名秘钥</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#验证-SHA-256-校验和"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">验证 SHA-256 校验和</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#检验下载的-ISO-文件"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">检验下载的 ISO 文件</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-To-Verify-ISO-Images-In-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何在 Linux 中验证 ISO 镜像</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-08-11 08:01:36" datetime="2019-08-11T00:01:36.000Z"  itemprop="datePublished">2019-08-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍在 Linux 中使用如何验证 ISO 镜像的合法性。</p>
+</blockquote>
+<p><img src="https://www.ostechnix.com/wp-content/uploads/2019/07/Verify-ISO-Images-In-Linux-720x340.png" alt="如何在 Linux 中校验 ISO 镜像"></p>
+<a id="more"></a>
+<p>你从喜爱的 Linux 发行版的官方网站或第三方网站下载了它的 ISO 镜像之后，接下来要做什么呢？是<a href="https://www.ostechnix.com/etcher-beauitiful-app-create-bootable-sd-cards-usb-drives/" target="_blank" rel="noopener">创建可启动介质</a>并开始安装系统吗？并不是，请稍等一下。在开始使用它之前，强烈建议你检查一下你刚下载到本地系统中的 ISO 文件是否是下载镜像站点中 ISO 文件的一个精确拷贝。因为在前几年 <a href="https://blog.linuxmint.com/?p=2994" target="_blank" rel="noopener">Linux Mint 的网站被攻破了</a>，并且攻击者创建了一个包含后门的经过修改的 Linux Mint ISO 文件。 所以验证下载的 Linux ISO 镜像的可靠性和完整性是非常重要的一件事儿。假如你不知道如何在 Linux 中验证 ISO 镜像，本次的简要介绍将给予你帮助，请接着往下看！</p>
+<h3 id="在-Linux-中验证-ISO-镜像"><a href="#在-Linux-中验证-ISO-镜像" class="headerlink" title="在 Linux 中验证 ISO 镜像"></a>在 Linux 中验证 ISO 镜像</h3><p>我们可以使用 ISO 镜像的“校验和”来验证 ISO 镜像。校验和是一系列字母和数字的组合，用来检验下载文件的数据是否有错以及验证其可靠性和完整性。当前存在不同类型的校验和，例如 SHA-0、SHA-1、SHA-2（224、256、384、512）和 MD5。MD5 校验和最为常用，但对于现代的 Linux 发行版，SHA-256 最常被使用。</p>
+<p>我们将使用名为 <code>gpg</code> 和 <code>sha256</code> 的两个工具来验证 ISO 镜像的可靠性和完整性。</p>
+<h4 id="下载校验和及签名"><a href="#下载校验和及签名" class="headerlink" title="下载校验和及签名"></a>下载校验和及签名</h4><p>针对本篇指南的目的，我将使用 Ubuntu 18.04 LTS 服务器 ISO 镜像来做验证，但对于其他的 Linux 发行版应该也是适用的。</p>
+<p>在靠近 Ubuntu 下载页的最上端，你将看到一些额外的文件（校验和及签名），正如下面展示的图片那样：</p>
+<p><img src="https://www.ostechnix.com/wp-content/uploads/2019/07/Ubuntu-18.04-checksum-and-signature.png" alt="Ubuntu 18.04 的校验和及签名"></p>
+<p>其中名为 <code>SHA256SUMS</code> 的文件包含了这里所有可获取镜像的校验和，而 <code>SHA256SUMS.gpg</code> 文件则是这个文件的 GnuPG 签名。在下面的步骤中，我们将使用这个签名文件来 <strong>验证</strong> 校验和文件。</p>
+<p>下载 Ubuntu 的 ISO 镜像文件以及刚才提到的那两个文件，然后将它们放到同一目录下，例如这里的 <code>ISO</code> 目录：</p>
+<pre><code class="lang-bash">$ ls ISO/
+SHA256SUMS SHA256SUMS.gpg ubuntu-18.04.2-live-server-amd64.iso
+</code></pre>
+<p>如你所见，我已经下载了 Ubuntu 18.04.2 LTS 服务器版本的镜像，以及对应的校验和文件和签名文件。</p>
+<h4 id="下载有效的签名秘钥"><a href="#下载有效的签名秘钥" class="headerlink" title="下载有效的签名秘钥"></a>下载有效的签名秘钥</h4><p>现在，使用下面的命令来下载正确的签名秘钥：</p>
+<pre><code class="lang-bash">$ gpg --keyid-format long --keyserver hkp://keyserver.ubuntu.com --recv-keys 0x46181433FBB75451 0xD94AA3F0EFE21092
+</code></pre>
+<p>示例输出如下：</p>
+<pre><code class="lang-bash">gpg: key D94AA3F0EFE21092: 57 signatures not checked due to missing keys
+gpg: key D94AA3F0EFE21092: public key &quot;Ubuntu CD Image Automatic Signing Key (2012) &lt;[email protected]&gt;&quot; imported
+gpg: key 46181433FBB75451: 105 signatures not checked due to missing keys
+gpg: key 46181433FBB75451: public key &quot;Ubuntu CD Image Automatic Signing Key &lt;[email protected]&gt;&quot; imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 2
+gpg: imported: 2
+</code></pre>
+<h4 id="验证-SHA-256-校验和"><a href="#验证-SHA-256-校验和" class="headerlink" title="验证 SHA-256 校验和"></a>验证 SHA-256 校验和</h4><p>接下来我们将使用签名来验证校验和文件：</p>
+<pre><code class="lang-bash">$ gpg --keyid-format long --verify SHA256SUMS.gpg SHA256SUMS
+</code></pre>
+<p>下面是示例输出：</p>
+<pre><code class="lang-bash">gpg: Signature made Friday 15 February 2019 04:23:33 AM IST
+gpg: using DSA key 46181433FBB75451
+gpg: Good signature from &quot;Ubuntu CD Image Automatic Signing Key &lt;[email protected]&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg: There is no indication that the signature belongs to the owner.
+Primary key fingerprint: C598 6B4F 1257 FFA8 6632 CBA7 4618 1433 FBB7 5451
+gpg: Signature made Friday 15 February 2019 04:23:33 AM IST
+gpg: using RSA key D94AA3F0EFE21092
+gpg: Good signature from &quot;Ubuntu CD Image Automatic Signing Key (2012) &lt;[email protected]&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg: There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 8439 38DF 228D 22F7 B374 2BC0 D94A A3F0 EFE2 1092
+</code></pre>
+<p>假如你在输出中看到 <code>Good signature</code> 字样，那么该校验和文件便是由 Ubuntu 开发者制作的，并且由秘钥文件的所属者签名认证。</p>
+<h4 id="检验下载的-ISO-文件"><a href="#检验下载的-ISO-文件" class="headerlink" title="检验下载的 ISO 文件"></a>检验下载的 ISO 文件</h4><p>下面让我们继续检查下载的 ISO 文件是否和所给的校验和相匹配。为了达到该目的，只需要运行：</p>
+<pre><code class="lang-bash">$ sha256sum -c SHA256SUMS 2&gt;&amp;1 | grep OK
+ubuntu-18.04.2-live-server-amd64.iso: OK
+</code></pre>
+<p>假如校验和是匹配的，你将看到 <code>OK</code> 字样，这意味着下载的文件是合法的，没有被改变或篡改过。</p>
+<p>假如你没有获得类似的输出，或者看到不同的输出，则该 ISO 文件可能已经被修改过或者没有被正确地下载。你必须从一个更好的下载源重新下载该文件。</p>
+<p>某些 Linux 发行版已经在它的下载页面中包含了校验和。例如 Pop!_os 的开发者在他们的下载页面中提供了所有 ISO 镜像的 SHA-256 校验和，这样你就可以快速地验证这些 ISO 镜像。</p>
+<p><img src="https://www.ostechnix.com/wp-content/uploads/2019/07/Pop-os-SHA256-sum.png" alt="Pop os 位于其下载页面中的 SHA256 校验和"></p>
+<p>在下载完 ISO 镜像文件后，可以使用下面的命令来验证它们：</p>
+<pre><code class="lang-bash">$ sha256sum Soft_backup/ISOs/pop-os_18.04_amd64_intel_54.iso
+</code></pre>
+<p>示例输出如下：</p>
+<pre><code class="lang-bash">680e1aa5a76c86843750e8120e2e50c2787973343430956b5cbe275d3ec228a6 Soft_backup/ISOs/pop-os_18.04_amd64_intel_54.iso
+</code></pre>
+<p><img src="https://www.ostechnix.com/wp-content/uploads/2019/07/Pop-os-SHA256-sum-value.png" alt="Pop os 的 SHA256 校验和的值"></p>
+<p>在上面的输出中，以 <code>680elaa</code> 开头的部分为 SHA-256 校验和的值。请将该值与位于下载页面中提供的 SHA-256 校验和的值进行比较，如果这两个值相同，那说明这个下载的 ISO 文件是合法的，与它的原有状态相比没有经过更改或者篡改。万事俱备，你可以进行下一步了！</p>
+<p>上面的内容便是我们如何在 Linux 中验证一个 ISO 文件的可靠性和完整性的方法。无论你是从官方站点或者第三方站点下载 ISO 文件，我们总是推荐你在使用它们之前做一次简单的快速验证。希望本篇的内容对你有所帮助。</p>
+<p>参考文献：</p>
+<ul>
+<li><a href="https://tutorials.ubuntu.com/tutorial/tutorial-how-to-verify-ubuntu" target="_blank" rel="noopener">https://tutorials.ubuntu.com/tutorial/tutorial-how-to-verify-ubuntu</a></li>
+</ul>
+<hr>
+<p>via: <a href="https://www.ostechnix.com/how-to-verify-iso-images-in-linux/" target="_blank" rel="noopener">https://www.ostechnix.com/how-to-verify-iso-images-in-linux/</a></p>
+<p>作者：<a href="https://www.ostechnix.com/author/sk/" target="_blank" rel="noopener">sk</a><br>选题：<a href="https://github.com/lujun9972" target="_blank" rel="noopener">lujun9972</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-26T00:56:32.062Z" itemprop="dateUpdated">2020-03-26 08:56:32</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/" target="_blank" rel="external">https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autojump/" rel="tag">Autojump</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/&title=《[翻译] 如何在 Linux 中验证 ISO 镜像》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/&title=《[翻译] 如何在 Linux 中验证 ISO 镜像》 — FLC&source=
+介绍在 Linux 中使用如何验证 ISO 镜像的合法性。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 中验证 ISO 镜像》 — FLC&url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/12/16/Python-Deals-large-json-file-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用 Python 软件包来处理较为复杂的 JSON 文件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] Gifski：一个跨平台的高质量 GIF 编码器</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/&title=《[翻译] 如何在 Linux 中验证 ISO 镜像》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/&title=《[翻译] 如何在 Linux 中验证 ISO 镜像》 — FLC&source=
+介绍在 Linux 中使用如何验证 ISO 镜像的合法性。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 中验证 ISO 镜像》 — FLC&url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwElEQVR42u3awW4bMQwEUP//T7fXAu3GM6RkuMDbU+A4u3p7EJUhX6/4+vXX9efn+d8+/fbp56fnHr7w8PDw1kt/Yjw95uelJ4tOMPl98PDw8D7Da7fsn+/wtJTkKU93SwoSHh4e3v/CS/4qP+tujvJ4eHh438nLj7l5IWlfFh4eHt438JIwIjng5pv77DsXsxY8PDy8mHdqg/7kz1f6e3h4eHjrrnreDMu3+/z7bTH4x/3x8PDwLvBmg1MzdovMP38z4IWHh4d3lLcft5pFCbOWWD2ehYeHh3eB1w5RzcpAPlAVLTepdQkGDw8Pb8E7lXy2zar8xbUvCA8PD+8zvNl2PDsct289L12vzS3w8PDwgtXOGk5Jgz8pFXXe3I5e4eHh4V3jJZv1rH21HwXIX03U2cPDw8M7xNtHsfuWf/I66hgXDw8P7wKv/WoeWLRRRV5aZgd0PDw8vFO8WSPq7JadN9LqUoSHh4d3gXejW9Q2w5Iwoo056tM6Hh4e3oKXhLntpt+GsLNmWzF0hYeHh3eIt8kw8qUkh/V2gKA4xOPh4eGtefk2nWz3p8LZWUQSDV3h4eHhrXmbmxYN+8Ure8XXm1qHh4eHd4i3iRvagKAtG23JKUoCHh4e3iHebLApafzvBwJWyQoeHh7eUd4mis0fkxeefMgg/wQPDw/vBm/fmsrfYnIgbgvMgXErPDw8vEO82UE5H5naFI8iAsbDw8P7CO9UTJCXhNfievMsPDw8vKO8X+U128rz+DgvANF68PDw8C7w2s23bWglMccmAh5i8PDw8Na8pBjsxwhyTD6AFY0j4OHh4V3jzZY7a6rlx+7Zs/Dw8PC+jdc+OB8XSMpSPe6Ah4eH98W8PGDdj6LmBQYPDw/vHm82fppECZvh13Y04bEw4OHh4R3ltf/wnwp/80i3CG03/T08PDy897zfa5dUueMwE7AAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

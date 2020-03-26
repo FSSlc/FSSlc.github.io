@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] bc : 一个命令行计算器 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,bc">
+    <meta name="description" content="介绍命令行计算器 bc 。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] bc : 一个命令行计算器">
+<meta property="og:url" content="https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍命令行计算器 bc 。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.fedoramagazine.org/wp-content/uploads/2016/07/bc-calculator-945x400.jpg">
+<meta property="article:published_time" content="2016-08-06T10:22:03.000Z">
+<meta property="article:modified_time" content="2020-03-26T01:01:10.207Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="bc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.fedoramagazine.org/wp-content/uploads/2016/07/bc-calculator-945x400.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] bc : 一个命令行计算器</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] bc : 一个命令行计算器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-08-06T10:22:03.000Z" itemprop="datePublished" class="page-time">
+  2016-08-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用-bc-做一些简单的数学运算"><span class="post-toc-number">1.</span> <span class="post-toc-text">用 bc 做一些简单的数学运算</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#精度"><span class="post-toc-number">2.</span> <span class="post-toc-text">精度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他进制系统"><span class="post-toc-number">3.</span> <span class="post-toc-text">其他进制系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结论"><span class="post-toc-number">4.</span> <span class="post-toc-text">结论</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-bc-Command-line-calculator"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] bc : 一个命令行计算器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-08-06 18:22:03" datetime="2016-08-06T10:22:03.000Z"  itemprop="datePublished">2016-08-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍命令行计算器 bc 。</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.fedoramagazine.org/wp-content/uploads/2016/07/bc-calculator-945x400.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<a id="more"></a>
+<p>假如你在一个图形桌面环境中需要一个计算器时，你可能只需要一路进行点击便可以找到一个计算器。例如，Fedora 工作站中就已经包含了一个名为 <code>Calculator</code> 的工具。它有着几种不同的操作模式，例如，你可以进行复杂的数学运算或者金融运算。但是，你知道吗，命令行也提供了一个与之相似的名为 <code>bc</code> 的工具？</p>
+<p><code>bc</code> 工具可以为你提供的功能可以满足你对科学计算器、金融计算器或者是简单计算器的期望。另外，假如需要的话，它还可以从命令行中被脚本化。这使得当你需要做复杂的数学运算时，你可以在 shell 脚本中使用它。</p>
+<p>因为 bc 也被用于其他的系统软件，例如 CUPS 打印服务，所以它可能已经在你的 Fedora 系统中被安装了。你可以使用下面这个命令来进行检查：</p>
+<pre><code class="lang-bash">dnf list installed bc
+</code></pre>
+<p>假如因为某些原因你没有在上面命令的输出中看到它，你可以使用下面的这个命令来安装它：</p>
+<pre><code class="lang-bash">sudo dnf install bc
+</code></pre>
+<h3 id="用-bc-做一些简单的数学运算"><a href="#用-bc-做一些简单的数学运算" class="headerlink" title="用 bc 做一些简单的数学运算"></a>用 bc 做一些简单的数学运算</h3><p>使用 bc 的一种方式是进入它自己的 shell。在那里你可以按行进行许多次计算。当你键入 bc 后，首先出现的是有关这个程序的警告：</p>
+<pre><code class="lang-bash">$ bc
+bc 1.06.95
+Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty&#39;.
+</code></pre>
+<p>现在你可以按照每行一个输入运算式或者命令了：</p>
+<pre><code class="lang-bash">1+1
+</code></pre>
+<p>bc 会回答上面计算式的答案是：</p>
+<pre><code class="lang-bash">2
+</code></pre>
+<p>在这里你还可以执行其他的命令。你可以使用 加（+）、减（-）、乘（*）、除（/）、圆括号、指数符号（\^） 等等。请注意 bc 同样也遵循所有约定俗成的运算规则，例如运算的先后顺序。你可以试试下面的例子：</p>
+<pre><code class="lang-bash">(4+7)*2
+4+7*2
+</code></pre>
+<p>若要退出 bc 可以通过按键组合 <code>Ctrl+D</code> 来发送 “输入结束”信号给 bc 。</p>
+<p>使用 bc 的另一种方式是使用 <code>echo</code> 命令来传递运算式或命令。下面这个示例就是计算器中的 “Hello, world” 例子，使用 shell 的管道函数（|） 来将 <code>echo</code> 的输出传入 <code>bc</code> 中：</p>
+<pre><code class="lang-bash">echo &#39;1+1&#39; | bc
+</code></pre>
+<p>使用 shell 的管道，你可以发送不止一个运算操作，你需要使用分号来分隔不同的运算。结果将在不同的行中返回。</p>
+<pre><code class="lang-bash">echo &#39;1+1; 2+2&#39; | bc
+</code></pre>
+<h3 id="精度"><a href="#精度" class="headerlink" title="精度"></a>精度</h3><p>在某些计算中，bc 会使用精度的概念，即小数点后面的数字位数。默认的精度是 0。除法操作总是使用精度的设定。所以，如果你没有设置精度，有可能会带来意想不到的答案：</p>
+<pre><code class="lang-bash">echo &#39;3/2&#39; | bc
+echo &#39;scale=3; 3/2&#39; | bc
+</code></pre>
+<p>乘法使用一个更复杂的精度选择机制：</p>
+<pre><code class="lang-bash">echo &#39;3*2&#39; | bc
+echo &#39;3*2.0&#39; | bc
+</code></pre>
+<p>同时，加法和减法的相关运算则与之相似：</p>
+<pre><code class="lang-bash">echo &#39;7-4.15&#39; | bc
+</code></pre>
+<h3 id="其他进制系统"><a href="#其他进制系统" class="headerlink" title="其他进制系统"></a>其他进制系统</h3><p>bc 的另一个有用的功能是可以使用除了十进制以外的其他计数系统。例如，你可以轻松地做十六进制或二进制的数学运算。可以使用 <code>ibase</code> 和 <code>obase</code> 命令来分别设定输入和输出的进制系统。需要记住的是一旦你使用了 <code>ibase</code> ，之后你输入的任何数字都将被认为是在新定义的进制系统中。</p>
+<p>要做十六进制数到十进制数的转换或运算，你可以使用类似下面的命令。请注意大于 9 的十六进制数必须是大写的（A-F）：</p>
+<pre><code class="lang-bash">echo &#39;ibase=16; A42F&#39; | bc
+echo &#39;ibase=16; 5F72+C39B&#39; | bc
+</code></pre>
+<p>若要使得结果是十六进制数，则需要设定 <code>obase</code> ：</p>
+<pre><code class="lang-bash">echo &#39;obase=16; ibase=16; 5F72+C39B&#39; | bc
+</code></pre>
+<p>下面是一个小技巧。假如你在 shell 中做这些十六进制运算，怎样才能使得输入重新为十进制数呢？答案是使用 <code>ibase</code> 命令，但你必须设定它为在当前进制中与十进制中的 10 等价的值。例如，假如 <code>ibase</code> 被设定为十六进制，你需要输入：</p>
+<pre><code class="lang-bash">ibase=A
+</code></pre>
+<p>一旦你执行了上面的命令，所有输入的数字都将是十进制的了，接着你便可以输入 <code>obase=10</code> 来重置输出的进制系统。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>上面所提到的只是 bc 所能做到的基础。它还允许你为某些复杂的运算和程序定义函数、变量和循环结构。你可以在你的系统中将这些程序保存为文本文件以便你在需要的时候使用。你还可以在网上找到更多的资源，它们提供了更多的例子以及额外的函数库。快乐地计算吧！</p>
+<hr>
+<p>via: <a href="https://fedoramagazine.org/bc-command-line-calculator/" target="_blank" rel="noopener">https://fedoramagazine.org/bc-command-line-calculator/</a><br>publish: <a href="https://linux.cn/article-7653-1.html" target="_blank" rel="noopener">https://linux.cn/article-7653-1.html</a></p>
+<p>作者：<a href="https://fedoramagazine.org/author/pfrields/" target="_blank" rel="noopener">Paul W. Frields</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-26T01:01:10.207Z" itemprop="dateUpdated">2020-03-26 09:01:10</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2016/08/06/Translate-bc-Command-line-calculator/" target="_blank" rel="external">https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bc/" rel="tag">bc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/&title=《[翻译] bc : 一个命令行计算器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/&title=《[翻译] bc : 一个命令行计算器》 — FLC&source=
+介绍命令行计算器 bc 。
+
+
+                
+                    
+                    
+ ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] bc : 一个命令行计算器》 — FLC&url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/12/15/Build-AFEPack-docker-image/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用 docker 构建 AFEPack 镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/07/21/Translate-Part-3-How-to-Use-Awk-to-Filter-Text-or-Strings-Using-Pattern-Specific-Actions/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] awk 系列：如何使用 awk 按模式筛选文本或字符串</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/&title=《[翻译] bc : 一个命令行计算器》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/&title=《[翻译] bc : 一个命令行计算器》 — FLC&source=
+介绍命令行计算器 bc 。
+
+
+                
+                    
+                    
+ ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] bc : 一个命令行计算器》 — FLC&url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/08/06/Translate-bc-Command-line-calculator/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3aQW4bMRAEQP3/0wqQUw6x1D1D2jJQPBmSd5fFw5LqmccjHs+/46vP//32+XLk1+ZzODDw8PDwRlN/PaH822SBZqTZIuLh4eHd4yW3/url3m4h+UIk1DfX4uHh4f0oL4Elm8psunh4eHi/l5eEAvuX++sFxcPDw/sEXhI35KFqfodkfFPWgoeHhxfz2gLYJ/x9sb6Hh4eHt6iqJ4X/zVNmzQfFbPHw8PAu8PKYtS1otY0F+XLkh3g8PDy87+Tl5atNK9Um4CiaD/Dw8PCO8matVPmkN4zZ/b/8xYCHh4d3iHcqRDibJc8O93VQgoeHhzfitUfe/JDdNgTkh/V8nnh4eHi3eW0AkXx+YwspnoKHh4d3gZc/PsfMppVvV/mz8PDw8G7wZu1W7SG7Xe/kmB61KeDh4eFd4+WtAO2Lvi1QtQWzN8uHh4eHd4HX1sraiebxwan4+A0bDw8Pb83Lp54ftXP2rHWgwOPh4eFd5iWbQR4WbIpnsw2jbrrCw8PDW/Pyl2/7im8bpzZNV8W+h4eHhze/dthG3xbMknJa28QQHffx8PDwjvLaYDQPZDehRh4lv1lEPDw8vAu8tpWqjX3v3SdfDjw8PLyzvPZw3G4hyabSLmvdU4aHh4d3lDdj56Ht7Ag+26KKRcTDw8Nb8A6fwWPkrEVgFePi4eHhXeDtw4K87SBfoKJFoA0j8PDw8Ea8fctUG7bmC9SGF8MCGB4eHl759Gc5Enz7n+21eXCMh4eHd4PX1oxm28as3So53A9Tajw8PLw1L48kNrFFXvrKGa8XEQ8PD+82rw0j8qv2Ba3NBoaHh4f3s7xNkWyziHmhCw8PD+8zebOC2Yw9K6cNj9R4eHh4JS8PI/Kj8KbwP4t0//MJHh4e3gVe+yM/j1BPFf7zcPkxG3h4eHgp7w9NICvwU34M5wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
