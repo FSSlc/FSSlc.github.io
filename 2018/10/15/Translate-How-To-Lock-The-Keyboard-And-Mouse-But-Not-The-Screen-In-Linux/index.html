@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,锁键盘鼠标">
+    <meta name="description" content="介绍使用 xtrlock 来锁住键盘和鼠标，同时不锁屏。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏">
+<meta property="og:url" content="https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍使用 xtrlock 来锁住键盘和鼠标，同时不锁屏。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2017/09/Lock-The-Keyboard-And-Mouse-720x340.jpg">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/09/Keyboard-Shortcuts_001.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/09/Keyboard-Shortcuts_002.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/09/Keyboard-Shortcuts_003.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2018/01/Add-xtrlock-shortcut.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2018/01/set-shortcut-key-1.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2018/01/set-shortcut-key-2.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2018/01/set-shortcut-key-3.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2018/01/xtrclock-1.png">
+<meta property="article:published_time" content="2018-10-15T15:00:05.000Z">
+<meta property="article:modified_time" content="2020-03-26T05:01:20.934Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="锁键盘鼠标">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ostechnix.com/wp-content/uploads/2017/09/Lock-The-Keyboard-And-Mouse-720x340.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-10-15T15:00:05.000Z" itemprop="datePublished" class="page-time">
+  2018-10-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-xtrlock"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 xtrlock</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-xtrlock-锁住键盘和鼠标但不锁屏"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用 xtrlock 锁住键盘和鼠标但不锁屏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建快捷键"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">创建快捷键</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#将键盘和鼠标解锁"><span class="post-toc-number">3.</span> <span class="post-toc-text">将键盘和鼠标解锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#要是我被永久地锁住了怎么办？"><span class="post-toc-number">4.</span> <span class="post-toc-text">要是我被永久地锁住了怎么办？</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-10-15 23:00:05" datetime="2018-10-15T15:00:05.000Z"  itemprop="datePublished">2018-10-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍使用 xtrlock 来锁住键盘和鼠标，同时不锁屏。</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.ostechnix.com/wp-content/uploads/2017/09/Lock-The-Keyboard-And-Mouse-720x340.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<a id="more"></a>
+<p>我四岁的侄女是个好奇的孩子，她非常喜爱“阿凡达”电影，当阿凡达电影在播放时，她是如此的专注，好似眼睛粘在了屏幕上。但问题是当她观看电影时，她经常会碰到键盘上的某个键或者移动了鼠标，又或者是点击了鼠标的按钮。有时她非常意外地按了键盘上的某个键，从而将电影关闭或者暂停了。所以我就想找个方法来将键盘和鼠标都锁住，但屏幕不会被锁住。幸运的是，我在 Ubuntu 论坛上找到了一个完美的解决方法。假如在你正看着屏幕上的某些重要的事情时，你不想让你的小猫或者小狗在你的键盘上行走，或者让你的孩子在键盘上瞎搞一气，那我建议你试试 <strong>xtrlock</strong> 这个工具。它很简单但非常实用，你可以锁定屏幕的显示直到用户在键盘上输入自己设定的密码（LCTT 译注：就是用户自己的密码，例如用来打开屏保的那个密码，不需要单独设定）。在这篇简单的教程中，我将为你展示如何在 Linux 下锁住键盘和鼠标，而不锁掉屏幕。这个技巧几乎可以在所有的 Linux 操作系统中生效。</p>
+<h3 id="安装-xtrlock"><a href="#安装-xtrlock" class="headerlink" title="安装 xtrlock"></a>安装 xtrlock</h3><p>xtrlock 软件包在大多数 Linux 操作系统的默认软件仓库中都可以获取到。所以你可以使用你安装的发行版的包管理器来安装它。</p>
+<p>在 <strong>Arch Linux</strong> 及其衍生发行版中，运行下面的命令来安装它：</p>
+<pre><code>$ sudo pacman -S xtrlock
+</code></pre><p>在 <strong>Fedora</strong> 上使用：</p>
+<pre><code>$ sudo dnf install xtrlock
+</code></pre><p>在 <strong>RHEL、CentOS</strong> 上使用：</p>
+<pre><code>$ sudo yum install xtrlock
+</code></pre><p>在 <strong>SUSE/openSUSE</strong> 上使用：</p>
+<pre><code>$ sudo zypper install xtrlock
+</code></pre><p>在 <strong>Debian、Ubuntu、Linux Mint</strong> 上使用：</p>
+<pre><code>$ sudo apt-get install xtrlock
+</code></pre><h3 id="使用-xtrlock-锁住键盘和鼠标但不锁屏"><a href="#使用-xtrlock-锁住键盘和鼠标但不锁屏" class="headerlink" title="使用 xtrlock 锁住键盘和鼠标但不锁屏"></a>使用 xtrlock 锁住键盘和鼠标但不锁屏</h3><p>安装好 xtrlock 后，你需要根据你的选择来创建一个快捷键，通过这个快捷键来锁住键盘和鼠标。</p>
+<p>（LCTT 译注：译者在自己的系统（Arch + Deepin）中发现这里的到下面创建快捷键的部分可以不必做，依然生效。）</p>
+<p>在 <code>/usr/local/bin</code> 目录下创建一个名为 <code>lockkbmouse</code> 的新文件： </p>
+<pre><code>$ sudo vi /usr/local/bin/lockkbmouse
+</code></pre><p>然后将下面的命令添加到这个文件中：</p>
+<pre><code>#!/bin/bash
+sleep 1 &amp;&amp; xtrlock
+</code></pre><p>保存并关闭这个文件。</p>
+<p>然后使用下面的命令来使得它可以被执行：</p>
+<pre><code>$ sudo chmod a+x /usr/local/bin/lockkbmouse
+</code></pre><p>接着，我们就需要创建快捷键了。</p>
+<h4 id="创建快捷键"><a href="#创建快捷键" class="headerlink" title="创建快捷键"></a>创建快捷键</h4><p><strong>在 Arch Linux MATE 桌面中</strong></p>
+<p>依次点击 “System -&gt; Preferences -&gt; Hardware -&gt; keyboard Shortcuts”</p>
+<p>然后点击 “Add” 来创建快捷键。</p>
+<p><img src="http://www.ostechnix.com/wp-content/uploads/2017/09/Keyboard-Shortcuts_001.png" alt=""></p>
+<p>首先键入你的这个快捷键的名称，然后将下面的命令填入命令框中，最后点击 “Apply” 按钮。</p>
+<pre><code>bash -c &quot;sleep 1 &amp;&amp; xtrlock&quot;
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2017/09/Keyboard-Shortcuts_002.png" alt=""></p>
+<p>为了能够给这个快捷键赋予快捷方式，需要选中它或者双击它然后输入你选定的快捷键组合，例如我使用 <code>Alt+k</code> 这组快捷键。</p>
+<p><img src="http://www.ostechnix.com/wp-content/uploads/2017/09/Keyboard-Shortcuts_003.png" alt=""></p>
+<p>如果要清除这个快捷键组合，按住 <code>BACKSPACE</code> 键就可以了。完成后，关闭键盘设定窗口。</p>
+<p><strong>在 Ubuntu GNOME 桌面中</strong></p>
+<p>依次进入 “System Settings -&gt; Devices -&gt; Keyboard”，然后点击 “+” 这个符号。</p>
+<p>键入你快捷键的名称并将下面的命令加到命令框里面，然后点击 “Add” 按钮。</p>
+<pre><code>bash -c &quot;sleep 1 &amp;&amp; xtrlock&quot;
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2018/01/Add-xtrlock-shortcut.png" alt=""></p>
+<p>接下来为这个新建的快捷键赋予快捷方式。我们只需要选择或者双击 “Set shortcut” 这个按钮就可以了。</p>
+<p><img src="http://www.ostechnix.com/wp-content/uploads/2018/01/set-shortcut-key-1.png" alt=""></p>
+<p>然后你将看到下面的一屏。</p>
+<p><img src="http://www.ostechnix.com/wp-content/uploads/2018/01/set-shortcut-key-2.png" alt=""></p>
+<p>输入你选定的快捷键组合，例如我使用 <code>Alt+k</code> 。</p>
+<p><img src="http://www.ostechnix.com/wp-content/uploads/2018/01/set-shortcut-key-3.png" alt=""></p>
+<p>如果要清除这个快捷键组合，则可以按 <code>BACKSPACE</code> 这个键。这样快捷键便设定好了，完成这个后，关闭键盘设定窗口。</p>
+<p>从现在起，每当你输入刚才设定的快捷键（在我们的示例中是 <code>ATL+K</code> ），鼠标的指针便会变成一个挂锁的模样。现在，键盘和鼠标便被锁定了，这时你便可以自在地观看你的电影或者做其他你想做的事儿。即便是你的孩子或者宠物碰了键盘上的某些键或者点击了鼠标，这些操作都不会起作用。</p>
+<p>因为 <code>xtrlock</code> 已经在工作了。</p>
+<p><img src="http://www.ostechnix.com/wp-content/uploads/2018/01/xtrclock-1.png" alt=""></p>
+<p>你看到了那个小的锁按钮了吗？它意味着键盘和鼠标已经被锁定了。即便你移动这个锁按钮，也不会发生任何事情。后台的任务在一直执行，直到你将屏幕解除，然后手动停掉运行中的任务。</p>
+<h3 id="将键盘和鼠标解锁"><a href="#将键盘和鼠标解锁" class="headerlink" title="将键盘和鼠标解锁"></a>将键盘和鼠标解锁</h3><p>要将键盘和鼠标解锁，只需要输入你的密码然后敲击回车键就可以了，在输入的过程中你将看不到密码。只需要输入然后敲回车键就可以了。在你输入了正确的密码后，鼠标和键盘就可以再工作了。假如你输入了一个错误的密码，你将听到警告声。按 <code>ESC</code> 来清除输入的错误密码，然后重新输入正确的密码。要去掉未完全输入完的密码中的一个字符，只需要按 <code>BACKSPACE</code> 或者 <code>DELETE</code> 键就可以了。</p>
+<h3 id="要是我被永久地锁住了怎么办？"><a href="#要是我被永久地锁住了怎么办？" class="headerlink" title="要是我被永久地锁住了怎么办？"></a>要是我被永久地锁住了怎么办？</h3><p>以防你被永久地锁定了屏幕，切换至一个 TTY（例如 <code>CTRL+ALT+F2</code> ）然后运行：</p>
+<pre><code>$ sudo killall xtrlock
+</code></pre><p>或者你还可以使用 <code>chvt</code> 命令来在 TTY 和 X 会话之间切换。</p>
+<p>例如，如果要切换到 TTY1，则运行：</p>
+<pre><code>$ sudo chvt 1
+</code></pre><p>要切换回 X 会话，则键入：</p>
+<pre><code>$ sudo chvt 7
+</code></pre><p>不同的发行版使用了不同的快捷键组合来在不同的 TTY 间切换。请参考你安装的对应发行版的官方网站了解更多详情。</p>
+<p>如果想知道更多 xtrlock 的信息，请参考 man 页：</p>
+<pre><code>$ man xtrlock
+</code></pre><p>那么这就是全部了。希望这个指南可以帮到你。假如你发现这个指南很有用，请花点时间将这个指南共享到你的朋友圈并支持我们（OSTechNix）。</p>
+<p><strong>资源：</strong></p>
+<ul>
+<li><a href="https://ubuntuforums.org/showthread.php?t=993800" target="_blank" rel="noopener"><strong>Ubuntu 论坛</strong></a></li>
+</ul>
+<hr>
+<p>via: <a href="https://www.ostechnix.com/lock-keyboard-mouse-not-screen-linux/" target="_blank" rel="noopener">https://www.ostechnix.com/lock-keyboard-mouse-not-screen-linux/</a><br>publish: <a href="https://linux.cn/article-10119-1.html" target="_blank" rel="noopener">https://linux.cn/article-10119-1.html</a></p>
+<p>作者：<a href="https://www.ostechnix.com/author/sk/" target="_blank" rel="noopener">SK</a><br>选题：<a href="https://github.com/lujun9972" target="_blank" rel="noopener">lujun9972</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-26T05:01:20.934Z" itemprop="dateUpdated">2020-03-26 13:01:20</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/" target="_blank" rel="external">https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%94%81%E9%94%AE%E7%9B%98%E9%BC%A0%E6%A0%87/" rel="tag">锁键盘鼠标</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/&title=《[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/&title=《[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏》 — FLC&source=
+介绍使用 xtrlock 来锁住键盘和鼠标，同时不锁屏。
+
+
+                
+                    
+       ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏》 — FLC&url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] Gifski：一个跨平台的高质量 GIF 编码器</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/31/Tips-for-using-matlab-in-linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">linux 下使用 matlab 的几个小提示</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/&title=《[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/&title=《[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏》 — FLC&source=
+介绍使用 xtrlock 来锁住键盘和鼠标，同时不锁屏。
+
+
+                
+                    
+       ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何在 Linux 下锁住键盘和鼠标而不锁屏》 — FLC&url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/10/15/Translate-How-To-Lock-The-Keyboard-And-Mouse-But-Not-The-Screen-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD7ElEQVR42u3au3LbQBAEQP7/T8OpAoGc2T1YDBqRymQdgGYw3sfrFV/Xjyv59Lq5fn6a/313x7t7JSesLhw4cODAEb/q+6PvUNpP20d/f/57oPwZcODAgQPHWY7kBkns5ee06O3TJs+PAwcOHDi+hyMv2DZwbbi2PycOHDhw4PgejqRpmL9Y0mqctSxx4MCBA8dfcbTNu7wJOCvYkvBuB12He6U4cODAgSNNurrB9/1/P7LfgQMHDhw4guKqDd39d5JITgq8PFZv3w4HDhw4cKw58kBqC572JWerCbNR04f3woEDBw4cC45NHM7WEdphUh66SXuxmL/hwIEDB441Rz34D4ZP+/icDcCGLU4cOHDgwPEYR/ugm3WHttDKufMyDwcOHDhwPMExe6VNNObl3OzHaFf3cODAgQPHExyzf8lLuLwFufl5hi1CHDhw4MBxiOPUuttw2DMK182PcXtHHDhw4MDxGMeHUiduIybht1+Jawu8ugeJAwcOHDhijiTeTgXkqbHWFV+rFUAcOHDgwDHiyAc/+5Js/9r5+bMVDRw4cODAsedoi6JZBLZ8eWGWrEG0b4cDBw4cOPYc+xLr7AJcvgYxW/Ib/gI4cODAgWMxgpp9Pw/jTbi2WMP3xYEDBw4cI4425NqQ3rf/knBt73sbyThw4MCB4xBHEopt8ZYPhGbNx/2c6JczceDAgQPHmmNTPs3WBWbn5/c9FeQ4cODAgWPDMWuuzVYHNksM+4ZmVODhwIEDB45DHLMA27zwrOjKx07DMRgOHDhw4Fhw5K90vb3a7xSxN4r24Zk4cODAgePQmXlEzeIzX27YNAHbsVbUHMSBAwcOHIsJ/vtYyou0U2Oq2d+zAdirTWkcOHDgwBG0BdsWXlvO5XfMG3/JVbQRceDAgQPHmiNvwLVlVYKSfJqPqdrorf8PggMHDhw4Ao42ug4soo1aeG14t4UoDhw4cOB4jmPfCmzP2a9BJKdF7UscOHDgwLHmaB9xNgQ6u5A3Q8zLRRw4cODAseFo4y1fephF46bB10bv7RQOBw4cOHCsOfbF1WyhYVZizQq85EwcOHDgwLHnyIc07VLCqhlXFortXT58EwcOHDhwLDiu8spbhy1TEtLt2kS9kIEDBw4cONYcm9W3toXXrj6s5mYPxDMOHDhw4Mg5ZssB+chn9sL5682GZFFzEAcOHDhwLDj2t29Dro32tkScnY8DBw4cOP6KIy/tZkBtSM+KvdvhEw4cOHDg+I8c7XJb2y5sR1x52Bercjhw4MCBY83RrinkDbjNUsKmNZm3LHHgwIEDx1mOvJXWBnM70GpXGdribRbYOHDgwIEjPvkfvLTYu/rHtj8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
