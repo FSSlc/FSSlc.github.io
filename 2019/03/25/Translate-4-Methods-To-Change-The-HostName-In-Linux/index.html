@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] Linux 中改变主机名的 4 种方法 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,主机名">
+    <meta name="description" content="介绍如何修改主机名。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] Linux 中改变主机名的 4 种方法">
+<meta property="og:url" content="https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍如何修改主机名。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200327084713.jpg">
+<meta property="og:image" content="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-1.png">
+<meta property="og:image" content="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-2.png">
+<meta property="og:image" content="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-3.png">
+<meta property="og:image" content="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-4.png">
+<meta property="og:image" content="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-5.png">
+<meta property="article:published_time" content="2019-03-25T03:18:37.000Z">
+<meta property="article:modified_time" content="2020-03-27T00:50:42.797Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="主机名">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200327084713.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] Linux 中改变主机名的 4 种方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] Linux 中改变主机名的 4 种方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-25T03:18:37.000Z" itemprop="datePublished" class="page-time">
+  2019-03-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法-1：在-Linux-中使用-hostnamectl-来改变主机名"><span class="post-toc-number">1.</span> <span class="post-toc-text">方法 1：在 Linux 中使用 hostnamectl 来改变主机名</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法-2：在-Linux-中使用-nmcli-命令来更改主机名"><span class="post-toc-number">2.</span> <span class="post-toc-text">方法 2：在 Linux 中使用 nmcli 命令来更改主机名</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法-3：在-Linux-中使用-nmtui-来更改主机名"><span class="post-toc-number">3.</span> <span class="post-toc-text">方法 3：在 Linux 中使用 nmtui 来更改主机名</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法-4：在-Linux-中使用-etc-hostname-来更改主机名"><span class="post-toc-number">4.</span> <span class="post-toc-text">方法 4：在 Linux 中使用 &#x2F;etc&#x2F;hostname 来更改主机名</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-4-Methods-To-Change-The-HostName-In-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] Linux 中改变主机名的 4 种方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-25 11:18:37" datetime="2019-03-25T03:18:37.000Z"  itemprop="datePublished">2019-03-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍如何修改主机名。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200327084713.jpg" style="zoom:80%;" /></p>
+<a id="more"></a>
+<p>昨天我们已经在我们的网站中写过<a href="https://www.2daygeek.com/linux-change-set-hostname/" target="_blank" rel="noopener">如何在 Linux 中修改主机名的文章</a>。今天，我们将向你展示使用不同的方法来修改主机名。你可以从中选取最适合你的方法。</p>
+<p>使用 <code>systemd</code> 的系统自带一个名为 <code>hostnamectl</code> 的好用工具，它可以使我们能够轻易地管理系统的主机名。</p>
+<p>当你使用这个原生命令时，它可以立刻改变主机名而无需重启来生效。</p>
+<p>但假如你通过手动修改某个配置文件来更改主机名，那么就可能需要经过重启来生效。</p>
+<p>在这篇文章中，我们将展示在使用 <code>systemd</code> 的系统中改变主机名的 4 种方法。</p>
+<p><code>hostnamectl</code> 命令允许在 Linux 中设置三类主机名，它们的细节如下：</p>
+<ul>
+<li><strong>静态：</strong> 这是静态主机名，由系统管理员添加。</li>
+<li><strong>瞬时/动态：</strong> 这个由 DHCP 或者 DNS 服务器在运行时赋予。</li>
+<li><strong>易读形式：</strong> 它可以由系统管理员赋予。这个是自由形式的主机名，以一种易读形式来表示服务器，例如 “JBOSS UAT Server” 这样的名字。</li>
+</ul>
+<p>这些都可以使用下面 4 种方法来设置。</p>
+<ul>
+<li><code>hostnamectl</code> 命令：控制系统主机名。</li>
+<li><code>nmcli</code> 命令：是一个控制 NetworkManager 的命令行工具。</li>
+<li><code>nmtui</code> 命令：是一个控制 NetworkManager 的文本用户界面。</li>
+<li><code>/etc/hostname</code> 文件：这个文件中包含系统的静态主机名。</li>
+</ul>
+<h3 id="方法-1：在-Linux-中使用-hostnamectl-来改变主机名"><a href="#方法-1：在-Linux-中使用-hostnamectl-来改变主机名" class="headerlink" title="方法 1：在 Linux 中使用 hostnamectl 来改变主机名"></a>方法 1：在 Linux 中使用 hostnamectl 来改变主机名</h3><p><code>hostnamectl</code> 可被用来查询和改变系统的主机名，以及相关设定。只需运行 <code>hostnamectl</code> 便可以查看系统的主机名了。</p>
+<pre><code>$ hostnamectl
+</code></pre><p>或者使用下面的命令：</p>
+<pre><code>$ hostnamectl status
+   Static hostname: daygeek-Y700
+         Icon name: computer-laptop
+           Chassis: laptop
+        Machine ID: 31bdeb7b83230a2025d43547368d75bc
+           Boot ID: 267f264c448f000ea5aed47263c6de7f
+  Operating System: Manjaro Linux
+            Kernel: Linux 4.19.20-1-MANJARO
+      Architecture: x86-64
+</code></pre><p>假如你想改变主机名，可以使用下面的命令格式：</p>
+<p>语法格式：</p>
+<pre><code>$ hostnamectl set-hostname [YOUR NEW HOSTNAME]
+</code></pre><p>使用下面的命令来使用 <code>hostnamectl</code> 更改主机名。在这个例子中，我将把主机名从 <code>daygeek-Y700</code> 改为 <code>magi-laptop</code> 。</p>
+<pre><code>$ hostnamectl set-hostname magi-laptop
+</code></pre><p>你可以使用下面的命令来查看更新后的主机名。</p>
+<pre><code>$ hostnamectl
+   Static hostname: magi-laptop
+         Icon name: computer-laptop
+           Chassis: laptop
+        Machine ID: 31bdeb7b83230a2025d43547368d75bc
+           Boot ID: 267f264c448f000ea5aed47263c6de7f
+  Operating System: Manjaro Linux
+            Kernel: Linux 4.19.20-1-MANJARO
+      Architecture: x86-64
+</code></pre><h3 id="方法-2：在-Linux-中使用-nmcli-命令来更改主机名"><a href="#方法-2：在-Linux-中使用-nmcli-命令来更改主机名" class="headerlink" title="方法 2：在 Linux 中使用 nmcli 命令来更改主机名"></a>方法 2：在 Linux 中使用 nmcli 命令来更改主机名</h3><p><code>nmcli</code> 是一个命令行工具，旨在控制 NetworkManager 并报告网络状态。</p>
+<p><code>nmcli</code> 被用来创建、展示、编辑、删除、激活和注销网络连接，同时还可以用来控制和展示网络设备的状态。另外，它也允许我们更改主机名。</p>
+<p>使用下面的命令来利用 <code>nmcli</code> 查看当前的主机名。</p>
+<pre><code>$ nmcli general hostname
+daygeek-Y700
+</code></pre><p>语法格式：</p>
+<pre><code>$ nmcli general hostname [YOUR NEW HOSTNAME]
+</code></pre><p>使用下面的命令来借助 <code>nmcli</code> 命令可以更改主机名。在这个例子中，我将把主机名从 <code>daygeek-Y700</code> 变成 <code>magi-laptop</code> 。</p>
+<pre><code>$ nmcli general hostname magi-laptop
+</code></pre><p>它可以在不重启下设备的情况下生效，但为了安全目的，只需要重启 <code>systemd-hostnamed</code> 服务来使得更改生效。</p>
+<pre><code>$ sudo systemctl restart systemd-hostnamed
+</code></pre><p>再次运行相同的 <code>nmcli</code> 命令来检查更改后的主机名。</p>
+<pre><code>$ nmcli general hostname
+magi-laptop
+</code></pre><h3 id="方法-3：在-Linux-中使用-nmtui-来更改主机名"><a href="#方法-3：在-Linux-中使用-nmtui-来更改主机名" class="headerlink" title="方法 3：在 Linux 中使用 nmtui 来更改主机名"></a>方法 3：在 Linux 中使用 nmtui 来更改主机名</h3><p><code>nmtui</code> 是一个基于 <code>curses</code> 库的 TUI 应用，被用来和 NetworkManager 交互。当启动 <code>nmtui</code> 后，如果没有指定 <code>nmtui</code> 的第一个命令行参数，它将提醒用户选择执行某项活动。</p>
+<p>在终端中运行下面的命令来开启文本用户界面。</p>
+<pre><code>$ nmtui
+</code></pre><p>使用向下箭头按键来选择 “Set system hostname” 这个选项，然后敲击回车键。</p>
+<p><img src="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-1.png" alt=""></p>
+<p>下面的截图展示的是原来的主机名。</p>
+<p><img src="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-2.png" alt=""></p>
+<p>我们需要做的就是删除原来的主机名，再输入新的主机名，然后选中 “OK” 敲击回车确认就可以了。</p>
+<p><img src="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-3.png" alt=""></p>
+<p>然后它将在屏幕中向你展示更新后的主机名，再次选中 “OK” 敲击回车确认就完成更改了。</p>
+<p><img src="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-4.png" alt=""></p>
+<p>最后，选中 “Quit” 按钮来从 <code>nmtui</code> 终端界面离开。</p>
+<p><img src="https://www.2daygeek.com/wp-content/uploads/2019/02/four-methods-to-change-the-hostname-in-linux-5.png" alt=""></p>
+<p>它可以在不重启设备的情况下生效，但为了安全目的，需要重启 <code>systemd-hostnamed</code> 服务来使得更改生效。</p>
+<pre><code>$ sudo systemctl restart systemd-hostnamed
+</code></pre><p>你可以运行下面的命令来查看更新后的主机名。</p>
+<pre><code>$ hostnamectl
+   Static hostname: daygeek-Y700
+         Icon name: computer-laptop
+           Chassis: laptop
+        Machine ID: 31bdeb7b83230a2025d43547368d75bc
+           Boot ID: 267f264c448f000ea5aed47263c6de7f
+  Operating System: Manjaro Linux
+            Kernel: Linux 4.19.20-1-MANJARO
+      Architecture: x86-64
+</code></pre><h3 id="方法-4：在-Linux-中使用-etc-hostname-来更改主机名"><a href="#方法-4：在-Linux-中使用-etc-hostname-来更改主机名" class="headerlink" title="方法 4：在 Linux 中使用 /etc/hostname 来更改主机名"></a>方法 4：在 Linux 中使用 /etc/hostname 来更改主机名</h3><p>除了上面的方法外，我们还可以通过修改 <code>/etc/hostname</code> 文件来达到修改主机名的目的。但这个方法需要服务器重启才能生效。</p>
+<p>使用下面的命令来检查 <code>/etc/hostname</code> 文件以查看当前的主机名：</p>
+<pre><code>$ cat /etc/hostname
+daygeek-Y700
+</code></pre><p>要改变主机名，只需覆写这个文件就行了，因为这个文件只包含主机名这一项内容。</p>
+<pre><code>$ sudo echo &quot;magi-daygeek&quot; &gt; /etc/hostname
+
+$ cat /etc/hostname
+magi-daygeek
+</code></pre><p>然后使用下面的命令重启系统：</p>
+<pre><code>$ sudo init 6
+</code></pre><p>最后查看 <code>/etc/hostname</code> 文件的内容来验证主机名是否被更改了。</p>
+<pre><code>$ cat /etc/hostname
+magi-daygeek
+</code></pre><hr>
+<p>via: <a href="https://www.2daygeek.com/four-methods-to-change-the-hostname-in-linux/" target="_blank" rel="noopener">https://www.2daygeek.com/four-methods-to-change-the-hostname-in-linux/</a><br>publish: <a href="https://linux.cn/article-10651-1.html" target="_blank" rel="noopener">https://linux.cn/article-10651-1.html</a></p>
+<p>作者：<a href="https://www.2daygeek.com/author/magesh/" target="_blank" rel="noopener">Magesh Maruthamuthu</a><br>选题：<a href="https://github.com/lujun9972" target="_blank" rel="noopener">lujun9972</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-27T00:50:42.797Z" itemprop="dateUpdated">2020-03-27 08:50:42</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/" target="_blank" rel="external">https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%BB%E6%9C%BA%E5%90%8D/" rel="tag">主机名</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/&title=《[翻译] Linux 中改变主机名的 4 种方法》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/&title=《[翻译] Linux 中改变主机名的 4 种方法》 — FLC&source=
+介绍如何修改主机名。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Linux 中改变主机名的 4 种方法》 — FLC&url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/08/11/Translate-How-To-Verify-ISO-Images-In-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 如何在 Linux 中验证 ISO 镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] 在 Linux 中运行特定命令而无需 sudo 密码</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/&title=《[翻译] Linux 中改变主机名的 4 种方法》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/&title=《[翻译] Linux 中改变主机名的 4 种方法》 — FLC&source=
+介绍如何修改主机名。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Linux 中改变主机名的 4 种方法》 — FLC&url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKklEQVR42u3ay07rUAwFUP7/p7kSI6QLYW87ldrTlVEFbXKWM7D8+PiIr8+v6/vn79f/38nvljwl/9XNFzY2NvaLsD8vr98OdP3b66P/9v3rUyXhSCzY2NjYp7Jn6WQWrFlQ2s9/GLGxsbHfkp2EY5Ya8//m58TGxsbG3hQAeaJKwtcWKtjY2NjvyZ6lmfa4s5Lj+v4P76VhY2NjPz17Nuh9zs8Pn29jY2NjPxn7s7zahHFdluRlw+bpPzwRGxsb+yB28pikPXRXqmvb/e1CTxFdbGxs7Jdlz0KQp67ZCHmf9n74CzY2NvYR7DxRJQPahNoWKm0qjc6DjY2NfRy7/fG+3dOuBOUNqeTlYWNjY5/EbsuPJDnNGJuRc1sIYWNjY5/EztNMOxhI0mFbwOQhi0a82NjY2Eew26S1SWabsfFm9QcbGxv7bHZbcmyaR7PW0mwIgY2NjY29GQy0qa5dDMq/82u4sbGxsY9j582g6wdv7jAbIc9aUdjY2NjvwE6WYPKCIf+8X+6JChVsbGzsQ9n5js9s1aZd7sn/no86sLGxsU9ltyPY2QpODs7Xbm4e9GJjY2O/OLtNG0mDadOQysuMOpViY2NjH8SeHW6TqNrwtVceUGxsbOwz2O3tZuktH83mrah22IyNjY19KjvKb8Hf8+/MloGSdNi+MGxsbOzz2JuFmzbx5EOCtjVWvEhsbGzsg9h5a74tPGbJLA9ZO+7FxsbGPo+9byFtGv2bqWv7wlbxxsbGxn56dr4cs1kD2jPysEa1FzY2NvYbsGfJpk1v+3WfeokHGxsb+yB2277JxwBJOsxXf9rBcN1awsbGxn5Z9iwJRXOGss20uX8bVmxsbOzz2O06Tr5ws0ldswZTlICxsbGxj2Pn12ZBZz+g3bfAsLGxsc9jbw43W9CZBfQ6LSWBG+KxsbGxX4TdJq2kzEgON7vyBPZHcsXGxsY+jn1X0mqXadoA5UPoaGUHGxsb+83YbdGS362tjdoEho2NjY191yh3v75z1/AYGxsb+zx229bPW0VJuz8f1ubl0B8vCRsbG/sg9iMWa+5a5cnD3f4KGxsb+wj2PzpRgwbGkrFUAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 在 Linux 中运行特定命令而无需 sudo 密码 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,sudo">
+    <meta name="description" content="介绍 sudo 的一个高级用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 在 Linux 中运行特定命令而无需 sudo 密码">
+<meta property="og:url" content="https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍 sudo 的一个高级用法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200327083925.jpg">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-1.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-7.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-6.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-4.png">
+<meta property="og:image" content="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-5.png">
+<meta property="article:published_time" content="2019-03-21T14:07:56.000Z">
+<meta property="article:modified_time" content="2020-03-27T00:52:01.237Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="sudo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200327083925.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 在 Linux 中运行特定命令而无需 sudo 密码</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 在 Linux 中运行特定命令而无需 sudo 密码</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-21T14:07:56.000Z" itemprop="datePublished" class="page-time">
+  2019-03-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-Linux-中运行特定命令而无需-sudo-密码"><span class="post-toc-number">1.</span> <span class="post-toc-text">在 Linux 中运行特定命令而无需 sudo 密码</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 在 Linux 中运行特定命令而无需 sudo 密码</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-21 22:07:56" datetime="2019-03-21T14:07:56.000Z"  itemprop="datePublished">2019-03-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍 sudo 的一个高级用法。</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/FSSlc/blogImg/master/img/20200327083925.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<a id="more"></a>
+<p>我有一台部署在 AWS 上的 Ubuntu 系统，在它的里面有一个脚本，这个脚本的原有目的是以一定间隔（准确来说是每隔 1 分钟）去检查某个特定服务是否正在运行，如果这个服务因为某些原因停止了，就自动重启这个服务。但问题是我需要 sudo 权限来开启这个服务。正如你所知道的那样，当我们以 sudo 用户运行命令时，我们应该提供密码，但我并不想这么做，实际上我想做的是以 sudo 用户的身份运行这个服务但无需提供密码。假如你曾经经历过这样的情形，那么我知道一个简单的方法来做到这点。今天，在这个简短的指南中，我将教你如何在类 Unix 的操作系统中运行特定命令而无需 sudo 密码。</p>
+<p>就让我们看看下面的例子吧。</p>
+<pre><code>$ sudo mkdir /ostechnix
+[sudo] password for sk:
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-1.png" alt=""></p>
+<p>正如上面的截图中看到的那样，当我在根目录（ <code>/</code> ）中创建一个名为 <code>ostechnix</code> 的目录时，我需要提供 sudo 密码。每当我们尝试以 sudo 特权执行一个命令时，我们必须输入密码。而在我的预想中，我不想提供 sudo 密码。下面的内容便是我如何在我的 Linux 机子上运行一个 <code>sudo</code> 命令而无需输入密码的过程。</p>
+<h3 id="在-Linux-中运行特定命令而无需-sudo-密码"><a href="#在-Linux-中运行特定命令而无需-sudo-密码" class="headerlink" title="在 Linux 中运行特定命令而无需 sudo 密码"></a>在 Linux 中运行特定命令而无需 sudo 密码</h3><p>基于某些原因，假如你想允许一个用户运行特定命令而无需提供 sudo 密码，则你需要在 <code>sudoers</code> 文件中添加上这个命令。</p>
+<p>假如我想让名为 <code>sk</code> 的用户去执行 <code>mkdir</code> 而无需提供 sudo 密码，下面就让我们看看该如何做到这点。</p>
+<p>使用下面的命令来编辑 <code>sudoers</code> 文件：</p>
+<pre><code>$ sudo visudo
+</code></pre><p>将下面的命令添加到这个文件的最后。</p>
+<pre><code>sk ALL=NOPASSWD:/bin/mkdir
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-7.png" alt=""></p>
+<p>其中 <code>sk</code> 是用户名。根据上面一行的内容，用户 <code>sk</code> 可以从任意终端执行 <code>mkdir</code> 命令而不必输入 sudo 密码。 </p>
+<p>你可以用逗号分隔的值来添加额外的命令（例如 <code>chmod</code> ），正如下面展示的那样。</p>
+<pre><code>sk ALL=NOPASSWD:/bin/mkdir,/bin/chmod
+</code></pre><p>保存并关闭这个文件，然后注销（或重启）你的系统。现在以普通用户 <code>sk</code> 登录，然后试试使用 <code>sudo</code> 来运行这些命令，看会发生什么。</p>
+<pre><code>$ sudo mkdir /dir1
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-6.png" alt=""></p>
+<p>看到了吗？即便我以 sudo 特权运行 <code>mkdir</code> 命令，也不会弹出提示让我输入密码。从现在开始，当用户 <code>sk</code> 运行 <code>mkdir</code> 时，就不必输入 sudo 密码了。</p>
+<p>当运行除了添加到 <code>sudoers</code> 文件之外的命令时，你将被提示输入 sudo 密码。</p>
+<p>让我们用 <code>sudo</code> 来运行另一个命令。</p>
+<pre><code>$ sudo apt update
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-4.png" alt=""></p>
+<p>看到了吗？这个命令将提示我输入 sudo 密码。</p>
+<p>假如你不想让这个命令提示你输入 sudo 密码，请编辑 <code>sudoers</code> 文件：</p>
+<pre><code>$ sudo visudo
+</code></pre><p>像下面这样将 <code>apt</code> 命令添加到 <code>sudoers</code> 文件中：</p>
+<pre><code>sk ALL=NOPASSWD:/bin/mkdir,/usr/bin/apt
+</code></pre><p>你注意到了上面命令中 <code>apt</code> 二进制执行文件的路径与 <code>mkdir</code> 的有所不同吗？是的，你必须提供一个正确的可执行文件路径。要找到任意命令的可执行文件路径，例如这里的 <code>apt</code> ，可以像下面这样使用 <code>whichis</code> 命令来查看：</p>
+<pre><code>$ whereis apt
+apt: /usr/bin/apt /usr/lib/apt /etc/apt /usr/share/man/man8/apt.8.gz
+</code></pre><p>如你所见， <code>apt</code> 命令的可执行文件路径为 <code>/usr/bin/apt</code> ，所以我将这个路径添加到了 <code>sudoers</code> 文件中。</p>
+<p>正如我前面提及的那样，你可以添加任意多个以逗号分隔的命令。一旦你做完添加的动作，保存并关闭你的 <code>sudoers</code> 文件，接着注销，然后重新登录进你的系统。</p>
+<p>现在就检验你是否可以直接运行以 <code>sudo</code> 开头的命令而不必使用密码：</p>
+<pre><code>$ sudo apt update
+</code></pre><p><img src="http://www.ostechnix.com/wp-content/uploads/2017/05/sudo-password-5.png" alt=""></p>
+<p>看到了吗？ <code>apt</code> 命令没有让我输入 sudo 密码，即便我用 <code>sudo</code> 来运行它。</p>
+<p>下面展示另一个例子。假如你想运行一个特定服务，例如 <code>apache2</code> ，那么就添加下面这条命令到 <code>sudoers</code> 文件中：</p>
+<pre><code>sk ALL=NOPASSWD:/bin/mkdir,/usr/bin/apt,/bin/systemctl restart apache2
+</code></pre><p>现在用户 <code>sk</code> 就可以运行 <code>sudo systemctl restart apache</code> 命令而不必输入 sudo 密码了。</p>
+<p>我可以再次让一个特别的命令提醒输入 sudo 密码吗？当然可以！只需要删除添加的命令，注销然后再次登录即可。</p>
+<p>除了这种方法外，你还可以在命令的前面添加 <code>PASSWD:</code> 指令。让我们看看下面的例子：</p>
+<p>在 <code>sudoers</code> 文件中添加或者修改下面的一行：</p>
+<pre><code>sk ALL=NOPASSWD:/bin/mkdir,/bin/chmod,PASSWD:/usr/bin/apt
+</code></pre><p>在这种情况下，用户 <code>sk</code> 可以运行 <code>mkdir</code> 和 <code>chmod</code> 命令而不用输入 sudo 密码。然而，当他运行 <code>apt</code> 命令时，就必须提供 sudo 密码了。</p>
+<p>免责声明：本篇指南仅具有教育意义。在使用这个方法的时候，你必须非常小心。这个命令既可能富有成效但也可能带来摧毁性效果。例如，假如你允许用户执行 <code>rm</code> 命令而不输入 sudo 密码，那么他们可能无意或有意地删除某些重要文件。我警告过你了！</p>
+<p>那么这就是全部的内容了。希望这个能够给你带来帮助。更多精彩内容即将呈现，请保持关注！</p>
+<p>干杯！</p>
+<hr>
+<p>via: <a href="https://www.ostechnix.com/run-particular-commands-without-sudo-password-linux/" target="_blank" rel="noopener">https://www.ostechnix.com/run-particular-commands-without-sudo-password-linux/</a><br>publish: <a href="https://linux.cn/article-10641-1.html" target="_blank" rel="noopener">https://linux.cn/article-10641-1.html</a></p>
+<p>作者：<a href="https://www.ostechnix.com/author/sk/" target="_blank" rel="noopener">SK</a><br>选题：<a href="https://github.com/lujun9972" target="_blank" rel="noopener">lujun9972</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-27T00:52:01.237Z" itemprop="dateUpdated">2020-03-27 08:52:01</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/" target="_blank" rel="external">https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sudo/" rel="tag">sudo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/&title=《[翻译] 在 Linux 中运行特定命令而无需 sudo 密码》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/&title=《[翻译] 在 Linux 中运行特定命令而无需 sudo 密码》 — FLC&source=
+介绍 sudo 的一个高级用法。
+
+
+                
+                    
+                   ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 在 Linux 中运行特定命令而无需 sudo 密码》 — FLC&url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/03/25/Translate-4-Methods-To-Change-The-HostName-In-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] Linux 中改变主机名的 4 种方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/01/04/Translate-McFly-A-Replacement-To-Ctrl-R-Bash-History-Search-Feature/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] McFly：利用神经网络为 Bash 提供历史命令搜索功能</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2018 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/&title=《[翻译] 在 Linux 中运行特定命令而无需 sudo 密码》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/&title=《[翻译] 在 Linux 中运行特定命令而无需 sudo 密码》 — FLC&source=
+介绍 sudo 的一个高级用法。
+
+
+                
+                    
+                   ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 在 Linux 中运行特定命令而无需 sudo 密码》 — FLC&url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2019/03/21/Translate-Run-Particular-Commands-Without-Sudo-Password-In-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPElEQVR42u3aUW6rQBAEQN//0n6/eYrA3bNEgnXxFdkYqLWU8fTs6xUf71/H0btH55+f8/OV31c+evf89QsObGxs7Iew20dMHvTonPb8djkSCzY2Nvau7PPC0Bat84dIFj0vVMMih42Njf3F7LxItNTz8y9uV7CxsbG/nj1rEvK4Km9psLGxsbHzUCmP4/NY6rzU5Vf+wywNGxsb+/bsfCp6/7//ZL6NjY2NfWP2uzzOF2L9au2nhgpsbGzsjdiz1mK2cSdvSGaDiraBwcbGxt6JvRLHtBt32gajLaXJ69jY2Ng7sdcfLi9XCWw2Es6f6r8ODBsbG3s7djugXbl9e8fkCsXdsbGxsTdirwxNkxYl//0/C5WSwOvwytjY2NgbsduQqI3sZ0OF9lNLW3mwsbGxN2UPf+KPClIbP82+hg8DA2xsbOwHsmej3GsXKC9X62BsbGzs/dgrocxsC85so8/69V/temNjY2M/ip3zZuVtvf3IG5t8iw82Njb2Huz8odvhwazlyNue2UjgQweGjY2N/Vj2ytA3Gc3+xcAgL3KHWRo2Njb217BnI4GVuKptM/Iyho2Njb0f+6oAqC2BVy1uPQa4NvfCxsbGvg07v0QeCeXba2YNTF4IP1wfGxsbewv2SoFJlqwNffJSurK1CBsbG3sP9kq4n7cQs7ApH0jUr2NjY2NvxG6LShs2zZYyuWMbbA2nH9jY2NiPYic/8fMyMxvcXjVUiFzY2NjYW7BXCsx5c5IXoVmpm+Vn2NjY2Puxk6ioHfTmpatdjpXtRPWgFxsbG/tR7PUwqB0DtI+btzfJ+djY2Nj7sfN/99cOCaKG4dJ2pRj0YmNjYz+WnYfss2hpNmZoNwNFYwZsbGzs7dhtYzDbypMXquRraBstbGxs7P3Y7/JoI6SVAe1saYp5CDY2NvYW7FkByItWHh4lC902QpfNTLCxsbFvz57FRu2Gm7w5aUOl2aJjY2Nj78fOt8KsDAOSh2vLZ7snBxsbGxu7bWBWNvHM2oxogbCxsbGx4w03s2BoGOjnZQ8bGxt7O/ZKCzEL7tcHA8miX5ClYWNjY9+evdJUtL/t28HAsM24qihiY2Nj3539D/HOaQQr027XAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
