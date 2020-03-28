@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</loc>
+    
+    <lastmod>2020-03-28T07:58:15.702Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fsslc.github.io/2020/03/28/build-seafile-pro-with-onlyoffice-support/</loc>
     
-    <lastmod>2020-03-28T07:47:30.207Z</lastmod>
+    <lastmod>2020-03-28T07:56:26.181Z</lastmod>
     
   </url>
   
@@ -306,13 +313,6 @@
     <loc>https://fsslc.github.io/2018/05/06/Translate-Recursion--dream-within-a-dream/</loc>
     
     <lastmod>2020-03-01T16:01:33.799Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</loc>
-    
-    <lastmod>2020-03-01T15:42:43.027Z</lastmod>
     
   </url>
   

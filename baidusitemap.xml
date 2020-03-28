@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</loc>
+    <lastmod>2020-03-28</lastmod>
+  </url>  <url>
     <loc>https://fsslc.github.io/2020/03/28/build-seafile-pro-with-onlyoffice-support/</loc>
     <lastmod>2020-03-28</lastmod>
   </url>  <url>
@@ -131,9 +134,6 @@
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
     <loc>https://fsslc.github.io/2018/05/06/Translate-Recursion--dream-within-a-dream/</loc>
-    <lastmod>2020-03-01</lastmod>
-  </url>  <url>
-    <loc>https://fsslc.github.io/2016/12/15/Build-AFEPack-docker-image/</loc>
     <lastmod>2020-03-01</lastmod>
   </url>  <url>
     <loc>https://fsslc.github.io/2019/12/16/Python-Deals-large-json-file-md/</loc>
