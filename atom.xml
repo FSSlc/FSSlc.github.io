@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fsslc.github.io/"/>
-  <updated>2020-03-21T04:23:31.493Z</updated>
+  <updated>2020-03-28T07:47:30.207Z</updated>
   <id>https://fsslc.github.io/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>构建 Seafile Pro docker 镜像及添加 OnlyOffice 支持</title>
+    <link href="https://fsslc.github.io/2020/03/28/build-seafile-pro-with-onlyoffice-support/"/>
+    <id>https://fsslc.github.io/2020/03/28/build-seafile-pro-with-onlyoffice-support/</id>
+    <published>2020-03-28T04:44:52.000Z</published>
+    <updated>2020-03-28T07:47:30.207Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>主要介绍如何构建 Seafile Pro Docker 镜像以及为它添加 OnlyOffice 的支持。</p></blockquote><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://www.onlyoffice.com/blog/wp-content/uploads/2019/03/onlyoffice_announces_partnership_with_seafile.jpg" alt="seafile+onlyoffice" title="">                </div>                <div class="image-caption">seafile+onlyoffice</div>            </figure><a id="more"></a><h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>按照我一贯的书写风格（其实就是流水话），这里先讲讲为什么要做这个事情，以及后面怎么做的。</p><p>首先最开始接触 Seafile 是在公司北京中心，他们那边用来做内部网盘，分享数据。与那边的 方红杰 认识后，简单了解了是如何部署的。</p><p>接着再去年5月底，因为工作原因，到航发那边部署了相关的环境，例如 CentOS 本地源、Seafile 文件共享服务等，再次进行了 Seafile 的部署，但那个时候还是直接使用 Seafile 的安装包，然后将需要的依赖离线安装好，接着再运行 Seafile 官方提供的一个脚本来进行安装的。</p><p>最后，最近公司内网需要对 Seafile 的内容进行备份，虽然不是我在做，但自己自从上次到航发部署后，老觉得该直接使用 Docker 来进行 Seafile 的部署了。<br>然后就开始了相关的制作。</p><p>另外在 2 月底，因为疫情影响，中心那边想再试试文档协同办公，所以 方红杰 就调查了下，决定用 OnlyOffice 来提供支持，他找了我要相关的安装包。</p><p>于是在那两天的周末，一直在搞这个相关的内容，写这篇博文算是一种记录。</p><p>好了，说好了缘由，下面开始正式开干。</p><h2 id="Seafile-镜像构建"><a href="#Seafile-镜像构建" class="headerlink" title="Seafile 镜像构建"></a>Seafile 镜像构建</h2><p>首先，Seafile 官方在 github 上有个名为 <a href="https://github.com/haiwen/seafile-docker.git" target="_blank" rel="noopener">seafile-docker 仓库</a> 专门用于 Seafile 容器镜像的制作，我的起点也是基于此。</p><p>首先将代码 clone 下来，然后看这些代码的操作。因为先前自己有 Bash 和 Docker 等基础，相对来说，这些内容都不难。</p><p>然后再基于代码中的 Dockerfile 进行自己的定制。</p><h3 id="准备材料"><a href="#准备材料" class="headerlink" title="准备材料"></a>准备材料</h3><p>所谓的定制就是相关的 crack 了。自己能力有限，只能做相关的搬运工作，通过 Google 查到的相关资料如下：</p><p>6 系列版本的 Crack：</p><ul><li><a href="https://www.ittel.cn/archives/2300.html" target="_blank" rel="noopener">破解经历：seafile-pro-6.3.9 破解试用人数上限，开启LADP-解决BUG。</a></li><li><a href="https://www.9nw.cc/post/1653.html" target="_blank" rel="noopener">Seafile Pro 6.3.13 专业版破解方法</a></li><li><a href="https://hurray0.com/menu/117/" target="_blank" rel="noopener">记录一次破解经历：seafile-pro-6.3.9 破解试用人数上限</a></li></ul><p>较新 Seafile 破解：</p><ul><li><a href="https://blog.dmzy.vip/Seafile-License.html" target="_blank" rel="noopener">订阅的 License</a></li><li><a href="https://www.imoke.org/post/20191212157.html" target="_blank" rel="noopener">记CentOS7_1904下安装Seafile7.0.11专业版</a></li></ul><p>docker hub 上相关镜像：</p><ul><li>leeyanzhe/seafile-pro:latest</li><li>leeyanzhe/seafile-pro-mc:7.0.11</li></ul><p>官方相关的资源：</p><ul><li><a href="https://manual-cn-origin.seafile.com/deploy_pro/deploy_with_docker" target="_blank" rel="noopener">官方文档</a></li><li><a href="https://download.seafile.com/d/6e5297246c/?p=/pro" target="_blank" rel="noopener">seafile pro 下载包地址</a></li></ul><p>根据上面这些资源，就可以找到 6 系列版本的安装包以及破解方法。</p><p>老实说，这样搞的确有点不厚道，Seafile 的公司很良心了，在 github 上开源了他们大多数产品的代码和文档，但似乎国内被破解多了，当前他们的客户主要是欧洲那边的了。。。</p><h3 id="修改相关脚本"><a href="#修改相关脚本" class="headerlink" title="修改相关脚本"></a>修改相关脚本</h3><p>参考了上面安装包以及 leeyanzhe/seafile-pro:latest 这个镜像，我们可以将自己准备的材料替换掉原来 seafile-docker 这个仓库中相关的配置以及软件包。</p><p>具体内容请看我 github 上提交的仓库 <a href="https://github.com/FSSlc/docker-seafile-onlyoffice" target="_blank" rel="noopener">FSSlc/docker-seafile-onlyoffice</a>。</p><p>原本 seafile-docker 项目中的镜像分为 base、pro_base、pro_seafile 等几个镜像，其中 base 用来安装基本的环境。</p><p>它使用了 phusion/baseimage:0.11 这个镜像，这个镜像的特点改进了原本 Ubuntu 官方镜像的缺点，使用 runit 来做服务管理，使用 /sbin/my_init 来管理容器内的进行，可以使用自定义的启动脚本，在容器创建后，就可以直接启动它们，关于这个镜像的内容，请参考 <a href="https://github.com/phusion/baseimage-docker" target="_blank" rel="noopener">https://github.com/phusion/baseimage-docker</a> 这个仓库。</p><p>而 pro_base 和 pro_seafile 则分别安装了 seafile 需要的依赖和在此基础上，安装了 seafile 。</p><p>所以一般只需要该 pro_seafile 这个目录里面的东西即可。</p><p>另外，这个仓库还使用了 Makefile 来进行相关任务的管理，这个可以在后面做借鉴。</p><p>我在本地构建镜像时，看到 Makefile 里面有 docker-squash 来对镜像做压缩，使得容器大小最小化，另外还有个特点是让别人不能通过查看镜像反推 Dockerfile 的内容，因为它将中间层全部删除了。</p><p>对于常用的镜像，可以使用 dive 或者 dockerhub 每个镜像 tag 部分的内容来查看 Dockerfile，原理大抵是利用了 docker history。</p><p>我在使用它的时候，自己通过 AUR 安装了 docker-squash，结果老是出错，最后根据网上的讨论，找到了还是需要使用 pip 安装 docker-squash，这个版本的软件才是最好用的。</p><p>做完了这个，后来再看 seafile-docker 里面的 ci 脚本，才知道自己饶了一个大圈，早知道先看他们的 ci 脚本了。。</p><p>接着再按照自己的需求，使用 Makefile 构建自己需要的镜像就好了。</p><h2 id="添加-OnlyOffice-支持"><a href="#添加-OnlyOffice-支持" class="headerlink" title="添加 OnlyOffice 支持"></a>添加 OnlyOffice 支持</h2><p>前面说过，这个 OnlyOffice 的支持主要用于文档的在线编辑，参考文档为 Seafile 的服务器手册，具体内容看<a href="https://manual-cn-origin.seafile.com/deploy_pro/office-wen-jian-yu-lan-he-bian-ji/only_office" target="_blank" rel="noopener">这里</a>。</p><p>这个教程讲解得很清楚，照着做就基本可以用来。</p><p>但恰恰是这个步骤让我折腾了将近 1 天。。。前后出现两个问题：</p><ol><li>如何将相关的配置写入启动的容器中；</li><li>如何支持文件的预览与编辑</li></ol><p>其中第一个问题的解决办法是：直接找到 seafile 中相关配置文件的生成脚本，然后按照自己的需求做对应的修改。<br>对于第二个问题，我部署好后，老是不能编辑 docx 类似的文件，自己却找不到原因，后来才发现是上面的官方文档挖的坑，在[这里(<a href="https://manual-cn-origin.seafile.com/deploy_pro/office-wen-jian-yu-lan-he-bian-ji/only_office#pei-zhi-seafile-fu-wu-1" target="_blank" rel="noopener">https://manual-cn-origin.seafile.com/deploy_pro/office-wen-jian-yu-lan-he-bian-ji/only_office#pei-zhi-seafile-fu-wu-1</a>) 只配置了可以修改 ‘docx’, ‘pptx’, ‘xlsx’ 这几种格式，其实还可以按照上面那行，添加对应的修改就可以了。。。</p><p>做完这个后，为了测试是否可以同时更改，我还创建了多个用户，同时进行修改，最终的结果还算满意，基本达到了自己预期的效果。</p><p>但最后还是留下个问题，编辑文档之前，老是要弹窗，报 onlyoffice 没有配置好，不能保存等，但文档是自动保存的。。</p><h2 id="使用-Travis-CI-进行发布"><a href="#使用-Travis-CI-进行发布" class="headerlink" title="使用 Travis CI 进行发布"></a>使用 Travis CI 进行发布</h2><p>经过了上面的折腾，后面基本上就没有什么要做的了。但作为一个爱动脑子的人，这样还不满足，我再参考了 seafile-docker 原来的 travis.yml 脚本，进行了容器镜像的自动构建和推送。</p><p>具体来说就是如下步骤：</p><ol><li>配置好 travis.yml，如何编写可以查看阮一峰的教程 <a href="https://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html" target="_blank" rel="noopener">持续集成服务 Travis CI 教程</a>；</li><li>申请 travis ci 账号，在 github 上配置好与 Travis ci 的配合；</li><li>提交代码触发构建</li></ol><p>自己前后提交了 5 6 次才最终将这个任务做成功了，看来还是得多测试。。。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在上面的工作做完后，自己再对这些内容做了整理，最终将相关的代码放到了 github 的仓库中，具体是 <a href="https://github.com/FSSlc/docker-seafile-onlyoffice，有兴趣的话可以去看看，能够给个" target="_blank" rel="noopener">https://github.com/FSSlc/docker-seafile-onlyoffice，有兴趣的话可以去看看，能够给个</a> star 就再好不过了。</p><p>虽然本篇博文的内容是 2 月底做的，但现在才写了个文章来总结，看来还是需要自己多书写，多输出。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;主要介绍如何构建 Seafile Pro Docker 镜像以及为它添加 OnlyOffice 的支持。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;image-bubble&quot;&gt;
+                &lt;div class=&quot;img-lightbox&quot;&gt;
+                    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+                    &lt;img src=&quot;https://www.onlyoffice.com/blog/wp-content/uploads/2019/03/onlyoffice_announces_partnership_with_seafile.jpg&quot; alt=&quot;seafile+onlyoffice&quot; title=&quot;&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;image-caption&quot;&gt;seafile+onlyoffice&lt;/div&gt;
+            &lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="容器" scheme="https://fsslc.github.io/categories/%E5%AE%B9%E5%99%A8/"/>
+    
+      <category term="软件" scheme="https://fsslc.github.io/categories/%E5%AE%B9%E5%99%A8/%E8%BD%AF%E4%BB%B6/"/>
+    
+    
+      <category term="Docker" scheme="https://fsslc.github.io/tags/Docker/"/>
+    
+      <category term="Seafile" scheme="https://fsslc.github.io/tags/Seafile/"/>
+    
+      <category term="OnlyOffice" scheme="https://fsslc.github.io/tags/OnlyOffice/"/>
+    
+  </entry>
   
   <entry>
     <title>《Linux 实战技能 100 讲》笔记</title>
