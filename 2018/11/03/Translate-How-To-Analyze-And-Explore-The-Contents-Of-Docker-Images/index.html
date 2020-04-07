@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何分析并探索 Docker 容器镜像的内容 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,dive,docker">
+    <meta name="description" content="介绍使用 dive 来查看 docker 镜像内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何分析并探索 Docker 容器镜像的内容">
+<meta property="og:url" content="https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍使用 dive 来查看 docker 镜像内容。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2018/10/dive-tool-720x340.png">
+<meta property="og:image" content="https://www.ostechnix.com/wp-content/uploads/2018/10/Dive-1.png">
+<meta property="article:published_time" content="2018-11-03T15:46:15.000Z">
+<meta property="article:modified_time" content="2020-04-07T15:54:00.378Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="dive">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ostechnix.com/wp-content/uploads/2018/10/dive-tool-720x340.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何分析并探索 Docker 容器镜像的内容</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何分析并探索 Docker 容器镜像的内容</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-03T15:46:15.000Z" itemprop="datePublished" class="page-time">
+  2018-11-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Dive"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装 Dive</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分析并探索-Docker-镜像的内容"><span class="post-toc-number">2.</span> <span class="post-toc-text">分析并探索 Docker 镜像的内容</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何分析并探索 Docker 容器镜像的内容</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-03 23:46:15" datetime="2018-11-03T15:46:15.000Z"  itemprop="datePublished">2018-11-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍使用 <code>dive</code> 来查看 docker 镜像内容。</p>
+</blockquote>
+<p><img src="https://www.ostechnix.com/wp-content/uploads/2018/10/dive-tool-720x340.png" style="zoom:80%;" /></p>
+<a id="more"></a>
+<p>或许你已经了解到 Docker 容器镜像是一个轻量、独立、含有运行某个应用所需全部软件的可执行包，这也是为什么容器镜像会经常被开发者用于构建和分发应用。假如你很好奇一个 Docker 镜像里面包含了什么东西，那么这篇简要的指南或许会帮助到你。今天，我们将学会使用一个名为 <strong>Dive</strong> 的工具来分析和探索 Docker 镜像每层的内容。</p>
+<p>通过分析 Docker 镜像，我们可以发现在各个层之间可能重复的文件并通过移除它们来减小 Docker 镜像的大小。Dive 工具不仅仅是一个 Docker 镜像分析工具，它还可以帮助我们来构建镜像。Dive 是一个用 Go 编程语言编写的自由开源工具。</p>
+<h3 id="安装-Dive"><a href="#安装-Dive" class="headerlink" title="安装 Dive"></a>安装 Dive</h3><p>首先从该项目的 <a href="https://github.com/wagoodman/dive/releases" target="_blank" rel="noopener">发布页</a> 下载最新版本，然后像下面展示的那样根据你所使用的发行版来安装它。</p>
+<p>假如你正在使用 <strong>Debian</strong> 或者 <strong>Ubuntu</strong>，那么可以运行下面的命令来下载并安装它。</p>
+<pre><code class="lang-bash">$ wget https://github.com/wagoodman/dive/releases/download/v0.0.8/dive_0.0.8_linux_amd64.deb
+</code></pre>
+<pre><code class="lang-bash">$ sudo apt install ./dive_0.0.8_linux_amd64.deb
+</code></pre>
+<p><strong>在 RHEL 或 CentOS 系统中</strong></p>
+<pre><code class="lang-bash">$ wget https://github.com/wagoodman/dive/releases/download/v0.0.8/dive_0.0.8_linux_amd64.rpm
+</code></pre>
+<pre><code class="lang-bash">$ sudo rpm -i dive_0.0.8_linux_amd64.rpm
+</code></pre>
+<p>Dive 也可以使用 <a href="https://www.ostechnix.com/linuxbrew-common-package-manager-linux-mac-os-x/" target="_blank" rel="noopener">Linuxbrew</a> 包管理器来安装。</p>
+<pre><code class="lang-bash">$ brew tap wagoodman/dive
+</code></pre>
+<pre><code class="lang-bash">$ brew install dive
+</code></pre>
+<p>至于其他的安装方法，请参考 <a href="https://github.com/wagoodman/dive" target="_blank" rel="noopener">Dive 项目的 GitHub 网页</a>。</p>
+<h3 id="分析并探索-Docker-镜像的内容"><a href="#分析并探索-Docker-镜像的内容" class="headerlink" title="分析并探索 Docker 镜像的内容"></a>分析并探索 Docker 镜像的内容</h3><p>要分析一个 Docker 镜像，只需要运行加上 Docker 镜像 ID 的 <code>dive</code> 命令就可以了。你可以使用 <code>sudo docker images</code> 来得到 Docker 镜像的 ID。</p>
+<pre><code class="lang-bash">$ sudo dive ea4c82dcd15a
+</code></pre>
+<p>上面命令中的 <code>ea4c82dcd15a</code> 是某个镜像的 ID。</p>
+<p>然后 <code>dive</code> 命令将快速地分析给定 Docker 镜像的内容并将它在终端中展示出来。</p>
+<p><img src="https://www.ostechnix.com/wp-content/uploads/2018/10/Dive-1.png" style="zoom:80%;" /></p>
+<p>正如你在上面的截图中看到的那样，在终端的左边一栏列出了给定 Docker 镜像的各个层及其详细内容，浪费的空间大小等信息。右边一栏则给出了给定 Docker 镜像每一层的内容。你可以使用 <code>Ctrl+空格</code> 来在左右栏之间切换，使用 <code>UP</code> / <code>DOWN</code> 光标键来在目录树中进行浏览。</p>
+<p>下面是 <code>dive</code> 的快捷键列表：</p>
+<ul>
+<li><code>Ctrl+空格</code> —— 在左右栏之间切换</li>
+<li><code>空格</code> —— 展开或收起目录树</li>
+<li><code>Ctrl+A</code> —— 文件树视图：展示或隐藏增加的文件</li>
+<li><code>Ctrl+R</code> —— 文件树视图：展示或隐藏被移除的文件</li>
+<li><code>Ctrl+M</code> —— 文件树视图：展示或隐藏被修改的文件</li>
+<li><code>Ctrl+U</code> —— 文件树视图：展示或隐藏未修改的文件</li>
+<li><code>Ctrl+L</code> —— 层视图：展示当前层的变化</li>
+<li><code>Ctrl+A</code> —— 层视图：展示总的变化</li>
+<li><code>Ctrl+/</code> —— 筛选文件</li>
+<li><code>Ctrl+C</code> —— 退出</li>
+</ul>
+<p>在上面的例子中，我使用了 <code>sudo</code> 权限，这是因为我的 Docker 镜像存储在 <code>/var/lib/docker/</code> 目录中。假如你的镜像保存在你的家目录 （ <code>$HOME</code> ）或者在其他不属于 <code>root</code> 用户的目录，你就没有必要使用 <code>sudo</code> 命令。</p>
+<p>你还可以使用下面的单个命令来构建一个 Docker 镜像并立刻分析该镜像：</p>
+<pre><code class="lang-bash">$ dive build -t &lt;some-tag&gt;
+</code></pre>
+<p>Dive 工具仍处于 beta 阶段，所以可能会存在 bug。假如你遇到了 bug，请在该项目的 GitHub 主页上进行报告。</p>
+<p>好了，这就是今天的全部内容。现在你知道如何使用 Dive 工具来探索和分析 Docker 容器镜像的内容以及利用它构建镜像。希望本文对你有所帮助。</p>
+<p>更多精彩内容即将呈现，请保持关注！</p>
+<p>干杯！</p>
+<hr>
+<p>via: <a href="https://www.ostechnix.com/how-to-analyze-and-explore-the-contents-of-docker-images/" target="_blank" rel="noopener">https://www.ostechnix.com/how-to-analyze-and-explore-the-contents-of-docker-images/</a><br>publish: <a href="https://linux.cn/article-10190-1.html" target="_blank" rel="noopener">https://linux.cn/article-10190-1.html</a></p>
+<p>作者：<a href="https://www.ostechnix.com/author/sk/" target="_blank" rel="noopener">SK</a><br>选题：<a href="https://github.com/lujun9972" target="_blank" rel="noopener">lujun9972</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-07T15:54:00.378Z" itemprop="dateUpdated">2020-04-07 23:54:00</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/" target="_blank" rel="external">https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dive/" rel="tag">dive</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/&title=《[翻译] 如何分析并探索 Docker 容器镜像的内容》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/&title=《[翻译] 如何分析并探索 Docker 容器镜像的内容》 — FLC&source=
+介绍使用 dive 来查看 docker 镜像内容。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何分析并探索 Docker 容器镜像的内容》 — FLC&url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/04/Translate-How-To-Find-The-Mounted-Filesystem-Type-In-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 如何在 Linux 中查看已挂载的文件系统类型</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/02/Translate-A-Cross-platform-High-quality-GIF-Encoder/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] Gifski：一个跨平台的高质量 GIF 编码器</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2015 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/&title=《[翻译] 如何分析并探索 Docker 容器镜像的内容》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/&title=《[翻译] 如何分析并探索 Docker 容器镜像的内容》 — FLC&source=
+介绍使用 dive 来查看 docker 镜像内容。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何分析并探索 Docker 容器镜像的内容》 — FLC&url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2018/11/03/Translate-How-To-Analyze-And-Explore-The-Contents-Of-Docker-Images/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADOklEQVR42u3aS47qShAEUPa/6X7T+4SAiCy31E6OR8gyrjrFIMnP4xFfP/9c7+8/f37+1vv3P1/Pb37+7uM3LmxsbOybsPMlc16y9dn7832+egYbGxt7K/t9YHgVuhJkEoraQ8/3+fI+NjY29tezk1fnB5GvnvwA2NjY2Nj5Ym06kdR22rdhY2NjY7el+Vkz4H3omjUS2vITNjY29lZ23hX9+59/pb+NjY2N/YfZP+WVhJA2dLU7uUCBjY2NvYjdlv5nZaY2IWnD52z/2NjY2N/DzotNSdM3H+U5Lw99eBIbGxt7KXs2LpkHoVnYu+qwXgYwbGxs7NuyZ2EmX6xtAM9CV746NjY29lZ2G5zygNcGs1nLOTkgbGxs7K3sfOuzMDYrNrVHPGs/Y2NjY29it+3eWdvgpAE8axJHyQw2Njb2zdlFIaZMJK4qKuWhrlgXGxsbexG7+MtehpP2IK4qMBXvx8bGxl7BToJHMiLTDuicjPjkkejDjBI2Njb2InaeHuRFopOEJG9C5OWq/33GxsbGXsROBl/alCM/iJad7KpoPGBjY2OvYJ+kGbPtnpT725bGyxWxsbGxV7PbSZ92PigvErXBqWgzYGNjYy9it2lD+2ReHkp+gLbM9KGkhY2Njb2I3Rb0rw0wecA7Sj9O5omwsbGxb8LO05KT5GEWupIyVvsDYGNjY29it0EibwC06UoSzGYlqjpWY2NjY9+E3W40adPmzeA25chX/3CI2NjY2IvYs+VnhafzQNiOEH04IGxsbOwV7LZBm5fvr0oq2hWjtAcbGxt7ETsv8eQtgTY9mA0JzZ5/5OeKjY2NfSv2SQCYJScnDYb8+ajRi42Njb2UXdelDjaXJy1tOzlqD2BjY2OvZrfN3aTZcL5iG7peJirY2NjYK9g/5ZVjTt5wcohRkxgbGxt7EfukeZBvetambVOOdnwHGxsbexP72pBzXtDPx3fa5jE2Njb2bnZbQjpJIa4q+l9QS8PGxsb+SvZJ6SdJQtpBomGIxcbGxv5i9vtttfevDVFFIoSNjY29jp0PQV676SQtyVu5v1JLw8bGxv7z7Loc8/Z+clhtc7cNh/mhYGNjY9+c/R+NsXLeKOKDygAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

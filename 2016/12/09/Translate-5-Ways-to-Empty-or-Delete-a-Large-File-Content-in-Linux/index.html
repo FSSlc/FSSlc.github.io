@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] Linux 下清空或删除大文件内容的 5 种方法 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,清空大文件">
+    <meta name="description" content="介绍几种清空或者删除大文件内容的方法。   在 Linux 终端下处理文件时，有时我们想直接清空文件的内容但又不必使用任何 Linux 命令行编辑器 去打开这些文件。那怎样才能达到这个目的呢？在这篇文章中，我们将介绍几种借助一些实用的命令来清空文件内容的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] Linux 下清空或删除大文件内容的 5 种方法">
+<meta property="og:url" content="https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍几种清空或者删除大文件内容的方法。   在 Linux 终端下处理文件时，有时我们想直接清空文件的内容但又不必使用任何 Linux 命令行编辑器 去打开这些文件。那怎样才能达到这个目的呢？在这篇文章中，我们将介绍几种借助一些实用的命令来清空文件内容的方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201612/08/195853w24pcumpmsb4ccm4.jpg">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-Large-File-in-Linux.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-Large-File-Using-Linux-Commands.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-cat-Command.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Content-Using-cp-Command.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Content-Using-dd-Command.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-echo-Command.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-Null-Redirect.png">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/12/Truncate-File-Content-in-Linux.png">
+<meta property="article:published_time" content="2016-12-09T00:53:00.000Z">
+<meta property="article:modified_time" content="2020-04-07T16:20:27.870Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="清空大文件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201612/08/195853w24pcumpmsb4ccm4.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] Linux 下清空或删除大文件内容的 5 种方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] Linux 下清空或删除大文件内容的 5 种方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-12-09T00:53:00.000Z" itemprop="datePublished" class="page-time">
+  2016-12-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-通过重定向到-Null-来清空文件内容"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 通过重定向到 Null 来清空文件内容</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-使用-‘true’-命令重定向来清空文件"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 使用 ‘true’ 命令重定向来清空文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-使用-cat-cp-dd-实用工具及-dev-null-设备来清空文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. 使用 cat &#x2F; cp &#x2F; dd 实用工具及 &#x2F;dev&#x2F;null 设备来清空文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-使用-echo-命令清空文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. 使用 echo 命令清空文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-使用-truncate-命令来清空文件内容"><span class="post-toc-number">5.</span> <span class="post-toc-text">5. 使用 truncate 命令来清空文件内容</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] Linux 下清空或删除大文件内容的 5 种方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-12-09 08:53:00" datetime="2016-12-09T00:53:00.000Z"  itemprop="datePublished">2016-12-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍几种清空或者删除大文件内容的方法。</p>
+</blockquote>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201612/08/195853w24pcumpmsb4ccm4.jpg" style="zoom:80%;" /></p>
+<p>在 Linux 终端下处理文件时，有时我们想直接清空文件的内容但又不必使用任何 <a href="http://www.tecmint.com/linux-command-line-editors/" target="_blank" rel="noopener"><strong>Linux 命令行编辑器</strong></a> 去打开这些文件。那怎样才能达到这个目的呢？在这篇文章中，我们将介绍几种借助一些实用的命令来清空文件内容的方法。</p>
+<a id="more"></a>
+<p><strong>注意：</strong>在我们进一步深入了解这些方法之前，请记住: 由于<a href="http://www.tecmint.com/explanation-of-everything-is-a-file-and-types-of-files-in-linux/" target="_blank" rel="noopener"><strong>在 Linux 中一切皆文件</strong></a>，你需要时刻注意，确保你将要清空的文件不是重要的用户文件或者系统文件。清空重要的系统文件或者配置文件可能会引发严重的应用失败或者系统错误。</p>
+<p>前面已经说道，下面的这些方法都是从命令行中达到清空文件的目的。</p>
+<p><strong>提示：</strong>在下面的示例中，我们将使用名为 <code>access.log</code> 的文件来作为示例样本。</p>
+<h3 id="1-通过重定向到-Null-来清空文件内容"><a href="#1-通过重定向到-Null-来清空文件内容" class="headerlink" title="1. 通过重定向到 Null 来清空文件内容"></a>1. 通过重定向到 Null 来清空文件内容</h3><p>清空或者让一个文件成为空白的最简单方式，是像下面那样，通过 shell 重定向 <code>null</code> （不存在的事物）到该文件：</p>
+<pre><code class="lang-bash"># &gt; access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-Large-File-in-Linux.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-Large-File-in-Linux.png" alt="在 Linux 下使用 Null 重定向来清空大文件" title="">
+                </div>
+                <div class="image-caption">在 Linux 下使用 Null 重定向来清空大文件</div>
+            </figure></a></p>
+<h3 id="2-使用-‘true’-命令重定向来清空文件"><a href="#2-使用-‘true’-命令重定向来清空文件" class="headerlink" title="2. 使用 ‘true’ 命令重定向来清空文件"></a>2. 使用 ‘true’ 命令重定向来清空文件</h3><p>下面我们将使用 <code>:</code> 符号，它是 shell 的一个内置命令，等同于 <code>true</code> 命令，它可被用来作为一个 no-op（即不进行任何操作）。</p>
+<p>另一种清空文件的方法是将 <code>:</code> 或者 <code>true</code> 内置命令的输出重定向到文件中，具体如下：</p>
+<pre><code class="lang-bash"># : &gt; access.log
+或
+# true &gt; access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-Large-File-Using-Linux-Commands.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-Large-File-Using-Linux-Commands.png" alt="使用 Linux 命令清空大文件" title="">
+                </div>
+                <div class="image-caption">使用 Linux 命令清空大文件</div>
+            </figure></a></p>
+<h3 id="3-使用-cat-cp-dd-实用工具及-dev-null-设备来清空文件"><a href="#3-使用-cat-cp-dd-实用工具及-dev-null-设备来清空文件" class="headerlink" title="3. 使用 cat / cp / dd 实用工具及 /dev/null 设备来清空文件"></a>3. 使用 <code>cat</code> / <code>cp</code> / <code>dd</code> 实用工具及 <code>/dev/null</code> 设备来清空文件</h3><p>在 Linux 中， <code>null</code> 设备基本上被用来丢弃某个进程不再需要的输出流，或者作为某个输入流的空白文件，这些通常可以利用重定向机制来达到。</p>
+<p>所以 <code>/dev/null</code> 设备文件是一个特殊的文件，它将清空送到它这里来的所有输入，而它的输出则可被视为一个空文件。</p>
+<p>另外，你可以通过使用 <a href="http://www.tecmint.com/13-basic-cat-command-examples-in-linux/" target="_blank" rel="noopener"><strong>cat 命令</strong></a> 显示 <code>/dev/null</code> 的内容然后重定向输出到某个文件，以此来达到清空该文件的目的。</p>
+<pre><code class="lang-bash"># cat /dev/null &gt; access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-cat-Command.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-cat-Command.png" alt="使用 cat 命令来清空文件" title="">
+                </div>
+                <div class="image-caption">使用 cat 命令来清空文件</div>
+            </figure></a></p>
+<p>下面，我们将使用 <a href="http://www.tecmint.com/progress-monitor-check-progress-of-linux-commands/" target="_blank" rel="noopener"><strong>cp 命令</strong></a> 复制 <code>/dev/null</code> 的内容到某个文件来达到清空该文件的目的，具体如下所示：</p>
+<pre><code class="lang-bash"># cp /dev/null access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Content-Using-cp-Command.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Content-Using-cp-Command.png" alt="使用 cp 命令来清空文件" title="">
+                </div>
+                <div class="image-caption">使用 cp 命令来清空文件</div>
+            </figure></a></p>
+<p>而下面的命令中， <code>if</code> 代表输入文件， <code>of</code> 代表输出文件。</p>
+<pre><code class="lang-bash"># dd if=/dev/null of=access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Content-Using-dd-Command.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Content-Using-dd-Command.png" alt="使用 dd 命令来清空文件内容" title="">
+                </div>
+                <div class="image-caption">使用 dd 命令来清空文件内容</div>
+            </figure></a></p>
+<h3 id="4-使用-echo-命令清空文件"><a href="#4-使用-echo-命令清空文件" class="headerlink" title="4. 使用 echo 命令清空文件"></a>4. 使用 echo 命令清空文件</h3><p>在这里，你可以使用 <a href="http://www.tecmint.com/echo-command-in-linux/" target="_blank" rel="noopener"><strong>echo 命令</strong></a> 将空字符串的内容重定向到文件中，具体如下：</p>
+<pre><code class="lang-bash"># echo &quot;&quot; &gt; access.log
+或者
+# echo &gt; access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-echo-Command.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-echo-Command.png" alt="使用 echo 命令来清空文件" title="">
+                </div>
+                <div class="image-caption">使用 echo 命令来清空文件</div>
+            </figure></a></p>
+<p><strong>注意：</strong>你应该记住空字符串并不等同于 <code>null</code> 。字符串表明它是一个具体的事物，只不过它的内容可能是空的，但 <code>null</code> 则意味着某个事物并不存在。</p>
+<p>基于这个原因，当你将 <a href="http://www.tecmint.com/echo-command-in-linux/" target="_blank" rel="noopener">echo 命令</a> 的输出作为输入重定向到文件后，使用 <a href="http://www.tecmint.com/13-basic-cat-command-examples-in-linux/" target="_blank" rel="noopener">cat 命令</a> 来查看该文件的内容时，你将看到一个空白行（即一个空字符串）。</p>
+<p>要将 null 做为输出输入到文件中，你应该使用 <code>-n</code> 选项，这个选项将告诉 echo 不再像上面的那个命令那样输出结尾的那个新行。</p>
+<pre><code class="lang-bash"># echo -n &quot;&quot; &gt; access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-Null-Redirect.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Empty-File-Using-Null-Redirect.png" alt="使用 Null 重定向来清空文件" title="">
+                </div>
+                <div class="image-caption">使用 Null 重定向来清空文件</div>
+            </figure></a></p>
+<h3 id="5-使用-truncate-命令来清空文件内容"><a href="#5-使用-truncate-命令来清空文件内容" class="headerlink" title="5. 使用 truncate 命令来清空文件内容"></a>5. 使用 truncate 命令来清空文件内容</h3><p><code>truncate</code> 可被用来<a href="http://www.tecmint.com/parted-command-to-create-resize-rescue-linux-disk-partitions/" target="_blank" rel="noopener"><strong>将一个文件缩小或者扩展到某个给定的大小</strong></a>。</p>
+<p>你可以利用它和 <code>-s</code> 参数来特别指定文件的大小。要清空文件的内容，则在下面的命令中将文件的大小设定为 0:</p>
+<pre><code class="lang-bash"># truncate -s 0 access.log
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2016/12/Truncate-File-Content-in-Linux.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2016/12/Truncate-File-Content-in-Linux.png" alt="在 Linux 中截断文件内容" title="">
+                </div>
+                <div class="image-caption">在 Linux 中截断文件内容</div>
+            </figure></a></p>
+<p>我要介绍的就是这么多了。在本文中，我们介绍了几种通过使用一些简单的命令行工具和 shell 重定向机制来清除或清空文件内容的方法。</p>
+<p>上面介绍的这些可能并不是达到清空文件内容这个目的的所有可行的实践方法，所以你也可以通过下面的评论栏告诉我们本文中尚未提及的其他方法。</p>
+<hr>
+<p>via: <a href="http://www.tecmint.com/empty-delete-file-content-linux/" target="_blank" rel="noopener">http://www.tecmint.com/empty-delete-file-content-linux/</a><br>publish: <a href="https://linux.cn/article-8024-1.html" target="_blank" rel="noopener">https://linux.cn/article-8024-1.html</a></p>
+<p>作者：<a href="http://www.tecmint.com/author/aaronkili/" target="_blank" rel="noopener">Aaron Kili</a><br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/jasminepeng" target="_blank" rel="noopener">jasminepeng</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-07T16:20:27.870Z" itemprop="dateUpdated">2020-04-08 00:20:27</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/" target="_blank" rel="external">https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%85%E7%A9%BA%E5%A4%A7%E6%96%87%E4%BB%B6/" rel="tag">清空大文件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/&title=《[翻译] Linux 下清空或删除大文件内容的 5 种方法》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/&title=《[翻译] Linux 下清空或删除大文件内容的 5 种方法》 — FLC&source=
+介绍几种清空或者删除大文件内容的方法。
+
+
+在 Linux 终端下处理文件时，有时我们想直接清空文件的内容但又不必使用任何 Linux 命令行编辑器 去..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Linux 下清空或删除大文件内容的 5 种方法》 — FLC&url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/12/15/Build-AFEPack-docker-image/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用 docker 构建 AFEPack 镜像</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/08/06/Translate-bc-Command-line-calculator/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[翻译] bc : 一个命令行计算器</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2015 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/&title=《[翻译] Linux 下清空或删除大文件内容的 5 种方法》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/&title=《[翻译] Linux 下清空或删除大文件内容的 5 种方法》 — FLC&source=
+介绍几种清空或者删除大文件内容的方法。
+
+
+在 Linux 终端下处理文件时，有时我们想直接清空文件的内容但又不必使用任何 Linux 命令行编辑器 去..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] Linux 下清空或删除大文件内容的 5 种方法》 — FLC&url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2016/12/09/Translate-5-Ways-to-Empty-or-Delete-a-Large-File-Content-in-Linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLElEQVR42u3aUa7iMBAEQO5/afYATwndY69ETOULQUhSzsdoevx6xcf74ngtH1fX+XuXq/vuehJsbGzs57Lft0d7y/szc2S+6FfP+eElYWNjYx/Hvi8tu3hJGWuvfP+cl99jY2NjY49KWlJ48n9hY2NjY8/YSbuyHjwly4SNjY2N3YZKeauwN1Rql2NzloaNjY399exZ6POdn//LfBsbGxv7i9nv8mgD/bxFmT3DUIGNjY19EDsvALOtPG3jsRJvtQ0MNjY29nnsdsi6Ut7yz20pTb7HxsbGPpXdRkuzM2fbg2bjhw2tCDY2NvZD2G1TcV+QZkPclWHt/ZNgY2Nj/wK7HaC2zcNs883KHaNCi42NjX0EOx+7tsVstjT5r3kLNKzV2NjY2A9ht6PZdqNM1APFhXM9QirePDY2Nvaj2DkgbyR2XXPvqPg1e2/Y2NjYX8xebxJmJaQdGM8W4rIoYmNjYx/N3lU28m06s/8unYONjY19HLsNfWabZlbCoNnLuPwVGxsb+yB2PgBoG5JkYLxSTVr2h0QNGxsb+7HsNsSfbanJo5+VYllsHsLGxsY+iL0yJEiq4qzJmd391R7Y2NjYP8NOwp0Pwc1oiZOlyYfB9cYdbGxs7Iew28LTxj3r44GVM6NQCRsbG/sI9mwzzWwbTR5g5WPdumnBxsbGPojdRkV5hLSyuXNvqHT5KzY2NvYR7FnEkz/6bEiQlM+8QfrQimBjY2MfxJ6FROux0cpIeLgo2NjY2D/AzjfTJA3GbCnbYlacg42NjX0Qe/a47Xh1L2A2lih6KWxsbOwHslfCo7bs5aWxCIlmLxUbGxv7OHY+Xk3K1QyTXy2pSh+WGxsbG/s4dvu5LWl5kLSraBV1GxsbG/ux7Hd5tMVpFmOtBFhR2cPGxsY+iD17xDz0aRmzJV7fpomNjY39dHZStFYGunlbMuMNFwUbGxv7OHYStSdFog2G2tC/DaQuv8HGxsb+YfZskDCLjXY9Q7Qq2NjY2D/Dvi9CbRvTLlabil02KtjY2NjHsfOGYVaQVjbl7NrEiY2NjX0qOy8Ds4ZhPVpKXkDSqGBjY2Mfx/4HcGsrJggsoN0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
