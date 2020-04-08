@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 那些奇特的 Linux 发行版本 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,翻译,发行版">
+    <meta name="description" content="介绍一些奇特的 Linux 发行版。  从大多数消费者所关注的诸如 Ubuntu，Fedora，Mint 或 elementary OS 到更加复杂、轻量级和企业级的诸如 Slackware，Arch Linux 或 RHEL，这些发行版本我都已经见识过了。除了这些，难道没有其他别的了吗？其实 Linux 的生态系统是非常多样化的，对每个人来说，总有一款适合你。下面就让我们讨论一些稀奇古怪的小众">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 那些奇特的 Linux 发行版本">
+<meta property="og:url" content="https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍一些奇特的 Linux 发行版。  从大多数消费者所关注的诸如 Ubuntu，Fedora，Mint 或 elementary OS 到更加复杂、轻量级和企业级的诸如 Slackware，Arch Linux 或 RHEL，这些发行版本我都已经见识过了。除了这些，难道没有其他别的了吗？其实 Linux 的生态系统是非常多样化的，对每个人来说，总有一款适合你。下面就让我们讨论一些稀奇古怪的小众">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://2.bp.blogspot.com/--cSL2-6rIgA/VcwNc5hFebI/AAAAAAAAJzk/AgB55mVtJVQ/s1600/Puppy-Linux.png">
+<meta property="og:image" content="http://3.bp.blogspot.com/-dfeehRIQKpo/VdMgRVQqIJI/AAAAAAAAJz0/TmBs-n2K9J8/s1600/suicide-linux.jpg">
+<meta property="og:image" content="http://3.bp.blogspot.com/-Q0hlEMCD9-o/VdMieAiXY1I/AAAAAAAAJ0M/iS_ZjVaZAk8/s1600/papyros.png">
+<meta property="og:image" content="http://3.bp.blogspot.com/-8aOtnTp3Yxk/VdMo_KWs4sI/AAAAAAAAJ0o/3NTqhaw60jM/s1600/qubes-linux.png">
+<meta property="og:image" content="http://3.bp.blogspot.com/-2Sqvb_lilC0/VdMq_ceoXnI/AAAAAAAAJ00/kot20ugVJFk/s1600/ubuntu-satanic.jpg">
+<meta property="og:image" content="http://2.bp.blogspot.com/-ZtIVjGMqdx0/VdMv136Pz1I/AAAAAAAAJ1E/-q34j-TXyUY/s1600/tiny-core-linux.png">
+<meta property="og:image" content="http://4.bp.blogspot.com/-idmCvIxtxeo/VdcqcggBk1I/AAAAAAAAJ1U/DTQCkiLqlLk/s1600/nixos.png">
+<meta property="og:image" content="http://4.bp.blogspot.com/-rOYfBXg-UiU/VddCF7w_xuI/AAAAAAAAJ1w/Nf11bOheOwM/s1600/gobolinux.jpg">
+<meta property="og:image" content="http://1.bp.blogspot.com/-3P22pYfih6Y/VdcucPOv4LI/AAAAAAAAJ1g/PszZDbe83sQ/s1600/hannah-montana-linux.jpg">
+<meta property="article:published_time" content="2015-11-13T00:10:58.000Z">
+<meta property="article:modified_time" content="2020-04-08T14:17:40.800Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="发行版">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://2.bp.blogspot.com/--cSL2-6rIgA/VcwNc5hFebI/AAAAAAAAJzk/AgB55mVtJVQ/s1600/Puppy-Linux.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 那些奇特的 Linux 发行版本</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 那些奇特的 Linux 发行版本</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-11-13T00:10:58.000Z" itemprop="datePublished" class="page-time">
+  2015-11-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Puppy-Linux"><span class="post-toc-number">1.</span> <span class="post-toc-text">Puppy Linux</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Suicide-Linux-自杀-Linux"><span class="post-toc-number">2.</span> <span class="post-toc-text">Suicide Linux(自杀 Linux)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PapyrOS"><span class="post-toc-number">3.</span> <span class="post-toc-text">PapyrOS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Qubes-OS"><span class="post-toc-number">4.</span> <span class="post-toc-text">Qubes OS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ubuntu-Satanic-Edition"><span class="post-toc-number">5.</span> <span class="post-toc-text">Ubuntu Satanic Edition</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tiny-Core-Linux"><span class="post-toc-number">6.</span> <span class="post-toc-text">Tiny Core Linux</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NixOS"><span class="post-toc-number">7.</span> <span class="post-toc-text">NixOS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GoboLinux"><span class="post-toc-number">8.</span> <span class="post-toc-text">GoboLinux</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hannah-Montana-Linux"><span class="post-toc-number">9.</span> <span class="post-toc-text">Hannah Montana Linux</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RLSD-Linux"><span class="post-toc-number">10.</span> <span class="post-toc-text">RLSD Linux</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-The-Strangest-Most-Unique-Linux-Distros"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 那些奇特的 Linux 发行版本</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-11-13 08:10:58" datetime="2015-11-13T00:10:58.000Z"  itemprop="datePublished">2015-11-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍一些奇特的 Linux 发行版。</p>
+</blockquote>
+<p>从大多数消费者所关注的诸如 Ubuntu，Fedora，Mint 或 elementary OS 到更加复杂、轻量级和企业级的诸如 Slackware，Arch Linux 或 RHEL，这些发行版本我都已经见识过了。除了这些，难道没有其他别的了吗？其实 Linux 的生态系统是非常多样化的，对每个人来说，总有一款适合你。下面就让我们讨论一些稀奇古怪的小众 Linux 发行版本吧，它们代表着开源平台真正的多样性。</p>
+<a id="more"></a>
+<h3 id="Puppy-Linux"><a href="#Puppy-Linux" class="headerlink" title="Puppy Linux"></a>Puppy Linux</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://2.bp.blogspot.com/--cSL2-6rIgA/VcwNc5hFebI/AAAAAAAAJzk/AgB55mVtJVQ/s1600/Puppy-Linux.png" alt="strangest linux distros" title="">
+                </div>
+                <div class="image-caption">strangest linux distros</div>
+            </figure>
+<p>它是一个仅有一个普通 DVD 光盘容量十分之一大小的操作系统，这就是 Puppy Linux。整个操作系统仅有 100MB 大小！并且它还可以从内存中运行，这使得它运行极快，即便是在老式的 PC 机上。 在操作系统启动后，你甚至可以移除启动介质！还有什么比这个更好的吗？ 系统所需的资源极小，大多数的硬件都会被自动检测到，并且它预装了能够满足你基本需求的软件。<a href="http://puppylinux.org/main/Overview%20and%20Getting%20Started.htm" target="_blank" rel="noopener">在这里体验 Puppy Linux 吧</a>.</p>
+<h3 id="Suicide-Linux-自杀-Linux"><a href="#Suicide-Linux-自杀-Linux" class="headerlink" title="Suicide Linux(自杀 Linux)"></a>Suicide Linux(自杀 Linux)</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://3.bp.blogspot.com/-dfeehRIQKpo/VdMgRVQqIJI/AAAAAAAAJz0/TmBs-n2K9J8/s1600/suicide-linux.jpg" alt="suicide linux" title="">
+                </div>
+                <div class="image-caption">suicide linux</div>
+            </figure>
+<p>这个名字吓到你了吗？我想应该是。 ‘任何时候 -注意是任何时候-一旦你远程输入不正确的命令，解释器都会创造性地将它重定向为 <code>rm -rf /</code> 命令，然后擦除你的硬盘’。它就是这么简单。我真的很想知道谁自信到将<a href="http://qntm.org/suicide" target="_blank" rel="noopener">Suicide Linux</a> 安装到生产机上。 <strong>警告：千万不要在生产机上尝试这个！</strong> 假如你感兴趣的话，现在可以通过一个简洁的<a href="http://sourceforge.net/projects/suicide-linux/files/" target="_blank" rel="noopener">DEB 包</a>来获取到它。</p>
+<h3 id="PapyrOS"><a href="#PapyrOS" class="headerlink" title="PapyrOS"></a>PapyrOS</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://3.bp.blogspot.com/-Q0hlEMCD9-o/VdMieAiXY1I/AAAAAAAAJ0M/iS_ZjVaZAk8/s1600/papyros.png" alt="top 10 strangest linux distros" title="">
+                </div>
+                <div class="image-caption">top 10 strangest linux distros</div>
+            </figure>
+<p>它的 “奇怪”是好的方面。PapyrOS 正尝试着将 Android 的 material design 设计语言引入到新的 Linux 发行版本上。尽管这个项目还处于早期阶段，看起来它已经很有前景。该项目的网页上说该系统已经完成了 80%，随后人们可以期待它的第一个 Alpha 发行版本。在该项目被宣告提出时，我们做了 <a href="http://www.techdrivein.com/2015/02/papyros-material-design-linux-coming-soon.html" target="_blank" rel="noopener">PapyrOS</a> 的小幅报道，从它的外观上看，它甚至可能会引领潮流。假如你感兴趣的话，可在 <a href="https://plus.google.com/communities/109966288908859324845/stream/3262a3d3-0797-4344-bbe0-56c3adaacb69" target="_blank" rel="noopener">Google+</a> 上关注该项目并可通过 <a href="https://www.bountysource.com/teams/papyros" target="_blank" rel="noopener">BountySource</a> 来贡献出你的力量。</p>
+<h3 id="Qubes-OS"><a href="#Qubes-OS" class="headerlink" title="Qubes OS"></a>Qubes OS</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://3.bp.blogspot.com/-8aOtnTp3Yxk/VdMo_KWs4sI/AAAAAAAAJ0o/3NTqhaw60jM/s1600/qubes-linux.png" alt="10 most unique linux distros" title="">
+                </div>
+                <div class="image-caption">10 most unique linux distros</div>
+            </figure>
+<p>Qubes 是一个开源的操作系统，其设计通过使用<a href="https://en.wikipedia.org/wiki/Compartmentalization_(information_security)" target="_blank" rel="noopener">安全分级（Security by Compartmentalization）</a>的方法，来提供强安全性。其前提假设是不存在完美的没有 bug 的桌面环境。并通过实现一个‘安全隔离（Security by Isolation）’ 的方法，<a href="https://www.qubes-os.org/" target="_blank" rel="noopener">Qubes Linux</a>试图去解决这些问题。Qubes 基于 Xen、X 视窗系统和 Linux，并可运行大多数的 Linux 应用，支持大多数的 Linux 驱动。Qubes 入选了 Access Innovation Prize 2014 for Endpoint Security Solution 决赛名单。</p>
+<h3 id="Ubuntu-Satanic-Edition"><a href="#Ubuntu-Satanic-Edition" class="headerlink" title="Ubuntu Satanic Edition"></a>Ubuntu Satanic Edition</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://3.bp.blogspot.com/-2Sqvb_lilC0/VdMq_ceoXnI/AAAAAAAAJ00/kot20ugVJFk/s1600/ubuntu-satanic.jpg" alt="top10 linux distros" title="">
+                </div>
+                <div class="image-caption">top10 linux distros</div>
+            </figure>
+<p>Ubuntu SE 是一个基于 Ubuntu 的发行版本。通过一个含有主题、壁纸甚至来源于某些天才新晋艺术家的重金属音乐的综合软件包，“它同时带来了最好的自由软件和免费的金属音乐”  。尽管这个项目看起来不再积极开发了， Ubuntu Satanic Edition 甚至在其名字上都显得奇异。 <a href="http://ubuntusatanic.org/" target="_blank" rel="noopener">Ubuntu SE (Slightly NSFW)</a>。</p>
+<h3 id="Tiny-Core-Linux"><a href="#Tiny-Core-Linux" class="headerlink" title="Tiny Core Linux"></a>Tiny Core Linux</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://2.bp.blogspot.com/-ZtIVjGMqdx0/VdMv136Pz1I/AAAAAAAAJ1E/-q34j-TXyUY/s1600/tiny-core-linux.png" alt="10 strange linux distros" title="">
+                </div>
+                <div class="image-caption">10 strange linux distros</div>
+            </figure>
+<p>Puppy Linux 还不够小？试试这个吧。 Tiny Core Linux 是一个 12MB 大小的图形化 Linux 桌面！是的，你没有看错。一个主要的补充说明：它不是一个完整的桌面，也并不完全支持所有的硬件。它只含有能够启动进入一个非常小巧的 X 桌面，支持有线网络连接的核心部件。它甚至还有一个名为 Micro Core Linux 的没有 GUI 的版本，仅有 9MB 大小。<a href="http://tinycorelinux.net/" target="_blank" rel="noopener">Tiny Core Linux</a>。</p>
+<h3 id="NixOS"><a href="#NixOS" class="headerlink" title="NixOS"></a>NixOS</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://4.bp.blogspot.com/-idmCvIxtxeo/VdcqcggBk1I/AAAAAAAAJ1U/DTQCkiLqlLk/s1600/nixos.png" alt="top 10 unique and special linux distros" title="">
+                </div>
+                <div class="image-caption">top 10 unique and special linux distros</div>
+            </figure>
+<p>它是一个资深用户所关注的 Linux 发行版本，有着独特的打包和配置管理方式。在其他的发行版本中，诸如升级的操作可能是非常危险的。升级一个软件包可能会引起其他包无法使用，而升级整个系统感觉还不如重新安装一个。在那些你不能安全地测试由一个配置的改变所带来的结果的更改之上，它们通常没有“重来”这个选项。在 NixOS 中，整个系统由 Nix 包管理器按照一个纯功能性的构建语言的描述来构建。这意味着构建一个新的配置并不会重写先前的配置。大多数其他的特色功能也遵循着这个模式。Nix 相互隔离地存储所有的软件包。有关 NixOS 的更多内容请看<a href="https://nixos.org/" target="_blank" rel="noopener">这里</a>。</p>
+<h3 id="GoboLinux"><a href="#GoboLinux" class="headerlink" title="GoboLinux"></a>GoboLinux</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://4.bp.blogspot.com/-rOYfBXg-UiU/VddCF7w_xuI/AAAAAAAAJ1w/Nf11bOheOwM/s1600/gobolinux.jpg" alt="strangest linux distros" title="">
+                </div>
+                <div class="image-caption">strangest linux distros</div>
+            </figure>
+<p>这是另一个非常奇特的 Linux 发行版本。它与其他系统如此不同的原因是它有着独特的重新整理的文件系统。它有着自己独特的子目录树，其中存储着所有的文件和程序。GoboLinux 没有专门的包数据库，因为其文件系统就是它的数据库。在某些方面，这类重整有些类似于 OS X 上所看到的功能。</p>
+<h3 id="Hannah-Montana-Linux"><a href="#Hannah-Montana-Linux" class="headerlink" title="Hannah Montana Linux"></a>Hannah Montana Linux</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://1.bp.blogspot.com/-3P22pYfih6Y/VdcucPOv4LI/AAAAAAAAJ1g/PszZDbe83sQ/s1600/hannah-montana-linux.jpg" alt="strangest linux distros" title="">
+                </div>
+                <div class="image-caption">strangest linux distros</div>
+            </figure>
+<p>它是一个基于 Kubuntu 的 Linux 发行版本，它有着汉娜·蒙塔娜（ Hannah Montana） 主题的开机启动界面、KDM(KDE Display Manager)、图标集、ksplash、plasma、颜色主题和壁纸(I’m so sorry)。<a href="http://hannahmontana.sourceforge.net/" target="_blank" rel="noopener">这是它的链接</a>。这个项目现在不再活跃了。</p>
+<h3 id="RLSD-Linux"><a href="#RLSD-Linux" class="headerlink" title="RLSD Linux"></a>RLSD Linux</h3><p>它是一个极其精简、小巧、轻量和安全可靠的，基于 Linux 文本的操作系统。开发者称 “它是一个独特的发行版本，提供一系列的控制台应用和自带的安全特性，对黑客或许有吸引力。” <a href="http://rlsd2.dimakrasner.com/" target="_blank" rel="noopener">RLSD Linux</a>.</p>
+<p>我们还错过了某些更加奇特的发行版本吗？请让我们知晓吧。</p>
+<hr>
+<p>via: <a href="http://www.techdrivein.com/2015/08/the-strangest-most-unique-linux-distros.html" target="_blank" rel="noopener">http://www.techdrivein.com/2015/08/the-strangest-most-unique-linux-distros.html</a><br>publish: <a href="https://linux.cn/article-6572-1.html" target="_blank" rel="noopener">https://linux.cn/article-6572-1.html</a></p>
+<p>作者：Manuel Jose<br>译者：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a><br>校对：<a href="https://github.com/wxy" target="_blank" rel="noopener">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创翻译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-08T14:17:40.800Z" itemprop="dateUpdated">2020-04-08 22:17:40</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/" target="_blank" rel="external">https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%91%E8%A1%8C%E7%89%88/" rel="tag">发行版</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/&title=《[翻译] 那些奇特的 Linux 发行版本》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/&title=《[翻译] 那些奇特的 Linux 发行版本》 — FLC&source=
+介绍一些奇特的 Linux 发行版。
+
+从大多数消费者所关注的诸如 Ubuntu，Fedora，Mint 或 elementary OS 到更加复杂、轻..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 那些奇特的 Linux 发行版本》 — FLC&url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/01/14/Translate-How-to-block-network-traffic-by-country-on-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] 如何在 Linux 中根据国家位置来阻断网络流量</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/11/03/Install-AFEPack-In-Ubuntu/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">在 Ubuntu 中安装 AFEPack</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2015 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/&title=《[翻译] 那些奇特的 Linux 发行版本》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/&title=《[翻译] 那些奇特的 Linux 发行版本》 — FLC&source=
+介绍一些奇特的 Linux 发行版。
+
+从大多数消费者所关注的诸如 Ubuntu，Fedora，Mint 或 elementary OS 到更加复杂、轻..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 那些奇特的 Linux 发行版本》 — FLC&url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2015/11/13/Translate-The-Strangest-Most-Unique-Linux-Distros/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLklEQVR42u3ay24qMRAEUP7/p7nbLMJQ1XauGHO8Qrzs40hp+vF4xOv5Y716/uer1+9/9UzyavKd2xY2Njb2TdjPy/Vqy5X3Jxf66pzJ4+uzYWNjY5/KbrfJg1m+V45JPvVmX2xsbOyvZ68EvzzZuP7OJJnBxsbGxk4KNzkyL1qtXwE2Njb2t7GTIJR83UoYy0tL/7WWho2Njf3x7DzAfP7jP+lvY2NjY38w+1muvAyUJw/tSTYosLGxsQ9i5wFg10/868/uajlHqQ42Njb2cex8EGfWfJ0lGO1FF+kKNjY29hHsNgDMAlueTrR7zS4OGxsb+zx2++HZEM9sWKe9sugk2NjY2Ieyr3+lP0crGe7Z23JOzo+NjY19EntWDLoGPLeuN0lF/Acb3h82Njb2x7PzkLNSoJ8FtuT5YSkKGxsb+zj2rNDfpi5Jj7UNTsOBHmxsbOyD2LuGJleK/m0hqQ2cKwUsbGxs7Luw65GX4Kd/nmzMdmkbvdjY2NinsveO3bSpyOyKZ6WlNyM72NjY2Ddn5w3U6w1a0l8EsOhU2NjY2AexV5KK/HFbx2qbE8OmMjY2NvYR7OG//risszKy0wanpf42NjY29m3Zs4ZuftC8Hbt3x3ZUCBsbG/vu7LwR2248C5NtY2BWFMPGxsY+iT1roObFnVmK0lLzC8LGxsY+m523ZvM2cBJa8mDWDutEuRc2Njb2zdn5OE7bEmjHNGfnydObXzIwbGxs7Juz8/Aza7XuKgwljYf8hNjY2NjnsWeHW2kP50Wfvwiu2NjY2Cex28GaJOy17eEE1rYNHrOFjY2NfVt28oG2HbveGCiqYjMjNjY29nHstkG7Uu6fjQqtB0hsbGzss9k5r91y1qzdG8B+2QUbGxv7CPazXLPmQV4q2pWu1P1tbGxs7NuyZ4dILmVWeEoKW0kzow2T2NjY2HdnzzDrgzuz0Zx2X2xsbOzvYbeBYRbk8sSmvZRhLQ0bGxsbux2UWW4w5C3hYmQHGxsb+4vZ7bHa0ZzHpoWNjY39Dew8YcgBSVEpH6lshzi31dKwsbGxP57dlmN2HT0PWskfILlubGxs7OPY/wCCOrC8uUCnggAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>

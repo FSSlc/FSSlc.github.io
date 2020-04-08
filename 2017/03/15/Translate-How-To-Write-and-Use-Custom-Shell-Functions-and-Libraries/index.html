@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-72031808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>[翻译] 如何编写和使用自定义的 Shell 函数和函数库 | FLC | Wir müssen wissen, wir werden wissen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="翻译,shell,函数">
+    <meta name="description" content="介绍如何编写和使用自定义的 Shell 函数和函数库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[翻译] 如何编写和使用自定义的 Shell 函数和函数库">
+<meta property="og:url" content="https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/index.html">
+<meta property="og:site_name" content="FLC">
+<meta property="og:description" content="介绍如何编写和使用自定义的 Shell 函数和函数库。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201703/15/103818fl34e8all0weu58z.jpg">
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2017/02/Write-Shell-Functions.png">
+<meta property="article:published_time" content="2017-03-15T02:38:28.000Z">
+<meta property="article:modified_time" content="2020-04-08T13:32:27.178Z">
+<meta property="article:author" content="FSSlc">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="shell">
+<meta property="article:tag" content="函数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201703/15/103818fl34e8all0weu58z.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="FLC" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/css/prism/prism-coy.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-list-ul"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">FSSlc</h5>
+          <a href="mailto:fsslc235@gmail.com" title="fsslc235@gmail.com" class="mail">fsslc235@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives/"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/FSSlc" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                代码
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[翻译] 如何编写和使用自定义的 Shell 函数和函数库</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[翻译] 如何编写和使用自定义的 Shell 函数和函数库</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-03-15T02:38:28.000Z" itemprop="datePublished" class="page-time">
+  2017-03-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Shell-脚本要存储在何处"><span class="post-toc-number">1.</span> <span class="post-toc-text">Shell 脚本要存储在何处</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建你自己的-Shell-函数和函数库"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建你自己的 Shell 函数和函数库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何从函数库中调用函数"><span class="post-toc-number">3.</span> <span class="post-toc-text">如何从函数库中调用函数</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[翻译] 如何编写和使用自定义的 Shell 函数和函数库</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-03-15 10:38:28" datetime="2017-03-15T02:38:28.000Z"  itemprop="datePublished">2017-03-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%BF%BB%E8%AF%91/">翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>介绍如何编写和使用自定义的 Shell 函数和函数库。</p>
+</blockquote>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201703/15/103818fl34e8all0weu58z.jpg" style="zoom:80%;" /></p>
+<a id="more"></a>
+<p>在 Linux 系统下，Shell 脚本可以在各种不同的情形下帮到我们，例如展示信息，甚至 <a href="http://www.tecmint.com/using-shell-script-to-automate-linux-system-maintenance-tasks/" target="_blank" rel="noopener">自动执行特定的系统管理任务</a>，创建简单的命令行工具等等。</p>
+<p>在本指南中，我们将向 Linux 新手展示如何可靠地存储自定义的 shell 脚本，解释如何编写 shell 函数和函数库，以及如何在其它的脚本中使用函数库中的函数。</p>
+<h3 id="Shell-脚本要存储在何处"><a href="#Shell-脚本要存储在何处" class="headerlink" title="Shell 脚本要存储在何处"></a>Shell 脚本要存储在何处</h3><p>为了在执行你自己的脚本时不必输入脚本所在位置的完整或绝对路径，脚本必须被存储在 <code>$PATH</code> 环境变量所定义的路径里的其中一个。</p>
+<p>使用下面的命令可以查看你系统中的 <code>$PATH</code> 环境变量：</p>
+<pre><code class="lang-bash">$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+</code></pre>
+<p>通常来说，如果在用户的家目录下存在名为 <code>bin</code> 的目录，你就可以将 shell 脚本存储在那个目录下，因为那个目录会自动地被包含在用户的 <code>$PATH</code> 环境变量中（LCTT 译注：在 Centos 6/7 下是这样的，在 Debian 8 下不是这样的，在 Ubuntu 16.04 下又是这样的)。</p>
+<p>因此，在你的主目录下创建 <code>bin</code> 目录吧（当然这里也可以用来存储 Perl、<a href="http://www.tecmint.com/use-linux-awk-command-to-filter-text-string-in-files/" target="_blank" rel="noopener">Awk</a> 或 Python 的脚本，或者其它程序）：</p>
+<pre><code class="lang-bash">$ mkdir ~/bin
+</code></pre>
+<p>接着，建立一个名为 <code>lib</code> （libraries 的简写）的目录来存放你自己的函数库。你也可以在其中存放其它编程语言的函数库，如 C ，Python 等语言。在 <code>lib</code> 目录下建立另一个名为 <code>sh</code> 的目录，这个目录将被用来存放你的 shell 函数库：</p>
+<pre><code class="lang-bash">$ mkdir -p ~/lib/sh
+</code></pre>
+<h3 id="创建你自己的-Shell-函数和函数库"><a href="#创建你自己的-Shell-函数和函数库" class="headerlink" title="创建你自己的 Shell 函数和函数库"></a>创建你自己的 Shell 函数和函数库</h3><p>一个 <code>shell 函数</code> 就是在脚本中能够完成特定任务的一组命令。它们的工作原理与其他编程语言中的过程（LCTT 译注：可能指的是类似 SQL 中的存储过程之类的吧）、子例程、函数类似。</p>
+<p>编写一个函数的语法如下：</p>
+<pre><code class="lang-bash">函数名() { 一系列的命令 }
+</code></pre>
+<p> ( LCTT 校注：在函数名前可以加上 <code>function</code> 关键字，但也可省略不写）</p>
+<p>例如，你可以像下面那样在一个脚本中写一个用来显示日期的函数：</p>
+<pre><code class="lang-bash">showDATE() {date;}
+</code></pre>
+<p>每当你需要显示日期时，只需调用该函数的函数名即可：</p>
+<pre><code class="lang-bash">$ showDATE
+</code></pre>
+<p>简单来说 shell 函数库也是一个 shell 脚本，不过你可以在一个函数库中仅存储其它 shell 脚本中需要调用的函数。</p>
+<p>下面展示的是在我的 <code>~/lib/sh</code> 目录下一个名为 <code>libMYFUNCS.sh</code> 的库函数：</p>
+<pre><code class="lang-bash">#!/bin/bash
+#Function to clearly list directories in PATH
+showPATH() {
+    oldifs=&quot;$IFS&quot;      #store old internal field separator
+    IFS=:              #specify a new internal field separator
+    for DIR in $PATH ;  do echo $DIR ;  done
+    IFS=&quot;$oldifs&quot;      #restore old internal field separator
+}
+
+#Function to show logged user
+showUSERS() {
+    echo -e “Below are the user logged on the system:\n”
+    w
+}
+
+#Print a user’s details
+printUSERDETS() {
+    oldifs=&quot;$IFS&quot;         #store old internal field separator
+    IFS=:                 #specify a new internal field separator
+    read -p &quot;Enter user name to be searched:&quot; uname   #read username
+    echo &quot;&quot;
+    #read and store from a here string values into variables using : as  a  field delimiter
+    read -r username pass uid gid comments homedir shell &lt;&lt;&lt; &quot;$(cat /etc/passwd | grep   &quot;^$uname&quot;)&quot;
+    #print out captured values
+    echo  -e &quot;Username is            : $username\n&quot;
+    echo  -e &quot;User&#39;s ID              : $uid\n&quot;
+    echo  -e &quot;User&#39;s GID             : $gid\n&quot;
+    echo  -e &quot;User&#39;s Comments        : $comments\n&quot;
+    echo  -e &quot;User&#39;s Home Dir        : $homedir\n&quot;
+    echo  -e &quot;User&#39;s Shell           : $shell\n&quot;
+    IFS=&quot;$oldifs&quot;         #store old internal field separator
+}
+</code></pre>
+<p>保存文件并且给脚本添加执行权限。</p>
+<h3 id="如何从函数库中调用函数"><a href="#如何从函数库中调用函数" class="headerlink" title="如何从函数库中调用函数"></a>如何从函数库中调用函数</h3><p>要使用某个 <code>lib</code> 目录下的函数，首先你需要按照下面的形式 将包含该函数的函数库导入到需要执行的 shell 脚本中：</p>
+<pre><code class="lang-bash">$ . /path/to/lib
+或
+$ source /path/to/lib
+</code></pre>
+<p>（LCTT 译注：第一行的 <code>.</code> 和路径间<strong>必须</strong>是有空格的）</p>
+<p>这样你就可以像下面演示的那样，在其它的脚本中使用来自 <code>~/lib/sh/libMYFUNCS.sh</code> 的 <code>printUSERDETS</code> 函数了。</p>
+<p>在下面的脚本中，如果要打印出某个特定用户的详细信息，你不必再一一编写代码，而只需要简单地调用已存在的函数即可。</p>
+<p>创建一个名为 <code>test.sh</code> 的新文件：</p>
+<pre><code class="lang-bash">#!/bin/bash
+#include lib
+.  ~/lib/sh/libMYFUNCS.sh
+#use function from lib
+printUSERDETS
+#exit script
+exit 0
+</code></pre>
+<p>保存这个文件，并使得这个脚本可被执行，然后运行它：</p>
+<pre><code class="lang-bash">$ chmod 755 test.sh
+$ ./test.sh
+</code></pre>
+<p><a href="http://www.tecmint.com/wp-content/uploads/2017/02/Write-Shell-Functions.png" target="_blank" rel="noopener"><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://www.tecmint.com/wp-content/uploads/2017/02/Write-Shell-Functions.png" alt="编写 shell 函数" title="">
+                </div>
+                <div class="image-caption">编写 shell 函数</div>
+            </figure></a></p>
+<p>在本文中，我们介绍了在哪里可靠地存储 shell 脚本，如何编写自己的 shell 函数和函数库，以及如何在一个普通的 shell 脚本中从函数库中调用库中的某些函数。</p>
+<p>在之后，我们还会介绍一种相当简单直接的方式来将 Vim 配置为一个编写 Bash 脚本的 IDE（集成开发环境）。在那之前，记得要经常关注我们 ，如果能和我们分享你对这份指南的想法就更好了。</p>
+<hr>
+<p>作者简介：Aaron Kili 是一名 Linux 和 F.O.S.S 爱好者、一名未来的 Linux 系统管理员、web 开发者，目前是一名 TecMint 上的内容创造者，他喜欢计算机相关的工作，并且坚信知识的分享。</p>
+<hr>
+<p>via: <a href="http://www.tecmint.com/write-custom-shell-functions-and-libraries-in-linux/" target="_blank" rel="noopener">http://www.tecmint.com/write-custom-shell-functions-and-libraries-in-linux/</a><br>publish: <a href="https://linux.cn/article-8307-1.html" target="_blank" rel="noopener">https://linux.cn/article-8307-1.html</a></p>
+<p>作者：<a href="http://www.tecmint.com/author/aaronkili/" target="_blank" rel="noopener">Aaron Kili</a><br>译者：<a href="https://github.com/wcnnbdk1" target="_blank" rel="noopener">wcnnbdk1</a><br>校对：<a href="https://github.com/FSSlc" target="_blank" rel="noopener">FSSlc</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject" target="_blank" rel="noopener">LCTT</a> 原创编译，<a href="https://linux.cn/" target="_blank" rel="noopener">Linux中国</a> 荣誉推出</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-08T13:32:27.178Z" itemprop="dateUpdated">2020-04-08 21:32:27</time>
+</span><br>
+
+
+        
+        文章发布地址：<a href="/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/" target="_blank" rel="external">https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://fsslc.github.io">
+            <img src="/img/avatar.jpg" alt="FSSlc">
+            FSSlc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/&title=《[翻译] 如何编写和使用自定义的 Shell 函数和函数库》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/&title=《[翻译] 如何编写和使用自定义的 Shell 函数和函数库》 — FLC&source=
+介绍如何编写和使用自定义的 Shell 函数和函数库。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何编写和使用自定义的 Shell 函数和函数库》 — FLC&url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/03/28/Translate-Introduction-to-LaTeXila-a-multi-language-LaTeX-editor-for-Linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[翻译] LaTeXila 简介：Linux 上的一个多语言 LaTeX 编辑器</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/12/18/Decrease-VBoX-image/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">减小 VBoX 虚拟磁盘大小</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment v" id="vcomments"></div>
+    <!-- <div class="comment" id="comment"></div> -->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script>
+    <!-- <script src="//t1.aixinxi.net/o_1c3n4pim01nl3jg91b6l1kjtkvsa.js"></script> -->
+    <!-- <script src="/js/Valine.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cat.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            av: AV,
+            // el: '#comments',
+            el: '#vcomments',
+            emoticon_url: 'https://abelsu7.top/alu', //表情图片网址
+            emoticon_list: ["赞一个.png","坐等.png","长草.png","阴暗.png","邪恶.png","小眼睛.png","想一想.png","献黄瓜.png","献花.png","喜极而泣.png","无语.png","无所谓.png","无奈.png","投降.png","深思.png","期待.png","狂汗.png","蜡烛.png","看不见.png","惊喜.png","击掌.png","欢呼.png","得意.png","不出所料.png","观察.png"],//表情图片文件名
+            // notify: 'false' == 'false',
+            // verify: 'false' == 'false',
+            // notify: 'false',
+            // verify: 'false',
+            notify: false,
+            verify: false,
+            appId: "1MDbeESEi7XP6OjR0M04ANKl-MdYXbMMI",
+            appKey: "bmdamhYwbghfqKL0CUOCWTlC",
+            avatar: "mp",
+            placeholder: "写个评论",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-item switch">切换</span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+            <p>
+                
+                    <span>
+                        <a href="/atom.xml" target="_blank" class="rss" title="rss">
+                            <i class="icon icon-lg icon-rss"></i>
+                        </a>
+                    </span>
+                    
+                        <span>
+                            博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                        </span>
+            </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>
+                FSSlc &copy;
+                    
+                        2015 -
+                            
+                                2020
+            </span>
+            <span>
+                
+                        Power by
+                        <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+                        <a href="https://github.com/abelsu7/hexo-theme-indigo-plus" target="_blank">indigo plus</a>
+                        <p>Hosted by <a href="https://pages.github.com" target="_blank" style="font-weight: bold">Github Pages</a></p>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<a href="javascript:;" id="gobottom" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-comments"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/&title=《[翻译] 如何编写和使用自定义的 Shell 函数和函数库》 — FLC&pic=https://fsslc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/&title=《[翻译] 如何编写和使用自定义的 Shell 函数和函数库》 — FLC&source=
+介绍如何编写和使用自定义的 Shell 函数和函数库。
+
+" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[翻译] 如何编写和使用自定义的 Shell 函数和函数库》 — FLC&url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/&via=https://fsslc.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://fsslc.github.io/2017/03/15/Translate-How-To-Write-and-Use-Custom-Shell-Functions-and-Libraries/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPUlEQVR42u3awU4jQQwEUP7/p7OXPawETKrsoGU6b04RgZl+HYmK7f74iK/HP9d3717/5PrO+bufV5I/q76wsbGxb8J+XF4JO9mmR3kl6/zMLu6JjY2NfRz7OjyuA2MTbI/Flazt259jY2NjvzE7iagkcmblyvVWYmNjY2O/4HZlaynfmvY1NjY29rux26/7eQMo+as80v5DLw0bGxv717M3xcBve/0j821sbGzsX8zetOPzAmY2xP2Jv/17B2xsbOyD2LPWz6xIyAuSNj6H68fGxsY+iN1+6U+CLRnH/nR7KPpNbGxs7Juzk8jJ2/2zAma2htkI+YsKDBsbG/vm7Ot/93lpkbeW9hu6H/1iY2Njn8Rux6V5M6hd6L6pVBwJwsbGxj6OPYuW/Qhh1pZqA/XbrMbGxsY+gp03bpLX7TCgbRi144fiI8HGxsa+OXsfOcM9jhedB2pxoAcbGxv7CPbsa31SKiRbmbeTNsd9vngKNjY29nHs2ag1eXxerrRRmje5vrgzNjY29kHsWVsnKVRm5UrbNmo3/cmEBBsbG/u27P2BmFnx0I6KX7Wt2NjY2KeyN6382SGb9llt+fTkbtjY2NhHsPO4SsareZmxgc0GycXnho2NjX0EexMq+UggL3LazXqiw8bGxj6OnS9l9bByPNCOBPJDP9jY2Nhns9vAmBUJbXS1JdOTrcHGxsY+jt22cvISZVY8tM2s9inY2NjY57H3hcdrj9q0vDomsbGxsQ9iJ8XD7JBNOwaYDQlmwYmNjY39buy2SJg19Num0v53sLGxsc9jt8XDpuW0GQbMGlvROrGxsbFvy04aPbNSZBZ7m0FyfXAHGxsb+yB2e+skKmbD42Lpo6djY2Njvw87PwqzOSLZbkRe/AwDDBsbG/tW7Ed5tUVC2wZKBgltUD35nLGxsbFvzl7lXtniyVtIbaP/+iNZhR82Njb2Tdib0GqPS+aHL2et/2LMgI2NjX0cu23ltFG0SdR8o4tQxMbGxn5j9v5A5KwgyY8TRSvExsbGfnt2XsYkoTWLqBfMt7GxsbEPYm+O4MzCqW0nvWpEgY2NjX0eOw+AdgycbFw7Zsg/gHxQjY2NjX1b9h+LeVPvNKVejAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/node-waves@0.7.6/src/js/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/prism.min.js?v=1.7.2"></script>
+<script src="/js/prism-vim.min.js?v=1.7.2"></script>
+</body>
+</html>
