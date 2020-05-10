@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fsslc.github.io/"/>
-  <updated>2020-03-30T05:38:51.947Z</updated>
+  <updated>2020-05-10T03:48:12.914Z</updated>
   <id>https://fsslc.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>构建 rpm 包</title>
+    <link href="https://fsslc.github.io/2020/05/10/Build-Rpm/"/>
+    <id>https://fsslc.github.io/2020/05/10/Build-Rpm/</id>
+    <published>2020-05-10T03:10:06.000Z</published>
+    <updated>2020-05-10T03:48:12.914Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>记录与构建 rpm 包相关的资源。</p></blockquote><p>在工作中需要用到 CentOS 的虚拟机，但有些包没法直接找到，例如 [Typora] 所以有时候需要自己构建安装包，下面是找到的一点资料，权当记录。</p><a id="more"></a><h2 id="资料列举"><a href="#资料列举" class="headerlink" title="资料列举"></a>资料列举</h2><ul><li><p><a href="http://ftp.rpm.org/max-rpm/" target="_blank" rel="noopener">Maximum RPM</a>: 这个是 rpm 官网中的一个说明文档，全面细致地说明了 rpm ，其中当然也包含 rpm 包的制作了。这里的文档是最新版本，以前还出了书，不过在 1997 年出版的，下载地址是<a href="https://b-ok.cc/book/982526/c74e7e" target="_blank" rel="noopener">这个</a>。</p></li><li><p><a href="https://www.iteye.com/blog/hlee-343499" target="_blank" rel="noopener">RPM包rpmbuild SPEC文件深度说明</a>: 这篇博文写的很详细，不过基本都在 2010 年的时候写的，但内容没有过时。</p></li><li><p><a href="https://www.cnblogs.com/michael-xiang/p/10480809.html" target="_blank" rel="noopener">RPM 包的构建 - SPEC 基础知识</a>: 这篇博文介绍了 spec 文件的内容，比较详细，另外还写了另外一篇<a href="https://www.cnblogs.com/michael-xiang/p/10500704.html" target="_blank" rel="noopener">实战的教程</a>，很实用。另外一篇 <a href="https://www.cnblogs.com/michael-xiang/p/10474319.html" target="_blank" rel="noopener">RPM Yum 相关命令及参数</a> 除了介绍常用的 rpm yum 的用法外，还介绍了依赖包下载查询等方法，其中关于依赖包下载的介绍很有用。</p></li></ul><h2 id="两个额外的链接"><a href="#两个额外的链接" class="headerlink" title="两个额外的链接"></a>两个额外的链接</h2><ul><li><p><a href="https://blog.huzhifeng.com/2017/02/10/Typora/" target="_blank" rel="noopener">Linux 常用工具之 Typora</a>: 介绍了如何用 Alien 来将 deb 包转化为 rpm 包。</p></li><li><p><a href="https://www.techgrow.cn/posts/26aba73.html" target="_blank" rel="noopener">Centos7安装搜狗输入法</a>: 介绍安装搜狗输入法。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;记录与构建 rpm 包相关的资源。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在工作中需要用到 CentOS 的虚拟机，但有些包没法直接找到，例如 [Typora] 所以有时候需要自己构建安装包，下面是找到的一点资料，权当记录。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://fsslc.github.io/categories/Linux/"/>
+    
+    
+      <category term="rpm" scheme="https://fsslc.github.io/tags/rpm/"/>
+    
+      <category term="Linux" scheme="https://fsslc.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>[翻译] ffsend：在命令行中通过 FireFox Send 分享文件</title>
@@ -102,9 +130,9 @@
       <category term="笔记" scheme="https://fsslc.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="笔记" scheme="https://fsslc.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="Linux" scheme="https://fsslc.github.io/tags/Linux/"/>
+    
+      <category term="笔记" scheme="https://fsslc.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
